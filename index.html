@@ -460,18 +460,54 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
     <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;line-height:1">RANK EDGE</span>
   </div>
   <!-- Links centered -->
-  <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2.2rem">
+  <div id="navLinks" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2.2rem">
     <a onclick="go(1);setTimeout(function(){scrollTo({top:0,behavior:'smooth'})},320)" class="nl">Home</a>
     <a onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})" class="nl">Features</a>
     <a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="nl">Pricing</a>
   </div>
   <!-- CTA right -->
-  <button class="hbtn hbtn-sm" onclick="window.location.href='audit.html'">Get Free Audit →</button>
+  <button class="hbtn hbtn-sm" id="navCta" onclick="window.location.href='audit.html'">Get Free Audit →</button>
+  <!-- Hamburger -->
+  <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu" style="display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;align-items:center;justify-content:center">
+    <span class="ham-line"></span>
+    <span class="ham-line"></span>
+    <span class="ham-line"></span>
+  </button>
 </nav>
+
+<!-- Mobile menu dropdown -->
+<div id="mobileMenu" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;background:rgba(0,0,0,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem">
+  <a onclick="closeMobileMenu();go(1);setTimeout(function(){scrollTo({top:0,behavior:'smooth'})},320)" class="mobile-nl">Home</a>
+  <a onclick="closeMobileMenu();document.getElementById('features').scrollIntoView({behavior:'smooth'})" class="mobile-nl">Features</a>
+  <a onclick="closeMobileMenu();document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="mobile-nl">Pricing</a>
+  <button class="hbtn" onclick="closeMobileMenu();window.location.href='audit.html'" style="margin-top:1rem">Get Free Audit →</button>
+  <button onclick="closeMobileMenu()" style="background:none;border:none;color:rgba(255,255,255,0.35);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:0.5rem">Close ✕</button>
+</div>
+
 <style>
 .nl{color:rgba(255,255,255,0.55);font-size:14px;text-decoration:none;font-family:'DM Sans',sans-serif;cursor:pointer;transition:color 0.2s}
 .nl:hover{color:#fff}
+.ham-line{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s}
+.mobile-nl{color:rgba(255,255,255,0.8);font-size:1.6rem;font-weight:600;text-decoration:none;font-family:'DM Sans',sans-serif;cursor:pointer;transition:color 0.2s;letter-spacing:-0.01em}
+.mobile-nl:hover{color:#fff}
+@media(max-width:640px){
+  #navLinks{display:none!important}
+  #navCta{display:none!important}
+  #hamburger{display:flex!important}
+}
 </style>
+<script>
+function toggleMobileMenu(){
+  var m=document.getElementById('mobileMenu');
+  var open=m.style.display==='flex';
+  m.style.display=open?'none':'flex';
+  document.body.style.overflow=open?'':'hidden';
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').style.display='none';
+  document.body.style.overflow='';
+}
+</script>
 
 <!-- PAGE 1: HOME LANDING -->
 <div class="page active" id="p1">
