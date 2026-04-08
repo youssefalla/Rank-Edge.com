@@ -363,9 +363,9 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 .hbtn-sm{padding:9px 22px;font-size:13px}
 
 /* ─── MARQUEE ─── */
-@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-16.6667%)}}
-.marquee-track{overflow:hidden}
-.marquee-inner{display:flex;align-items:center;gap:3rem;animation:marqueeScroll 32s linear infinite;white-space:nowrap;width:max-content}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-track{overflow:hidden;width:100%}
+.marquee-inner{display:flex;align-items:center;gap:3rem;animation:marqueeScroll 32s linear infinite;white-space:nowrap;width:max-content;will-change:transform}
 .marquee-inner:hover{animation-play-state:paused}
 .m-icon{display:flex;flex-direction:column;align-items:center;gap:7px;opacity:0.5;transition:opacity 0.2s;cursor:default}
 .m-icon:hover{opacity:1}
@@ -534,10 +534,10 @@ function closeMobileMenu(){
     <!-- AI MARQUEE — sibling to flex column so it spans full width -->
     <div class="hero-btn-anim" style="margin-top:3.5rem;width:100%;position:relative;z-index:1">
       <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:1.2rem;font-family:'DM Sans',sans-serif;text-align:center">Optimized for every AI engine</p>
-      <div style="position:relative;overflow:hidden">
+      <div style="position:relative">
         <!-- fade edges -->
-        <div style="position:absolute;left:0;top:0;bottom:0;width:140px;background:linear-gradient(to right,#000,transparent);z-index:2;pointer-events:none"></div>
-        <div style="position:absolute;right:0;top:0;bottom:0;width:140px;background:linear-gradient(to left,#000,transparent);z-index:2;pointer-events:none"></div>
+        <div style="position:absolute;left:0;top:0;bottom:0;width:120px;background:linear-gradient(to right,#000,transparent);z-index:2;pointer-events:none"></div>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:120px;background:linear-gradient(to left,#000,transparent);z-index:2;pointer-events:none"></div>
         <div class="marquee-track">
           <div class="marquee-inner" id="marqueeInner"></div>
         </div>
@@ -1541,8 +1541,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }).join('');
 
   var el = document.getElementById('marqueeInner');
-  // 6 copies so content always fills the screen; animate -16.67% = 1 set width, seamless loop
-  if(el){ el.innerHTML = html + html + html + html + html + html; }
+  // 2 copies; animate -50% = 1 set width, seamless infinite loop
+  if(el){ el.innerHTML = html + html; }
 })();
 
 // ─── NAV SCROLL EFFECT ───
