@@ -364,7 +364,7 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 
 /* ─── MARQUEE ─── */
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.marquee-outer{overflow:hidden;width:100%}
+.marquee-outer{overflow:hidden;width:100%;-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 15%,#000 85%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,#000 15%,#000 85%,transparent 100%)}
 .marquee-inner{display:flex;align-items:center;gap:1.5rem;animation:marqueeScroll 28s linear infinite;white-space:nowrap;width:max-content}
 .marquee-inner:hover{animation-play-state:paused}
 .m-icon{display:flex;flex-direction:column;align-items:center;gap:7px;opacity:0.5;transition:opacity 0.2s;cursor:default}
