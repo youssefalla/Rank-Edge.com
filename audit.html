@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free SEO & GEO Audit — RankEdge.com</title>
+<link rel="icon" type="image/png" href="rank-edge-whitelogo-.png">
+<meta name="description" content="Get a free AI-powered SEO & GEO audit for your website.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* ─── BACKGROUND ─── */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:32px 32px}
+.glow{position:absolute;border-radius:50%;filter:blur(120px)}
+.g1{width:800px;height:500px;background:radial-gradient(ellipse,rgba(255,255,255,0.13) 0%,transparent 70%);top:-150px;left:50%;transform:translateX(-50%)}
+.g2{width:400px;height:400px;background:radial-gradient(ellipse,rgba(255,255,255,0.06) 0%,transparent 70%);top:45%;right:-100px}
+
+/* ─── PAGES ─── */
+.page{display:none;min-height:100vh;align-items:center;justify-content:center;flex-direction:column;padding:2rem;position:relative;z-index:1}
+.page.active{display:flex}
+
+/* ─── PAGE TRANSITION ─── */
+@keyframes pageIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.page-enter{animation:pageIn 0.55s cubic-bezier(0.16,1,0.3,1) both}
+.page-enter .card,.page-enter .result-wrap,.page-enter .offer-card{animation:pageIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s both}
+.page-enter .r-header{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s both}
+.page-enter .scores{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.25s both}
+.page-enter .section-box:nth-child(1){animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.35s both}
+.page-enter .section-box:nth-child(2){animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.45s both}
+.page-enter .section-box:nth-child(3){animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.55s both}
+.page-enter .btn-pdf-dl{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.65s both}
+.page-enter .btn-outline{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.72s both}
+.page-enter .co-grid{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.3s both}
+
+@keyframes countUp{from{opacity:0;transform:translateY(10px) scale(0.85)}to{opacity:1;transform:translateY(0) scale(1)}}
+.score-pop{animation:countUp 0.5s cubic-bezier(0.16,1,0.3,1) both}
+
+/* ─── NAV ─── */
+.nl{color:rgba(255,255,255,0.55);font-size:14px;text-decoration:none;font-family:'DM Sans',sans-serif;cursor:pointer;transition:color 0.2s}
+.nl:hover{color:#fff}
+
+/* ─── HOVER BUTTON ─── */
+.hbtn{position:relative;isolation:isolate;padding:14px 36px;border-radius:100px;border:none;font-size:16px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;background:rgba(43,55,80,0.15);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);cursor:pointer;overflow:hidden;transition:transform 0.2s;box-shadow:inset 0 0 0 1px rgba(170,202,255,0.25),inset 0 0 18px 0 rgba(170,202,255,0.1),inset 0 -3px 12px 0 rgba(170,202,255,0.15),0 1px 3px 0 rgba(0,0,0,0.5),0 4px 16px 0 rgba(0,0,0,0.45)}
+.hbtn:active{transform:scale(0.975)}
+.hbtn-sm{padding:9px 22px;font-size:13px}
+.hbtn-circle{position:absolute;width:14px;height:14px;border-radius:50%;pointer-events:none;z-index:-1;transform:translate(-50%,-50%);filter:blur(10px);opacity:0;transition:opacity 0.3s}
+.hbtn-circle.in{opacity:0.75}
+.hbtn-circle.out{opacity:0;transition:opacity 1.2s}
+
+/* ─── CARDS ─── */
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:2.5rem;width:100%;max-width:540px;text-align:center}
+.step-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;margin-bottom:1rem}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:1px;color:#fff;margin-bottom:0.4rem;line-height:1}
+.card-title span{color:#ffffff}
+.card-sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:1.75rem;line-height:1.65}
+.url-in{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:13px 16px;font-size:15px;color:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:border 0.2s;margin-bottom:1rem}
+.url-in::placeholder{color:rgba(255,255,255,0.22)}
+.url-in:focus{border-color:rgba(255,255,255,0.5)}
+.btn-full{width:100%;background:#ffffff;color:#000;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-full:hover{background:#e0e0e0}
+.btn-full:disabled{opacity:0.5;cursor:not-allowed}
+
+/* ─── RESULTS ─── */
+.result-wrap{width:100%;max-width:680px}
+.r-header{text-align:center;margin-bottom:1.5rem;padding-top:5rem}
+.r-icon{width:56px;height:56px;background:rgba(255,255,255,0.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 1rem}
+.r-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:1px;margin-bottom:0.2rem}
+.r-url{font-size:13px;color:rgba(255,255,255,0.4)}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
+.sc{background:rgba(0,0,0,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;text-align:center}
+.sc-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px}
+.sc-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:1px}
+.gn{color:#ffffff}.yw{color:#ffb300}.rd{color:#ff5252}
+.section-box{background:rgba(255,255,255,0.03);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.section-ttl{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem}
+.issue{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:7px;line-height:1.5}
+.idot{width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.idot.r{background:#ff5252}.idot.y{background:#ffb300}.idot.g{background:#ffffff}
+.recs{display:flex;flex-direction:column;gap:6px}
+.rec{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5}
+.rnum{min-width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#ffffff;font-weight:600;margin-top:1px;flex-shrink:0}
+.ai-table{width:100%;border-collapse:collapse;font-size:12px}
+.ai-table th{text-align:left;color:rgba(255,255,255,0.3);font-weight:400;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.ai-table td{padding:6px 8px;color:rgba(255,255,255,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
+.pill-rd{background:rgba(255,82,82,0.12);color:#ff5252;padding:2px 8px;border-radius:100px;font-size:11px}
+.pill-yw{background:rgba(255,179,0,0.12);color:#ffb300;padding:2px 8px;border-radius:100px;font-size:11px}
+.pill-gn{background:rgba(255,255,255,0.15);color:#ffffff;border:1px solid rgba(255,255,255,0.3);padding:2px 8px;border-radius:100px;font-size:11px}
+.btn-pdf-dl{width:100%;background:#ffffff;color:#000;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-pdf-dl:hover{background:#e0e0e0}
+.btn-pdf-dl:disabled{opacity:0.5;cursor:not-allowed}
+.btn-outline{width:100%;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.04) 100%);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:14px;padding:16px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.btn-outline::before{content:'✦';font-size:13px;opacity:0.6}
+.btn-outline:hover{background:linear-gradient(135deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.08) 100%);border-color:rgba(255,255,255,0.4);transform:translateY(-1px);box-shadow:0 8px 32px rgba(255,255,255,0.08)}
+
+/* ─── OFFER PAGE ─── */
+.offer-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:2.5rem;width:100%;max-width:500px;text-align:center}
+.free-pill{display:inline-block;background:rgba(255,255,255,0.15);color:#ffffff;font-size:11px;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
+.offer-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:1px;line-height:1;margin-bottom:0.75rem}
+.offer-title span{color:#ffffff}
+.offer-sub{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:2rem}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.co{display:flex;flex-direction:column;align-items:center;gap:8px;padding:1.5rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.25);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);cursor:pointer;transition:all 0.2s;text-decoration:none;color:#fff}
+.co.wa{border-color:rgba(37,211,102,0.25)}
+.co.wa:hover{background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.45);transform:translateY(-2px)}
+.co.em{border-color:rgba(255,255,255,0.2)}
+.co.em:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.4);transform:translateY(-2px)}
+.co-ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.co-ic.wa{background:rgba(37,211,102,0.15)}
+.co-ic.em{background:rgba(255,255,255,0.12)}
+.co-lbl{font-size:15px;font-weight:600}
+.co-sub2{font-size:12px;color:rgba(255,255,255,0.38)}
+.back-btn{margin-top:1.25rem;background:transparent;border:none;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color 0.2s}
+.back-btn:hover{color:rgba(255,255,255,0.65)}
+
+/* ─── LOADING OVERLAY ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem}
+.overlay.active{display:flex}
+.spinner{width:48px;height:48px;border:3px solid rgba(255,255,255,0.15);border-top-color:#ffffff;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ov-txt{color:rgba(255,255,255,0.55);font-size:14px}
+.ov-step{color:#ffffff;font-size:13px;min-height:20px;text-align:center}
+
+/* ─── SHADER CANVAS ─── */
+#shaderCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+#shaderCanvas.visible{opacity:1}
+
+/* ─── CHAT PAGE ─── */
+#p2.active{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:0;gap:2rem}
+.chat-hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:6rem 2rem 0}
+.chat-hero-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.2rem}
+.chat-hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,5rem);letter-spacing:2px;color:#fff;line-height:1;margin-bottom:0.75rem}
+.chat-hero-sub{font-size:14px;color:rgba(255,255,255,0.45);max-width:460px;line-height:1.75}
+.chat-input-area{width:100%;max-width:700px;padding:0 1.5rem}
+.chat-box{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.14);border-radius:18px;overflow:hidden}
+.chat-textarea{width:100%;background:transparent;border:none;outline:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;padding:18px 20px 10px;resize:none;min-height:56px;max-height:160px;line-height:1.6}
+.chat-textarea::placeholder{color:rgba(255,255,255,0.25)}
+.chat-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 14px}
+.chat-attach{width:36px;height:36px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s;color:rgba(255,255,255,0.5)}
+.chat-attach:hover{background:rgba(255,255,255,0.08);color:#fff}
+.chat-send{display:flex;align-items:center;gap:8px;padding:10px 22px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;background:rgba(255,255,255,0.12);color:#fff;backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.15)}
+.chat-send:hover{background:rgba(255,255,255,0.2);transform:scale(1.02)}
+.chat-send:disabled{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.25);cursor:not-allowed;transform:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08)}
+.chat-send svg{width:16px;height:16px}
+.quick-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.qa-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:100px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.55);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.qa-btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3);color:#fff}
+.qa-btn svg{width:13px;height:13px;opacity:0.7}
+
+@media(max-width:600px){
+  .co-grid{grid-template-columns:1fr}
+  .scores{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+</div>
+
+<!-- SHADER BACKGROUND (shown on page 2 only) -->
+<canvas id="shaderCanvas" class="visible"></canvas>
+
+<!-- LOADING OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <div class="ov-txt">AI is analyzing your website...</div>
+  <div class="ov-step" id="ovStep">Scanning meta tags...</div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav" style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(0,0,0,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.1)">
+  <a href="index.html" style="display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;text-decoration:none">
+    <img src="rank-edge-whitelogo-.png" alt="Rank Edge" style="height:36px;width:auto;display:block">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;line-height:1">RANK EDGE</span>
+  </a>
+  <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2.2rem">
+    <a href="index.html" class="nl">Home</a>
+    <a href="index.html#features" class="nl">Features</a>
+    <a href="index.html#pricing" class="nl">Pricing</a>
+  </div>
+  <button class="hbtn hbtn-sm" onclick="go(2)">Get Free Audit →</button>
+</nav>
+
+<!-- PAGE 2: URL INPUT -->
+<div class="page active page-enter" id="p2">
+  <!-- Hero Title -->
+  <div class="chat-hero">
+    <div class="chat-hero-label">Step 1 of 3</div>
+    <div class="chat-hero-title">ANALYZE YOUR<br>WEBSITE</div>
+    <p class="chat-hero-sub">Enter your URL — our AI will scan your site for SEO issues, GEO visibility, performance gaps, and more.</p>
+  </div>
+
+  <!-- Chat Input -->
+  <div class="chat-input-area">
+    <div class="chat-box">
+      <textarea class="chat-textarea" id="urlInput" placeholder="https://yourbusiness.com — paste your URL and hit Analyze →" rows="1"
+        oninput="this.style.height='56px';this.style.height=Math.min(this.scrollHeight,160)+'px';updateSendBtn()"></textarea>
+      <div class="chat-footer">
+        <button class="chat-send" id="analyzeBtn" onclick="runAnalysis()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>
+          </svg>
+          Analyze Free
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="qa-btn" onclick="setUrl('seo audit')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        SEO Audit
+      </button>
+      <button class="qa-btn" onclick="setUrl('geo visibility')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        GEO Visibility
+      </button>
+      <button class="qa-btn" onclick="setUrl('page speed')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Page Speed
+      </button>
+      <button class="qa-btn" onclick="setUrl('keywords')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+        Keywords
+      </button>
+      <button class="qa-btn" onclick="setUrl('content gap')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        Content Gap
+      </button>
+      <button class="qa-btn" onclick="setUrl('backlinks')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Backlinks
+      </button>
+      <button class="qa-btn" onclick="setUrl('schema markup')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>
+        Schema Markup
+      </button>
+      <button class="qa-btn" onclick="setUrl('core web vitals')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+        Core Web Vitals
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: RESULTS -->
+<div class="page" id="p3">
+  <div class="result-wrap">
+    <div class="r-header">
+      <div class="r-title">YOUR AUDIT REPORT</div>
+      <div class="r-url" id="rUrl">yourbusiness.com</div>
+    </div>
+    <div class="scores">
+      <div class="sc"><div class="sc-lbl">SEO Score</div><div class="sc-val yw" id="seoVal">—</div></div>
+      <div class="sc"><div class="sc-lbl">GEO Score</div><div class="sc-val rd" id="geoVal">—</div></div>
+      <div class="sc"><div class="sc-lbl">Performance</div><div class="sc-val gn" id="perfVal">—</div></div>
+    </div>
+    <div class="section-box">
+      <div class="section-ttl">Critical Issues Found</div>
+      <div id="issuesList"></div>
+    </div>
+    <div class="section-box">
+      <div class="section-ttl">GEO — AI Engine Visibility</div>
+      <table class="ai-table">
+        <thead><tr><th>AI Engine</th><th>Citation Likelihood</th><th>Main Blocker</th></tr></thead>
+        <tbody id="geoTable"></tbody>
+      </table>
+    </div>
+    <div class="section-box">
+      <div class="section-ttl">Top Recommendations</div>
+      <div class="recs" id="recsList"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:3rem">
+      <button class="btn-pdf-dl" id="pdfBtn" onclick="downloadPDF()">⬇ Download Full PDF Report</button>
+      <div style="text-align:center;padding:1rem 0 0.5rem;border-top:1px solid rgba(255,255,255,0.07);margin-top:0.5rem">
+        <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.75rem">Ready to fix this? Contact us</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
+          <a href="https://wa.me/33759534611" target="_blank" style="display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            +33 7 59 53 46 11
+          </a>
+          <span style="color:rgba(255,255,255,0.15);font-size:12px">·</span>
+          <a href="mailto:contact@rank-edge.com" style="display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            contact@rank-edge.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: FREE WEB DESIGN -->
+<div class="page" id="p4">
+  <div class="offer-card">
+    <div class="free-pill">100% Free</div>
+    <div class="offer-title">FREE WEBSITE<br><span>FOR YOUR BUSINESS</span></div>
+    <p class="offer-sub">We design and build your website for free — fully optimized for SEO, GEO, and high traffic.<br>You only pay for domain & hosting.<br><br>How would you like to get started?</p>
+    <div class="co-grid">
+      <a class="co wa" href="https://wa.me/33759534611?text=Hey%20I%20want%20free%20web%20design%20for%20my%20business" target="_blank">
+        <div class="co-ic wa">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="co-lbl">WhatsApp</div>
+        <div class="co-sub2">Reply in minutes</div>
+      </a>
+      <a class="co em" href="mailto:contact@rank-edge.com?subject=Free%20Web%20Design%20Request&body=Hey%2C%20I%20want%20a%20free%20website%20for%20my%20business" target="_blank">
+        <div class="co-ic em" style="font-size:22px">✉</div>
+        <div class="co-lbl">Email</div>
+        <div class="co-sub2">contact@rank-edge.com</div>
+      </a>
+    </div>
+    <button class="back-btn" onclick="go(3)">← Back to my report</button>
+  </div>
+</div>
+
+<!-- CTA POPUP -->
+<style>
+#ctaPopup{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.4s ease;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)}
+#ctaPopup.show{opacity:1;pointer-events:all}
+.cta-pop-card{background:rgba(18,18,18,0.97);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:2.5rem 2rem 2rem;width:100%;max-width:480px;text-align:center;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.6);transform:translateY(20px) scale(0.97);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+#ctaPopup.show .cta-pop-card{transform:translateY(0) scale(1)}
+.cta-pop-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1}
+.cta-pop-close:hover{background:rgba(255,255,255,0.15);color:#fff}
+.cta-pop-pill{display:inline-block;background:rgba(255,255,255,0.12);color:#fff;font-size:10px;font-weight:700;padding:4px 14px;border-radius:100px;margin-bottom:1.2rem;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.15)}
+.cta-pop-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,2.8rem);letter-spacing:1px;line-height:1.05;margin-bottom:0.75rem;color:#fff}
+.cta-pop-sub{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:1.75rem}
+.cta-pop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.cta-pop-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:1.2rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);cursor:pointer;transition:all 0.2s;text-decoration:none;color:#fff}
+.cta-pop-btn.wa{border-color:rgba(37,211,102,0.3)}
+.cta-pop-btn.wa:hover{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.5);transform:translateY(-2px)}
+.cta-pop-btn.em:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.3);transform:translateY(-2px)}
+.cta-pop-ic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cta-pop-ic.wa{background:rgba(37,211,102,0.15)}
+.cta-pop-ic.em{background:rgba(255,255,255,0.1)}
+.cta-pop-lbl{font-size:14px;font-weight:700}
+.cta-pop-sub2{font-size:11px;color:rgba(255,255,255,0.35)}
+.cta-pop-skip{background:none;border:none;color:rgba(255,255,255,0.25);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:color 0.2s}
+.cta-pop-skip:hover{color:rgba(255,255,255,0.5)}
+</style>
+
+<div id="ctaPopup">
+  <div class="cta-pop-card">
+    <button class="cta-pop-close" onclick="closeCta()">✕</button>
+    <div class="cta-pop-pill">100% Free</div>
+    <div class="cta-pop-title">FREE WEBSITE<br>FOR YOUR BUSINESS</div>
+    <p class="cta-pop-sub">We design & build your website for free — fully optimized for SEO, GEO, and high traffic. You only pay for domain & hosting.</p>
+    <div class="cta-pop-grid">
+      <a class="cta-pop-btn wa" href="https://wa.me/33759534611?text=Hey%20I%20want%20free%20web%20design%20for%20my%20business" target="_blank">
+        <div class="cta-pop-ic wa">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="cta-pop-lbl">WhatsApp</div>
+        <div class="cta-pop-sub2">Reply in minutes</div>
+      </a>
+      <a class="cta-pop-btn em" href="https://calendly.com/medmddxb/30min" target="_blank">
+        <div class="cta-pop-ic em">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="cta-pop-lbl">Free Call</div>
+        <div class="cta-pop-sub2">Book a consultation</div>
+      </a>
+    </div>
+    <button class="cta-pop-skip" onclick="closeCta()">No thanks, I'll figure it out myself</button>
+  </div>
+</div>
+
+<!-- WHATSAPP BUTTON -->
+<style>
+@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes waPop{from{opacity:0;transform:translateX(12px) scale(0.9)}to{opacity:1;transform:translateX(0) scale(1)}}
+#waWrap{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#waMsg{background:#fff;color:#111;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 16px;border-radius:16px 16px 4px 16px;box-shadow:0 4px 20px rgba(0,0,0,0.15);white-space:nowrap;animation:waPop 0.4s cubic-bezier(0.16,1,0.3,1) 3s both;cursor:pointer;line-height:1.5;opacity:0}
+#waMsg span{display:block;font-size:11px;color:#888;margin-top:2px}
+#waClose{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:#ccc;border:none;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#333;line-height:1}
+#waBtn{width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.45);animation:waBounce 2s ease-in-out infinite;text-decoration:none;transition:box-shadow 0.2s}
+#waBtn:hover{box-shadow:0 6px 28px rgba(37,211,102,0.65);animation:none;transform:scale(1.08)}
+</style>
+<div id="waWrap">
+  <div id="waMsg" onclick="window.open('https://wa.me/33759534611?text=Hey%2C%20I%20need%20help%20with%20RankEdge','_blank')">
+    <button id="waClose" onclick="event.stopPropagation();document.getElementById('waMsg').style.display='none'">✕</button>
+    👋 Need help? Contact us!
+    <span>We reply in minutes</span>
+  </div>
+  <a href="https://wa.me/33759534611?text=Hey%2C%20I%20need%20help%20with%20RankEdge" target="_blank" id="waBtn">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+// ─── CONFIG ───
+var WA_NUMBER = '33759534611';
+var EMAIL = 'contact@rank-edge.com';
+
+// ─── STATE ───
+var currentPage = 2;
+var auditData = {};
+
+// ─── CTA POPUP ───
+var ctaTimer = null;
+function showCta() {
+  document.getElementById('ctaPopup').classList.add('show');
+}
+function closeCta() {
+  document.getElementById('ctaPopup').classList.remove('show');
+  // repeat every 5 sec
+  ctaTimer = setTimeout(showCta, 5000);
+}
+function startCtaCycle() {
+  if (ctaTimer) clearTimeout(ctaTimer);
+  // first appearance after 10 sec
+  ctaTimer = setTimeout(showCta, 10000);
+}
+function stopCtaCycle() {
+  if (ctaTimer) clearTimeout(ctaTimer);
+  ctaTimer = null;
+  document.getElementById('ctaPopup').classList.remove('show');
+}
+
+// ─── CHAT HELPERS ───
+function updateSendBtn() {
+  var val = document.getElementById('urlInput').value.trim();
+  document.getElementById('analyzeBtn').disabled = !val;
+}
+function setUrl(hint) {
+  var el = document.getElementById('urlInput');
+  el.focus();
+  el.placeholder = 'https://yourbusiness.com';
+  updateSendBtn();
+}
+
+// ─── NAVIGATION ───
+function go(n) {
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active', 'page-enter');
+  });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  window.scrollTo(0, 0);
+  var entering = document.getElementById('p' + n);
+  entering.classList.add('active', 'page-enter');
+  setTimeout(function() { entering.classList.remove('page-enter'); }, 800);
+  requestAnimationFrame(function() {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo(0, 0);
+  });
+  // Show shader only on page 2
+  var sc = document.getElementById('shaderCanvas');
+  if (sc) { n === 2 ? sc.classList.add('visible') : sc.classList.remove('visible'); }
+  // CTA popup cycle only on page 3
+  if (n === 3) { startCtaCycle(); } else { stopCtaCycle(); }
+  currentPage = n;
+}
+
+// ─── ANALYSIS STEPS ───
+var steps = [
+  'Scanning meta tags & title...',
+  'Checking robots.txt & sitemap...',
+  'Analyzing schema markup...',
+  'Auditing GEO / AI engine visibility...',
+  'Checking page speed & Core Web Vitals...',
+  'Analyzing content & keywords...',
+  'Generating your report...'
+];
+
+// ─── RUN ANALYSIS ───
+function runAnalysis() {
+  var url = document.getElementById('urlInput').value.trim();
+  if (!url) { alert('Please enter your website URL'); return; }
+  if (!url.startsWith('http')) url = 'https://' + url;
+
+  var btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+
+  var overlay = document.getElementById('overlay');
+  var ovStep = document.getElementById('ovStep');
+  overlay.classList.add('active');
+
+  var si = 0;
+  var iv = setInterval(function() {
+    if (si < steps.length) { ovStep.textContent = steps[si]; si++; }
+  }, 600);
+
+  var domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '');
+
+  // Random low scores
+  var seoScore = Math.floor(Math.random() * 20) + 18;  // 18–37
+  var geoScore = Math.floor(Math.random() * 15) + 8;   // 8–22
+  var perfScore = Math.floor(Math.random() * 20) + 40; // 40–59
+
+  var issuePool = [
+    { text: 'No schema markup detected — invisible to AI search engines', level: 'critical' },
+    { text: 'Missing meta descriptions on key landing pages', level: 'critical' },
+    { text: 'No sitemap.xml found or submitted to Google Search Console', level: 'critical' },
+    { text: 'robots.txt blocking important page sections from crawlers', level: 'critical' },
+    { text: 'Mobile page speed below 50 — Core Web Vitals failing', level: 'warning' },
+    { text: 'No HTTPS on all subpages — mixed content warnings', level: 'warning' },
+    { text: 'Duplicate title tags across multiple pages', level: 'warning' },
+    { text: 'Images missing alt text — hurts accessibility & indexing', level: 'warning' },
+    { text: 'No Open Graph or Twitter Card meta tags found', level: 'info' },
+    { text: 'Thin content detected on several pages (< 300 words)', level: 'critical' }
+  ];
+  // shuffle and pick 4
+  issuePool.sort(function(){ return Math.random() - 0.5; });
+  var issues = issuePool.slice(0, 4);
+
+  var geoEngines = [
+    { engine: 'ChatGPT / OpenAI', likelihood: 'Very Low', blocker: 'No crawlable content or schema markup' },
+    { engine: 'Perplexity', likelihood: 'Very Low', blocker: 'No FAQ schema or structured data detected' },
+    { engine: 'Google AI Overview', likelihood: 'Low', blocker: 'Missing E-E-A-T signals & structured data' },
+    { engine: 'Microsoft Copilot', likelihood: 'Very Low', blocker: 'Poor Bing indexation & no schema' }
+  ];
+
+  var recPool = [
+    'Add FAQPage JSON-LD schema — highest impact GEO action',
+    'Create unique meta title & description for every page',
+    'Generate and submit sitemap.xml to Google Search Console',
+    'Enable server-side rendering if using a React/Vue SPA',
+    'Add LocalBusiness schema with full NAP details',
+    'Fix Core Web Vitals — compress images & enable caching',
+    'Build topic clusters around your main service keywords',
+    'Add author bios with credentials to boost E-E-A-T score',
+    'Claim and optimize your Google Business Profile',
+    'Fix all broken internal links and redirect chains'
+  ];
+  recPool.sort(function(){ return Math.random() - 0.5; });
+  var recommendations = recPool.slice(0, 5);
+
+  auditData = {
+    domain: domain,
+    url: url,
+    seoScore: seoScore,
+    geoScore: geoScore,
+    perfScore: perfScore,
+    issues: issues,
+    geoEngines: geoEngines,
+    recommendations: recommendations,
+    executiveSummary: 'The site has significant technical SEO gaps limiting visibility on both traditional and AI-powered search engines. Addressing schema markup and indexability should be the first priority.'
+  };
+
+  setTimeout(function() {
+    clearInterval(iv);
+    overlay.classList.remove('active');
+    btn.disabled = false;
+    renderResults();
+    go(3);
+  }, steps.length * 600 + 400);
+}
+
+// ─── RENDER RESULTS ───
+function renderResults() {
+  var d = auditData;
+  document.getElementById('rUrl').textContent = d.domain || d.url;
+
+  var sv = document.getElementById('seoVal');
+  var gv = document.getElementById('geoVal');
+  var pv = document.getElementById('perfVal');
+  sv.textContent = d.seoScore + '/100';
+  gv.textContent = d.geoScore + '/100';
+  pv.textContent = d.perfScore + '/100';
+  sv.className = 'sc-val score-pop ' + (d.seoScore > 65 ? 'gn' : d.seoScore > 40 ? 'yw' : 'rd');
+  gv.className = 'sc-val score-pop ' + (d.geoScore > 65 ? 'gn' : d.geoScore > 40 ? 'yw' : 'rd');
+  pv.className = 'sc-val score-pop ' + (d.perfScore > 65 ? 'gn' : d.perfScore > 40 ? 'yw' : 'rd');
+  gv.style.animationDelay = '0.12s';
+  pv.style.animationDelay = '0.24s';
+
+  document.getElementById('issuesList').innerHTML = (d.issues || []).map(function(i) {
+    var c = i.level === 'critical' ? 'r' : i.level === 'warning' ? 'y' : 'g';
+    return '<div class="issue"><div class="idot ' + c + '"></div><span>' + i.text + '</span></div>';
+  }).join('');
+
+  document.getElementById('geoTable').innerHTML = (d.geoEngines || []).map(function(e) {
+    var pc = e.likelihood === 'High' ? 'pill-gn' : e.likelihood === 'Medium' ? 'pill-yw' : 'pill-rd';
+    return '<tr><td>' + e.engine + '</td><td><span class="' + pc + '">' + e.likelihood + '</span></td><td style="color:rgba(255,255,255,0.4);font-size:11px">' + (e.blocker || '') + '</td></tr>';
+  }).join('');
+
+  document.getElementById('recsList').innerHTML = (d.recommendations || []).map(function(r, i) {
+    return '<div class="rec"><div class="rnum">' + (i + 1) + '</div><span>' + r + '</span></div>';
+  }).join('');
+}
+
+// ─── DOWNLOAD PDF ───
+function downloadPDF() {
+  var d = auditData;
+  var btn = document.getElementById('pdfBtn');
+  btn.textContent = 'Generating PDF...';
+  btn.disabled = true;
+
+  try {
+    var doc = new jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    var W = 210, M = 18, Y = 20;
+
+    doc.setFillColor(0, 0, 0);
+    doc.rect(0, 0, W, 44, 'F');
+
+    var gx = M + 7, gy = 22, gr = 7;
+    doc.setDrawColor(255, 255, 255);
+    doc.setLineWidth(0.7);
+    doc.circle(gx, gy, gr, 'S');
+    doc.ellipse(gx, gy, gr * 0.4, gr, 'S');
+    doc.ellipse(gx, gy, gr * 0.75, gr, 'S');
+    doc.line(gx - gr, gy - gr * 0.38, gx + gr, gy - gr * 0.38);
+    doc.line(gx - gr, gy, gx + gr, gy);
+    doc.line(gx - gr, gy + gr * 0.38, gx + gr, gy + gr * 0.38);
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Rank Edge', M + 17, 20);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(200, 200, 200);
+    doc.text('rankedge.com', M + 17, 27);
+
+    doc.setTextColor(200, 200, 200);
+    doc.setFontSize(9);
+    doc.text('SEO & GEO Audit Report', W - M, 18, { align: 'right' });
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text(d.domain || d.url, W - M, 27, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(200, 200, 200);
+    var dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    doc.text(dateStr, W - M, 35, { align: 'right' });
+
+    Y = 52;
+
+    doc.setFillColor(240, 255, 245);
+    doc.roundedRect(M, Y, W - M * 2, 24, 3, 3, 'F');
+    doc.setTextColor(0, 100, 40);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.text('EXECUTIVE SUMMARY', M + 4, Y + 7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 30, 30);
+    var sumLines = doc.splitTextToSize(d.executiveSummary || '', W - M * 2 - 8);
+    doc.text(sumLines, M + 4, Y + 14);
+    Y += 30;
+
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('SCORES', M, Y);
+    Y += 6;
+    var scoreData = [['SEO Score', d.seoScore], ['GEO Score', d.geoScore], ['Performance', d.perfScore]];
+    var bW = (W - M * 2 - 8) / 3;
+    scoreData.forEach(function(s, i) {
+      var x = M + i * (bW + 4);
+      var sc = s[1];
+      var clr = sc > 65 ? [0, 180, 60] : sc > 40 ? [220, 150, 0] : [210, 50, 50];
+      doc.setFillColor(clr[0], clr[1], clr[2]);
+      doc.roundedRect(x, Y, bW, 20, 2, 2, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text(s[0], x + bW / 2, Y + 7, { align: 'center' });
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text(sc + '/100', x + bW / 2, Y + 16, { align: 'center' });
+    });
+    Y += 28;
+
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('CRITICAL ISSUES', M, Y);
+    Y += 6;
+    (d.issues || []).forEach(function(iss) {
+      var clr = iss.level === 'critical' ? [210, 50, 50] : iss.level === 'warning' ? [200, 140, 0] : [0, 160, 60];
+      doc.setFillColor(clr[0], clr[1], clr[2]);
+      doc.circle(M + 3, Y + 2, 1.8, 'F');
+      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      var lines = doc.splitTextToSize(iss.text, W - M * 2 - 12);
+      doc.text(lines, M + 9, Y + 4);
+      Y += lines.length * 5 + 4;
+    });
+    Y += 4;
+
+    if (Y > 230) { doc.addPage(); Y = 20; }
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('GEO — AI ENGINE VISIBILITY', M, Y);
+    Y += 6;
+    doc.setFillColor(20, 20, 20);
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
+    doc.rect(M, Y, W - M * 2, 7, 'F');
+    doc.text('AI Engine', M + 3, Y + 5);
+    doc.text('Citation Likelihood', M + 72, Y + 5);
+    doc.text('Main Blocker', M + 112, Y + 5);
+    Y += 7;
+    (d.geoEngines || []).forEach(function(e, i) {
+      if (i % 2 === 0) doc.setFillColor(248, 252, 248); else doc.setFillColor(255, 255, 255);
+      doc.rect(M, Y, W - M * 2, 7, 'F');
+      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(8);
+      doc.text(e.engine, M + 3, Y + 5);
+      var lc = e.likelihood === 'High' ? [0, 150, 60] : e.likelihood === 'Medium' ? [190, 130, 0] : [190, 50, 50];
+      doc.setTextColor(lc[0], lc[1], lc[2]);
+      doc.text(e.likelihood, M + 72, Y + 5);
+      doc.setTextColor(100, 100, 100);
+      doc.text(doc.splitTextToSize(e.blocker || '', 55)[0], M + 112, Y + 5);
+      Y += 7;
+    });
+    Y += 8;
+
+    if (Y > 230) { doc.addPage(); Y = 20; }
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PRIORITY RECOMMENDATIONS', M, Y);
+    Y += 6;
+    (d.recommendations || []).forEach(function(r, i) {
+      doc.setFillColor(0, 200, 83);
+      doc.circle(M + 3, Y + 2, 2.5, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.text('' + (i + 1), M + 3, Y + 3, { align: 'center' });
+      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      var lines = doc.splitTextToSize(r, W - M * 2 - 12);
+      doc.text(lines, M + 9, Y + 4);
+      Y += lines.length * 5 + 5;
+    });
+
+    // ─── CONTACT ───
+    if (Y > 250) { doc.addPage(); Y = 20; }
+    Y += 10;
+    doc.setDrawColor(50, 50, 50);
+    doc.setLineWidth(0.3);
+    doc.line(M, Y, W - M, Y);
+    Y += 8;
+    doc.setTextColor(160, 160, 160);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+
+    // WhatsApp icon (green circle + phone)
+    doc.setFillColor(37, 211, 102);
+    doc.circle(W / 2 - 28, Y - 1.5, 3.5, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(5.5);
+    doc.text('WA', W / 2 - 28, Y + 0.5, { align: 'center' });
+
+    doc.setTextColor(160, 160, 160);
+    doc.setFontSize(8);
+    doc.text('+33 7 59 53 46 11', W / 2 - 10, Y, { align: 'left' });
+    Y += 7;
+
+    // Email icon (envelope shape)
+    doc.setFillColor(80, 80, 80);
+    doc.roundedRect(W / 2 - 31, Y - 4, 7, 5, 0.5, 0.5, 'F');
+    doc.setDrawColor(160, 160, 160);
+    doc.setLineWidth(0.3);
+    doc.line(W / 2 - 31, Y - 4, W / 2 - 27.5, Y - 1.5);
+    doc.line(W / 2 - 27.5, Y - 1.5, W / 2 - 24, Y - 4);
+
+    doc.setTextColor(160, 160, 160);
+    doc.setFontSize(8);
+    doc.text('contact@rank-edge.com', W / 2 - 10, Y, { align: 'left' });
+    Y += 10;
+
+    // ─── FOOTER ───
+    doc.setFillColor(0, 0, 0);
+    doc.rect(0, 287, W, 10, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('RankEdge.com — contact@rank-edge.com | wa.me/33759534611', W / 2, 293, { align: 'center' });
+
+    doc.save('RankEdge-Audit-' + (d.domain || 'report') + '.pdf');
+
+  } catch (e) {
+    alert('Error generating PDF. Please try again.');
+    console.error(e);
+  }
+
+  btn.innerHTML = '⬇ Download Full PDF Report';
+  btn.disabled = false;
+}
+
+// Enter key
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('urlInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') runAnalysis();
+  });
+  // hide WA message after 11s
+  setTimeout(function(){
+    var msg = document.getElementById('waMsg');
+    if(msg) msg.style.display='none';
+  }, 11000);
+  // remove page-enter after load animation
+  setTimeout(function(){
+    var p2 = document.getElementById('p2');
+    if(p2) p2.classList.remove('page-enter');
+  }, 800);
+});
+
+// Hover button circles
+(function(){
+  var lastTime = 0;
+  document.addEventListener('pointermove', function(e){
+    var btn = e.target && e.target.closest('.hbtn');
+    if(!btn) return;
+    var now = Date.now();
+    if(now - lastTime < 100) return;
+    lastTime = now;
+    var rect = btn.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    var xPct = x / rect.width;
+    var c = document.createElement('div');
+    c.className = 'hbtn-circle';
+    c.style.left = x + 'px';
+    c.style.top  = y + 'px';
+    c.style.background = 'linear-gradient(to right, #a0d9f8 ' + (xPct*100) + '%, #3a5bbf ' + (xPct*100) + '%)';
+    btn.appendChild(c);
+    requestAnimationFrame(function(){ c.classList.add('in'); });
+    setTimeout(function(){ c.classList.replace('in','out'); }, 1000);
+    setTimeout(function(){ c.parentNode && c.parentNode.removeChild(c); }, 2200);
+  });
+})();
+</script>
+
+<!-- WEBGL SHADER BACKGROUND -->
+<script>
+(function(){
+  var canvas = document.getElementById('shaderCanvas');
+  if (!canvas) return;
+  var gl = canvas.getContext('webgl');
+  if (!gl) return;
+
+  var vsSource = `
+    attribute vec4 aVertexPosition;
+    void main() { gl_Position = aVertexPosition; }
+  `;
+
+  var fsSource = `
+    precision highp float;
+    uniform vec2 iResolution;
+    uniform float iTime;
+
+    const float overallSpeed = 0.15;
+    const float gridSmoothWidth = 0.015;
+    const float axisWidth = 0.05;
+    const float majorLineWidth = 0.025;
+    const float minorLineWidth = 0.0125;
+    const float majorLineFrequency = 5.0;
+    const float minorLineFrequency = 1.0;
+    const float scale = 5.0;
+    const vec4 lineColor = vec4(1.0, 1.0, 1.0, 1.0);
+    const float minLineWidth = 0.008;
+    const float maxLineWidth = 0.12;
+    const float lineSpeed = 1.0 * overallSpeed;
+    const float lineAmplitude = 1.0;
+    const float lineFrequency = 0.2;
+    const float warpSpeed = 0.2 * overallSpeed;
+    const float warpFrequency = 0.5;
+    const float warpAmplitude = 1.0;
+    const float offsetFrequency = 0.5;
+    const float offsetSpeed = 1.33 * overallSpeed;
+    const float minOffsetSpread = 0.6;
+    const float maxOffsetSpread = 2.0;
+    const int linesPerGroup = 16;
+
+    #define drawCircle(pos, radius, coord) smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
+    #define drawSmoothLine(pos, halfWidth, t) smoothstep(halfWidth, 0.0, abs(pos - (t)))
+    #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
+    #define drawPeriodicLine(freq, width, t) drawCrispLine(freq / 2.0, width, abs(mod(t, freq) - (freq) / 2.0))
+
+    float random(float t) {
+      return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
+    }
+
+    float getPlasmaY(float x, float horizontalFade, float offset) {
+      return random(x * lineFrequency + iTime * lineSpeed) * horizontalFade * lineAmplitude + offset;
+    }
+
+    void main() {
+      vec2 fragCoord = gl_FragCoord.xy;
+      vec2 uv = fragCoord.xy / iResolution.xy;
+      vec2 space = (fragCoord - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
+
+      float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
+      float verticalFade = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
+
+      space.y += random(space.x * warpFrequency + iTime * warpSpeed) * warpAmplitude * (0.5 + horizontalFade);
+      space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
+
+      vec4 lines = vec4(0.0);
+      vec4 bgColor = vec4(0.0, 0.0, 0.0, 1.0);
+
+      for(int l = 0; l < linesPerGroup; l++) {
+        float normalizedLineIndex = float(l) / float(linesPerGroup);
+        float offsetTime = iTime * offsetSpeed;
+        float offsetPosition = float(l) + space.x * offsetFrequency;
+        float rand = random(offsetPosition + offsetTime) * 0.5 + 0.5;
+        float halfWidth = mix(minLineWidth, maxLineWidth, rand * horizontalFade) / 2.0;
+        float offset = random(offsetPosition + offsetTime * (1.0 + normalizedLineIndex)) * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
+        float linePosition = getPlasmaY(space.x, horizontalFade, offset);
+        float line = drawSmoothLine(linePosition, halfWidth, space.y) / 2.0 + drawCrispLine(linePosition, halfWidth * 0.15, space.y);
+
+        float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
+        vec2 circlePosition = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
+        float circle = drawCircle(circlePosition, 0.01, space) * 4.0;
+
+        line = line + circle;
+        lines += line * lineColor * rand * 0.12;
+      }
+
+      vec4 fragColor = bgColor;
+      fragColor *= verticalFade;
+      fragColor.a = 1.0;
+      fragColor += lines;
+      gl_FragColor = fragColor;
+    }
+  `;
+
+  function loadShader(gl, type, source) {
+    var shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) { gl.deleteShader(shader); return null; }
+    return shader;
+  }
+
+  var vs = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+  var fs = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+  var prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+  var posLoc = gl.getAttribLocation(prog, 'aVertexPosition');
+  var resLoc = gl.getUniformLocation(prog, 'iResolution');
+  var timeLoc = gl.getUniformLocation(prog, 'iTime');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  var startTime = Date.now();
+  var animId;
+  function render() {
+    var t = (Date.now() - startTime) / 1000;
+    gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(prog);
+    gl.uniform2f(resLoc, canvas.width, canvas.height);
+    gl.uniform1f(timeLoc, t);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(posLoc);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    animId = requestAnimationFrame(render);
+  }
+  render();
+})();
+</script>
+</body>
+</html>

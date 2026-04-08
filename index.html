@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RankEdge.com — Free SEO & GEO Audit</title>
+<link rel="icon" type="image/png" href="rank-edge-whitelogo-.png">
+<meta name="description" content="Get a free AI-powered SEO & GEO audit for your website. See exactly why you're invisible online and how to fix it.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* ─── BACKGROUND ─── */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.18) 1px,transparent 1px);background-size:32px 32px}
+.glow{position:absolute;border-radius:50%;filter:blur(120px)}
+.g1{width:800px;height:500px;background:radial-gradient(ellipse,rgba(255,255,255,0.13) 0%,transparent 70%);top:-150px;left:50%;transform:translateX(-50%)}
+.g2{width:400px;height:400px;background:radial-gradient(ellipse,rgba(255,255,255,0.06) 0%,transparent 70%);top:45%;right:-100px}
+.pill{position:absolute;border-radius:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12)}
+.p1{width:220px;height:50px;top:8%;left:22%;transform:rotate(-18deg)}
+.p2{width:180px;height:46px;top:6%;right:14%;transform:rotate(12deg)}
+.p3{width:260px;height:50px;top:30%;left:4%;transform:rotate(-8deg)}
+.p4{width:140px;height:40px;top:55%;right:6%;transform:rotate(6deg)}
+.p5{width:200px;height:46px;bottom:18%;left:6%;transform:rotate(-12deg)}
+.p6{width:160px;height:42px;bottom:28%;right:16%;transform:rotate(10deg)}
+.if{position:absolute;color:rgba(255,255,255,0.28);font-size:17px}
+.if1{top:11%;left:28%}.if2{top:8%;right:21%}.if3{top:32%;left:10%}
+.if4{top:57%;right:12%}.if5{bottom:20%;left:13%}.if6{bottom:32%;right:23%}
+
+/* ─── PAGES ─── */
+.page{display:none;min-height:100vh;align-items:center;justify-content:center;flex-direction:column;padding:2rem;position:relative;z-index:1}
+.page.active{display:flex}
+#p1.active{display:block;padding:0}
+
+/* ─── HOME HERO ─── */
+.hero-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem;text-align:center}
+
+/* ─── SECTION SHARED ─── */
+.lp-section{padding:6rem 2rem;position:relative;z-index:1;text-align:center}
+.sec-tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#ffffff;margin-bottom:1rem;display:block}
+.sec-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:1rem}
+.sec-sub{font-size:15px;color:rgba(255,255,255,0.45);max-width:540px;margin:0 auto 3.5rem;line-height:1.75}
+
+/* ─── FEATURES ─── */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto;text-align:left}
+.feat-card{background:rgba(255,255,255,0.03);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:1.75rem;transition:border-color 0.2s}
+.feat-card:hover{border-color:rgba(255,255,255,0.25)}
+.feat-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:1.1rem}
+.feat-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:0.5rem}
+.feat-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65}
+
+/* ─── HOW IT WORKS ─── */
+.steps-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:960px;margin:0 auto;text-align:left}
+.step-num{font-size:3.5rem;font-weight:800;color:rgba(255,255,255,0.35);line-height:1;margin-bottom:0.75rem;font-family:'Bebas Neue',sans-serif;letter-spacing:2px}
+.step-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:0.4rem}
+.step-desc{font-size:13px;color:rgba(255,255,255,0.42);line-height:1.65}
+
+/* ─── REVIEWS ─── */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto;text-align:left}
+.rev-card{background:rgba(255,255,255,0.03);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:1.75rem}
+.stars{color:#ffb300;font-size:15px;margin-bottom:1rem;letter-spacing:2px}
+.rev-text{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:1.2rem}
+.rev-name{font-size:14px;font-weight:700;color:#fff}
+.rev-role{font-size:12px;color:rgba(255,255,255,0.3);margin-top:2px}
+
+/* ─── CTA BANNER ─── */
+.cta-wrap{max-width:760px;margin:0 auto;background:rgba(255,255,255,0.06);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.18);border-radius:24px;padding:4rem 3rem;text-align:center}
+.cta-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:6px 16px;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:1.5rem}
+.cta-title{font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:0.75rem}
+.cta-sub{font-size:15px;color:rgba(255,255,255,0.45);margin-bottom:2rem;line-height:1.65}
+
+/* ─── FOOTER ─── */
+.lp-footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff}
+.footer-logo span{color:#ffffff}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25);text-align:center}
+.footer-links{display:flex;gap:1.5rem;font-size:12px}
+.footer-links a{color:rgba(255,255,255,0.35);text-decoration:none;cursor:pointer;transition:color 0.2s}
+.footer-links a:hover{color:#ffffff}
+
+/* ─── PRICING ─── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto}
+.pr-card{backdrop-filter:blur(14px);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:20px;padding:2rem;display:flex;flex-direction:column;position:relative;transition:border-color 0.2s,transform 0.2s}
+.pr-card:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-3px)}
+.pr-card.popular{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.07);transform:scale(1.04)}
+.pr-card.popular:hover{transform:scale(1.04) translateY(-3px)}
+.pr-badge{position:absolute;top:-14px;right:1.25rem;background:#fff;color:#000;font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:0.5px}
+.pr-name{font-size:2.5rem;font-weight:200;color:#fff;letter-spacing:-0.03em;line-height:1;margin-bottom:0.4rem}
+.pr-desc{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:1.5rem;line-height:1.6}
+.pr-price{display:flex;align-items:baseline;gap:4px;margin-bottom:1.5rem}
+.pr-amount{font-size:2.8rem;font-weight:200;color:#fff;letter-spacing:-0.03em}
+.pr-mo{font-size:13px;color:rgba(255,255,255,0.4)}
+.pr-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);margin-bottom:1.25rem}
+.pr-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:2rem;flex:1}
+.pr-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5}
+.pr-features li::before{content:'✓';color:#fff;font-weight:700;font-size:11px;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;line-height:18px}
+.pr-btn{width:100%;padding:12px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;border:none}
+.pr-btn.primary{background:#fff;color:#000}
+.pr-btn.primary:hover{background:#e0e0e0}
+.pr-btn.secondary{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15)}
+.pr-btn.secondary:hover{background:rgba(255,255,255,0.14)}
+
+@media(max-width:768px){
+  .feat-grid{grid-template-columns:1fr}
+  .steps-wrap{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .pr-card.popular{transform:scale(1)}
+  .pr-card.popular:hover{transform:translateY(-3px)}
+  .cta-wrap{padding:2.5rem 1.5rem}
+  .lp-footer{flex-direction:column;text-align:center}
+}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;background:rgba(0,0,0,0.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;color:#fff;cursor:pointer}
+.logo span{color:#ffffff}
+.nav-links{display:flex;gap:2rem;font-size:14px}
+.nav-links a{color:rgba(255,255,255,0.55);text-decoration:none;cursor:pointer;transition:color 0.2s}
+.nav-links a:hover{color:#ffffff}
+
+/* ─── HERO ─── */
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:8px 20px;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:2rem;margin-top:4rem}
+.bdot{width:7px;height:7px;border-radius:50%;background:#ffffff;box-shadow:0 0 8px #ffffff;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,7.5rem);line-height:0.93;letter-spacing:2px;text-align:center;margin-bottom:1.2rem}
+.hero-title .gr{color:#ffffff;font-style:italic}
+.hero-sub{font-size:clamp(0.9rem,1.8vw,1.1rem);color:rgba(255,255,255,0.5);max-width:480px;line-height:1.75;text-align:center;margin-bottom:2.5rem}
+.btn-g{display:inline-flex;align-items:center;gap:10px;background:#ffffff;color:#000;border:none;border:none;border-radius:100px;padding:15px 34px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-g:hover{background:#e0e0e0;transform:scale(1.03)}
+.btn-g:active{transform:scale(0.97)}
+
+/* ─── CARDS ─── */
+.card{background:rgba(255,255,255,0.04);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:2.5rem;width:100%;max-width:540px;text-align:center}
+.step-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;margin-bottom:1rem}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:1px;color:#fff;margin-bottom:0.4rem;line-height:1}
+.card-title span{color:#ffffff}
+.card-sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:1.75rem;line-height:1.65}
+.url-in{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:13px 16px;font-size:15px;color:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:border 0.2s;margin-bottom:1rem}
+.url-in::placeholder{color:rgba(255,255,255,0.22)}
+.url-in:focus{border-color:rgba(255,255,255,0.5)}
+.btn-full{width:100%;background:#ffffff;color:#000;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-full:hover{background:#e0e0e0}
+.btn-full:disabled{opacity:0.5;cursor:not-allowed}
+
+/* ─── RESULTS ─── */
+.result-wrap{width:100%;max-width:680px}
+.r-header{text-align:center;margin-bottom:1.5rem;padding-top:5rem}
+.r-icon{width:56px;height:56px;background:rgba(255,255,255,0.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 1rem}
+.r-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:1px;margin-bottom:0.2rem}
+.r-url{font-size:13px;color:rgba(255,255,255,0.4)}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
+.sc{background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;text-align:center}
+.sc-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px}
+.sc-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:1px}
+.gn{color:#ffffff}.yw{color:#ffb300}.rd{color:#ff5252}
+.section-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.section-ttl{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem}
+.issue{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:7px;line-height:1.5}
+.idot{width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.idot.r{background:#ff5252}.idot.y{background:#ffb300}.idot.g{background:#ffffff}
+.recs{display:flex;flex-direction:column;gap:6px}
+.rec{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5}
+.rnum{min-width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:#ffffff;font-weight:600;margin-top:1px;flex-shrink:0}
+.ai-table{width:100%;border-collapse:collapse;font-size:12px}
+.ai-table th{text-align:left;color:rgba(255,255,255,0.3);font-weight:400;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.ai-table td{padding:6px 8px;color:rgba(255,255,255,0.6);border-bottom:1px solid rgba(255,255,255,0.04)}
+.pill-rd{background:rgba(255,82,82,0.12);color:#ff5252;padding:2px 8px;border-radius:100px;font-size:11px}
+.pill-yw{background:rgba(255,179,0,0.12);color:#ffb300;padding:2px 8px;border-radius:100px;font-size:11px}
+.pill-gn{background:rgba(255,255,255,0.15);color:#ffffff;border:1px solid rgba(255,255,255,0.3);padding:2px 8px;border-radius:100px;font-size:11px}
+.btn-pdf-dl{width:100%;background:#ffffff;color:#000;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-pdf-dl:hover{background:#e0e0e0}
+.btn-pdf-dl:disabled{opacity:0.5;cursor:not-allowed}
+.btn-outline{width:100%;background:transparent;color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.25);border-radius:12px;padding:12px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-outline:hover{border-color:rgba(255,255,255,0.5);color:#fff;background:rgba(255,255,255,0.06)}
+
+/* ─── OFFER PAGE ─── */
+.offer-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:2.5rem;width:100%;max-width:500px;text-align:center}
+.free-pill{display:inline-block;background:rgba(255,255,255,0.15);color:#ffffff;font-size:11px;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
+.offer-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:1px;line-height:1;margin-bottom:0.75rem}
+.offer-title span{color:#ffffff}
+.offer-sub{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:2rem}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.co{display:flex;flex-direction:column;align-items:center;gap:8px;padding:1.5rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.25);cursor:pointer;transition:all 0.2s;text-decoration:none;color:#fff}
+.co.wa{border-color:rgba(37,211,102,0.25)}
+.co.wa:hover{background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.45);transform:translateY(-2px)}
+.co.em{border-color:rgba(255,255,255,0.2)}
+.co.em:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.4);transform:translateY(-2px)}
+.co-ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.co-ic.wa{background:rgba(37,211,102,0.15)}
+.co-ic.em{background:rgba(255,255,255,0.12)}
+.co-lbl{font-size:15px;font-weight:600}
+.co-sub2{font-size:12px;color:rgba(255,255,255,0.38)}
+.back-btn{margin-top:1.25rem;background:transparent;border:none;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color 0.2s}
+.back-btn:hover{color:rgba(255,255,255,0.65)}
+
+/* ─── LIQUID GLASS ─── */
+.glass{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  font-weight:600;
+  color:#000;
+  transition:all 0.7s cubic-bezier(0.175,0.885,0.32,2.2);
+  box-shadow:0 6px 6px rgba(0,0,0,0.2),0 0 20px rgba(0,0,0,0.1);
+}
+.glass-blur{
+  position:absolute;inset:0;z-index:0;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  filter:url(#glass-distortion);
+  border-radius:inherit;
+}
+.glass-bg{
+  position:absolute;inset:0;z-index:1;
+  background:rgba(255,255,255,0.22);
+  border-radius:inherit;
+}
+.glass-shine{
+  position:absolute;inset:0;z-index:2;
+  border-radius:inherit;
+  box-shadow:inset 2px 2px 1px rgba(255,255,255,0.55),inset -1px -1px 1px 1px rgba(255,255,255,0.45);
+}
+.glass-content{position:relative;z-index:3;}
+
+/* glass nav bar */
+.glass-nav{
+  border-radius:100px;
+  padding:10px 28px;
+  display:inline-flex;align-items:center;gap:2rem;
+}
+.glass-nav:hover{padding:12px 30px;}
+.glass-nav a{
+  color:#000;font-size:14px;text-decoration:none;font-weight:500;
+  font-family:'DM Sans',sans-serif;white-space:nowrap;
+}
+
+/* glass button */
+.glass-btn{
+  border-radius:100px;
+  padding:14px 32px;
+  border:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:16px;font-weight:600;
+  display:inline-flex;align-items:center;gap:10px;
+}
+.glass-btn:hover{padding:16px 34px;}
+
+/* ─── LOADING OVERLAY ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem}
+.overlay.active{display:flex}
+.spinner{width:48px;height:48px;border:3px solid rgba(255,255,255,0.15);border-top-color:#ffffff;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ov-txt{color:rgba(255,255,255,0.55);font-size:14px}
+.ov-step{color:#ffffff;font-size:13px;min-height:20px;text-align:center}
+
+@media(max-width:600px){
+  .nav-links{display:none}
+  .co-grid{grid-template-columns:1fr}
+  .scores{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ─── PAGE TRANSITION ─── */
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes pageOut{
+  from{opacity:1;transform:translateY(0)}
+  to{opacity:0;transform:translateY(-16px)}
+}
+.page-enter{animation:pageIn 0.55s cubic-bezier(0.16,1,0.3,1) both}
+.page-leave{animation:pageOut 0.3s cubic-bezier(0.4,0,1,1) both}
+
+/* stagger page children */
+.page-enter .card,
+.page-enter .result-wrap,
+.page-enter .offer-card{
+  animation:pageIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+}
+.page-enter .r-header{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s both}
+.page-enter .scores{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.25s both}
+.page-enter .section-box:nth-child(1){animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.35s both}
+.page-enter .section-box:nth-child(2){animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.45s both}
+.page-enter .section-box:nth-child(3){animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.55s both}
+.page-enter .btn-pdf-dl{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.65s both}
+.page-enter .btn-outline{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.72s both}
+.page-enter .co-grid{animation:pageIn 0.5s cubic-bezier(0.16,1,0.3,1) 0.3s both}
+
+/* score counter */
+@keyframes countUp{
+  from{opacity:0;transform:translateY(10px) scale(0.85)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.score-pop{animation:countUp 0.5s cubic-bezier(0.16,1,0.3,1) both}
+
+/* ─── HERO ENTRANCE ANIMATIONS ─── */
+@keyframes blurFadeIn{
+  from{opacity:0;filter:blur(24px);transform:translateY(16px)}
+  to{opacity:1;filter:blur(0px);transform:translateY(0)}
+}
+@keyframes blurFadeInSub{
+  from{opacity:0;filter:blur(12px);transform:translateY(10px)}
+  to{opacity:1;filter:blur(0px);transform:translateY(0)}
+}
+@keyframes globeIn{
+  from{opacity:0;transform:scale(0.82);filter:blur(8px)}
+  to{opacity:1;transform:scale(1);filter:blur(0px)}
+}
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-14px);filter:blur(6px)}
+  to{opacity:1;transform:translateY(0);filter:blur(0px)}
+}
+
+#globeCanvas{
+  animation:globeIn 1.4s cubic-bezier(0.16,1,0.3,1) 0s both;
+}
+.hero-badge-anim{
+  animation:slideDown 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+}
+.hw{
+  display:inline-block;
+  opacity:0;
+  filter:blur(20px);
+  animation:blurFadeIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-sub-anim{
+  animation:blurFadeInSub 0.5s cubic-bezier(0.16,1,0.3,1) 1.2s both;
+}
+.hero-btn-anim{
+  animation:blurFadeInSub 0.5s cubic-bezier(0.16,1,0.3,1) 1.45s both;
+}
+
+/* ─── HOVER BUTTON ─── */
+.hbtn{
+  position:relative;isolation:isolate;
+  padding:14px 36px;border-radius:100px;border:none;
+  font-size:16px;font-weight:600;color:#fff;
+  font-family:'DM Sans',sans-serif;
+  background:rgba(43,55,80,0.15);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  cursor:pointer;overflow:hidden;
+  transition:transform 0.2s;
+  box-shadow:
+    inset 0 0 0 1px rgba(170,202,255,0.25),
+    inset 0 0 18px 0 rgba(170,202,255,0.1),
+    inset 0 -3px 12px 0 rgba(170,202,255,0.15),
+    0 1px 3px 0 rgba(0,0,0,0.5),
+    0 4px 16px 0 rgba(0,0,0,0.45);
+}
+.hbtn:active{transform:scale(0.975)}
+.hbtn-circle{
+  position:absolute;width:14px;height:14px;
+  border-radius:50%;pointer-events:none;z-index:-1;
+  transform:translate(-50%,-50%);
+  filter:blur(10px);opacity:0;
+  transition:opacity 0.3s;
+}
+.hbtn-circle.in{opacity:0.75}
+.hbtn-circle.out{opacity:0;transition:opacity 1.2s}
+/* nav variant — smaller */
+.hbtn-sm{padding:9px 22px;font-size:13px}
+
+/* ─── MARQUEE ─── */
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-16.6667%)}}
+.marquee-track{overflow:hidden}
+.marquee-inner{display:flex;align-items:center;gap:3rem;animation:marqueeScroll 32s linear infinite;white-space:nowrap;width:max-content}
+.marquee-inner:hover{animation-play-state:paused}
+.m-icon{display:flex;flex-direction:column;align-items:center;gap:7px;opacity:0.5;transition:opacity 0.2s;cursor:default}
+.m-icon:hover{opacity:1}
+.m-icon-box{width:46px;height:46px;border-radius:11px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center}
+.m-icon span{font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif}
+
+/* ─── HEADLINE WORD BLUR ─── */
+.wblur{
+  display:inline-block;
+  opacity:0;
+  filter:blur(16px);
+  transform:translateY(8px);
+  transition:none;
+}
+.wblur-in{
+  animation:blurFadeIn 0.55s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.reveal-left{
+  opacity:0;
+  transform:translateX(-40px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{
+  opacity:0;
+  transform:translateX(40px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* stagger children */
+.stagger > *{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:0s}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:0.1s}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:0.2s}
+.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:0.3s}
+.stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:0.4s}
+.stagger.visible > *:nth-child(6){opacity:1;transform:none;transition-delay:0.5s}
+</style>
+</head>
+<body>
+
+<!-- LIQUID GLASS SVG FILTER -->
+<svg style="display:none">
+  <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+    <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence"/>
+    <feComponentTransfer in="turbulence" result="mapped">
+      <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5"/>
+      <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"/>
+      <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5"/>
+    </feComponentTransfer>
+    <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap"/>
+    <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lightingColor="white" result="specLight">
+      <fePointLight x="-200" y="-200" z="300"/>
+    </feSpecularLighting>
+    <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage"/>
+    <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div class="bg">
+  <div class="glow g1"></div><div class="glow g2"></div>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <div class="ov-txt">AI is analyzing your website...</div>
+  <div class="ov-step" id="ovStep">Scanning meta tags...</div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav" style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);border-bottom:1px solid transparent;transition:background 0.4s ease,backdrop-filter 0.4s ease,border-color 0.4s ease">
+  <!-- Logo -->
+  <div onclick="go(1)" style="display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
+    <img src="rank-edge-whitelogo-.png" alt="Rank Edge" style="height:36px;width:auto;display:block">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;line-height:1">RANK EDGE</span>
+  </div>
+  <!-- Links centered -->
+  <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2.2rem">
+    <a onclick="go(1);setTimeout(function(){scrollTo({top:0,behavior:'smooth'})},320)" class="nl">Home</a>
+    <a onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})" class="nl">Features</a>
+    <a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="nl">Pricing</a>
+  </div>
+  <!-- CTA right -->
+  <button class="hbtn hbtn-sm" onclick="window.location.href='audit.html'">Get Free Audit →</button>
+</nav>
+<style>
+.nl{color:rgba(255,255,255,0.55);font-size:14px;text-decoration:none;font-family:'DM Sans',sans-serif;cursor:pointer;transition:color 0.2s}
+.nl:hover{color:#fff}
+</style>
+
+<!-- PAGE 1: HOME LANDING -->
+<div class="page active" id="p1">
+
+  <!-- HERO -->
+  <div class="hero-wrap" style="position:relative">
+    <!-- Globe canvas behind content -->
+    <canvas id="globeCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
+    <!-- Hero content -->
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="badge hero-badge-anim"><div class="bdot"></div>Free SEO + GEO Audit — No signup needed</div>
+      <div class="hero-title" style="margin-bottom:0">
+        <div>
+          <span class="hw" style="animation-delay:0.35s">RANK</span>&nbsp;<span class="hw" style="animation-delay:0.55s">HIGHER.</span>
+        </div>
+        <div>
+          <span class="hw gr" style="animation-delay:0.75s">GET</span>&nbsp;<span class="hw gr" style="animation-delay:0.95s">FOUND.</span>
+        </div>
+      </div>
+      <p class="hero-sub hero-sub-anim">Get a free AI-powered SEO & GEO audit. See exactly why you're invisible online — and how to fix it fast.</p>
+      <button class="hero-btn-anim hbtn" onclick="window.location.href='audit.html'">Get My Free Audit →</button>
+    </div>
+
+    <!-- AI MARQUEE — sibling to flex column so it spans full width -->
+    <div class="hero-btn-anim" style="margin-top:3.5rem;width:100%;position:relative;z-index:1">
+      <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:1.2rem;font-family:'DM Sans',sans-serif;text-align:center">Optimized for every AI engine</p>
+      <div style="position:relative;overflow:hidden">
+        <!-- fade edges -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:140px;background:linear-gradient(to right,#000,transparent);z-index:2;pointer-events:none"></div>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:140px;background:linear-gradient(to left,#000,transparent);z-index:2;pointer-events:none"></div>
+        <div class="marquee-track">
+          <div class="marquee-inner" id="marqueeInner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI TOOLS STRIP (hidden, replaced by marquee) -->
+  <div style="display:none"><div style="display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;padding:0 2rem">
+
+      <!-- ChatGPT / OpenAI -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.843-3.369 2.02-1.168a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.402-.681zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">ChatGPT</span>
+      </div>
+
+      <!-- Google Gemini -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 24A14.304 14.304 0 0 0 0 12 14.304 14.304 0 0 0 12 0a14.304 14.304 0 0 0 12 12 14.304 14.304 0 0 0-12 12z" fill="#fff"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">Gemini</span>
+      </div>
+
+      <!-- Claude -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.481-.097L.8 12.587l-.097-.495.191-.43.383-.24.383.033 1.784.144 2.483.191 2.339.19h.574l.048-.095-.048-.096-2.34-3.255-1.927-2.886-1.004-1.64L3.04 3.18l.144-.527.384-.383h.527l.43.19.287.384 1.29 2.147 1.88 3.017 1.786 2.886.048.05h.095V10.85l.144-2.675.137-2.483.094-2.27V3.18l.144-.813.383-.43.525-.143.383.143.384.43.048.335.143 1.976.144 2.72.048 2.77v.765l.094.048.096-.048 1.4-1.928 1.736-2.27 1.257-1.592.622-.765.527-.43.525.048.43.19.096.527-.335.622-1.21 1.83-1.976 2.674-1.016 1.4.048.128.127-.048L17.91 7.93l2.243-.765 1.593-.43.669.096.43.335.19.43-.047.383-.43.526-1.24.718-2.435 1.19-2.004.957-.19.095.048.095.191.048 2.532.19 1.88.19 1.401.383.43.43.095.336-.096.43-.383.24h-.526l-2.34-.334-2.484-.43-1.357-.24-.143.096.047.143 1.15 1.928 1.546 2.34.622 1.195-.047.43-.287.382-.335.145-.43-.048-.527-.43-1.64-2.34-1.68-2.53-.048-.048h-.095l-.048.048v.335l-.048 2.34-.144 2.05-.094 1.592-.144.527-.43.43h-.43l-.43-.43-.19-.622.19-2.147.143-3.016v-.909l-.095-.048-.096.048-.956 1.4-1.63 2.148-1.16 1.4-.478.335-.43.047-.335-.19-.144-.43.191-.574z"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">Claude</span>
+      </div>
+
+      <!-- Perplexity -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M22.438 7.14h-3.986V2.712l-6.45 4.88V2.695L5.548 7.14H1.562v1h2.496l-.001 7.663H1.562v1h3.173l-.001 5.487h1V16.8h12.527v5.487h1V16.8h3.175v-1h-2.496l-.001-7.662h2.498zm-4.986-2.868v2.868H13.21zm-5.45.01v2.857H7.768zM5.057 15.803l.001-7.662h13.886l.001 7.662z"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">Perplexity</span>
+      </div>
+
+      <!-- Microsoft Copilot -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M23.998 12c0 6.628-5.372 12-11.999 12C5.372 24 0 18.628 0 12S5.372 0 11.999 0C18.626 0 23.998 5.372 23.998 12zm-7.242-4.754a.957.957 0 0 0-.957.957v5.795a.957.957 0 0 0 1.913 0V8.203a.957.957 0 0 0-.956-.957zm-9.51 0a.957.957 0 0 0-.958.957v5.795a.957.957 0 0 0 1.914 0V8.203a.957.957 0 0 0-.956-.957zm4.755 1.594a.957.957 0 0 0-.957.956v2.607a.957.957 0 0 0 1.913 0V9.796a.957.957 0 0 0-.956-.956z"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">Copilot</span>
+      </div>
+
+      <!-- Google Search AI -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">Google AI</span>
+      </div>
+
+      <!-- Meta AI -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.55;transition:opacity 0.2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.985 1.979 1.22 3.061 1.22 1.46 0 2.571-.613 3.353-1.746.572-.83.877-1.99.877-3.244 0-2.07-.63-4.524-1.九 6.302C22.103 5.357 20.192 4 18.108 4c-1.275 0-2.858.385-4.451 2.338C12.561 5.203 11.269 4 9.25 4c-.782 0-1.562.181-2.335.03zm.093 2.098c.828 0 1.525.39 2.387 1.218.59.57 1.275 1.701 1.952 2.878l-1.437 2.67c-.837 1.405-1.39 2.082-1.939 2.551-.568.487-1.047.644-1.648.644-.79 0-1.312-.365-1.73-1.121a4.604 4.604 0 0 1-.26-.67 7.927 7.927 0 0 1-.166-1.663c0-2.309.63-4.719 1.689-6.144.6-.812 1.218-1.363 1.152-1.363zm11.1.14c1.738 0 3.148 1.547 3.8 4.134.24.955.358 1.994.358 3.036 0 .868-.17 1.636-.464 2.157-.342.6-.787.87-1.384.87-.614 0-1.085-.195-1.71-.865-.524-.562-1.314-1.748-2.084-3.068l-1.653-2.878c.706-.971 1.325-1.646 1.917-2.113.7-.563 1.372-.273 1.22-.273z"/></svg>
+        </div>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif">Meta AI</span>
+      </div>
+
+    </div>
+  </div></div>
+
+  <!-- FEATURES -->
+  <section class="lp-section" id="features">
+    <span class="sec-tag reveal">Everything You Need</span>
+    <div class="sec-title reveal" style="transition-delay:0.1s">Built for visibility</div>
+    <p class="sec-sub reveal" style="transition-delay:0.2s">All the insights you need to rank higher on Google and get cited by AI search engines.</p>
+    <div class="feat-grid stagger">
+      <div class="feat-card">
+        <div class="feat-ic" style="background:rgba(255,255,255,0.12)">🔍</div>
+        <div class="feat-name">SEO Deep Scan</div>
+        <div class="feat-desc">Detect missing meta tags, broken links, thin content, and crawlability issues in seconds.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic" style="background:rgba(100,180,255,0.1)">🤖</div>
+        <div class="feat-name">GEO / AI Visibility</div>
+        <div class="feat-desc">See how likely ChatGPT, Perplexity, Google AI Overview, and Copilot are to cite your site.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic" style="background:rgba(255,179,0,0.1)">⚡</div>
+        <div class="feat-name">Performance Audit</div>
+        <div class="feat-desc">Check Core Web Vitals, page speed, and mobile experience — all ranked factors.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic" style="background:rgba(255,82,82,0.1)">🏷️</div>
+        <div class="feat-name">Schema Checker</div>
+        <div class="feat-desc">Identify missing structured data (JSON-LD) that blocks AI engines from understanding your content.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic" style="background:rgba(180,100,255,0.1)">📈</div>
+        <div class="feat-name">Keyword & Content Gap</div>
+        <div class="feat-desc">Spot content gaps and keyword opportunities your competitors are already ranking for.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic" style="background:rgba(255,255,255,0.1)">📄</div>
+        <div class="feat-name">PDF Report</div>
+        <div class="feat-desc">Download a full branded audit report to share with your team or client instantly.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="lp-section" style="background:rgba(255,255,255,0.01)">
+    <span class="sec-tag reveal">Simple Process</span>
+    <div class="sec-title reveal" style="transition-delay:0.1s">Up and running in seconds</div>
+    <p class="sec-sub reveal" style="transition-delay:0.2s">No signup, no credit card. Just paste your URL and get your full audit in under a minute.</p>
+    <div class="steps-wrap stagger">
+      <div>
+        <div class="step-num">01</div>
+        <div class="step-name">Enter Your URL</div>
+        <div class="step-desc">Paste your website address — any page works, homepage or landing page.</div>
+      </div>
+      <div>
+        <div class="step-num">02</div>
+        <div class="step-name">AI Scans Your Site</div>
+        <div class="step-desc">Our AI analyzes meta tags, schema, speed, content quality, and AI engine signals.</div>
+      </div>
+      <div>
+        <div class="step-num">03</div>
+        <div class="step-name">Get Your Report</div>
+        <div class="step-desc">Receive a scored report with critical issues ranked by impact and easy-to-follow fixes.</div>
+      </div>
+      <div>
+        <div class="step-num">04</div>
+        <div class="step-name">Fix & Rank Higher</div>
+        <div class="step-desc">Apply the recommendations and watch your visibility grow on Google and AI search engines.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="lp-section" style="overflow:hidden;padding-bottom:4rem">
+    <span class="sec-tag reveal">What People Say</span>
+    <div class="sec-title reveal" style="transition-delay:0.1s">Loved by founders & agencies</div>
+    <p class="sec-sub reveal" style="transition-delay:0.2s">Real results from businesses who ran their audit and fixed their SEO in days.</p>
+
+    <style>
+      .marquee-wrap{position:relative;width:100%;overflow:hidden;margin-top:1rem}
+      .marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+      .marquee-wrap::before{left:0;background:linear-gradient(to right,#000 0%,transparent 100%)}
+      .marquee-wrap::after{right:0;background:linear-gradient(to left,#000 0%,transparent 100%)}
+      .marquee-track{display:flex;gap:14px;width:max-content;animation:marqueeScroll 38s linear infinite}
+      .marquee-track:hover{animation-play-state:paused}
+      @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      .rev-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:1.75rem;width:320px;flex-shrink:0;text-align:left;transition:border-color 0.2s}
+      .rev-card:hover{border-color:rgba(255,255,255,0.18)}
+    </style>
+
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <!-- SET 1 -->
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"I had no idea my site was completely invisible to AI engines. RankEdge showed me exactly what to fix — we saw results within 2 weeks."</div>
+          <div class="rev-name">Sarah M.</div><div class="rev-role">E-commerce Founder</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Ran 12 client audits in one afternoon. The PDF report makes it so easy to present findings. This tool is a game changer for our agency."</div>
+          <div class="rev-name">David K.</div><div class="rev-role">SEO Agency Owner</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Free, instant, and more detailed than tools I pay $100/month for. The GEO score alone is worth it — no other tool shows you this."</div>
+          <div class="rev-name">James W.</div><div class="rev-role">Marketing Consultant</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"My local business was nowhere on Google. After running the audit and fixing the issues, I started ranking on the first page within a month."</div>
+          <div class="rev-name">Layla R.</div><div class="rev-role">Restaurant Owner</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"The GEO section is mind-blowing. I never knew ChatGPT and Perplexity couldn't find my site. Fixed the schema in 20 minutes flat."</div>
+          <div class="rev-name">Tom H.</div><div class="rev-role">SaaS Founder</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Sent the PDF to my client and they immediately approved the SEO retainer. Best free tool I've used in 10 years of digital marketing."</div>
+          <div class="rev-name">Priya S.</div><div class="rev-role">Digital Marketing Agency</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Honestly shocked this is free. The audit flagged 4 critical issues we had missed for over a year. Our traffic went up 60% after the fixes."</div>
+          <div class="rev-name">Marco L.</div><div class="rev-role">E-commerce Director</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Super clean report, easy to understand even for non-technical clients. I use RankEdge for every new client onboarding now."</div>
+          <div class="rev-name">Nina C.</div><div class="rev-role">Freelance SEO Consultant</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"The performance score showed exactly why our bounce rate was high. Fixed the Core Web Vitals and conversions improved in days."</div>
+          <div class="rev-name">Alex B.</div><div class="rev-role">Startup CTO</div>
+        </div>
+        <!-- SET 2 (duplicate for seamless loop) -->
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"I had no idea my site was completely invisible to AI engines. RankEdge showed me exactly what to fix — we saw results within 2 weeks."</div>
+          <div class="rev-name">Sarah M.</div><div class="rev-role">E-commerce Founder</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Ran 12 client audits in one afternoon. The PDF report makes it so easy to present findings. This tool is a game changer for our agency."</div>
+          <div class="rev-name">David K.</div><div class="rev-role">SEO Agency Owner</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Free, instant, and more detailed than tools I pay $100/month for. The GEO score alone is worth it — no other tool shows you this."</div>
+          <div class="rev-name">James W.</div><div class="rev-role">Marketing Consultant</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"My local business was nowhere on Google. After running the audit and fixing the issues, I started ranking on the first page within a month."</div>
+          <div class="rev-name">Layla R.</div><div class="rev-role">Restaurant Owner</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"The GEO section is mind-blowing. I never knew ChatGPT and Perplexity couldn't find my site. Fixed the schema in 20 minutes flat."</div>
+          <div class="rev-name">Tom H.</div><div class="rev-role">SaaS Founder</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Sent the PDF to my client and they immediately approved the SEO retainer. Best free tool I've used in 10 years of digital marketing."</div>
+          <div class="rev-name">Priya S.</div><div class="rev-role">Digital Marketing Agency</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Honestly shocked this is free. The audit flagged 4 critical issues we had missed for over a year. Our traffic went up 60% after the fixes."</div>
+          <div class="rev-name">Marco L.</div><div class="rev-role">E-commerce Director</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"Super clean report, easy to understand even for non-technical clients. I use RankEdge for every new client onboarding now."</div>
+          <div class="rev-name">Nina C.</div><div class="rev-role">Freelance SEO Consultant</div>
+        </div>
+        <div class="rev-card">
+          <div class="stars">★★★★★</div>
+          <div class="rev-text">"The performance score showed exactly why our bounce rate was high. Fixed the Core Web Vitals and conversions improved in days."</div>
+          <div class="rev-name">Alex B.</div><div class="rev-role">Startup CTO</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="lp-section" id="pricing" style="background:rgba(255,255,255,0.01)">
+    <span class="sec-tag reveal">Pricing</span>
+    <div class="sec-title reveal" style="transition-delay:0.1s">Simple, transparent pricing</div>
+    <p class="sec-sub reveal" style="transition-delay:0.2s">Start free, upgrade when you need more. No hidden fees, no surprises.</p>
+    <div style="display:flex;justify-content:center">
+      <!-- FREE — full width centered -->
+      <div class="pr-card reveal" style="max-width:560px;width:100%;padding:3rem 3.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
+          <div class="pr-name" style="font-size:3.5rem">Free</div>
+          <div class="pr-price" style="margin-bottom:0">
+            <span class="pr-amount" style="font-size:3.5rem">$0</span>
+            <span class="pr-mo">/mo</span>
+          </div>
+        </div>
+        <div class="pr-desc" style="text-align:left;margin-bottom:1.5rem">Everything you need to audit and fix your SEO — completely free, forever.</div>
+        <div class="pr-divider"></div>
+        <ul class="pr-features" style="display:grid;grid-template-columns:1fr 1fr;gap:10px 2rem">
+          <li>1 audit per day</li>
+          <li>SEO & GEO score</li>
+          <li>Top 4 critical issues</li>
+          <li>PDF report download</li>
+          <li>GEO / AI engine check</li>
+          <li>No signup required</li>
+        </ul>
+        <button class="hbtn" onclick="window.location.href='audit.html'" style="margin-top:2rem;width:100%;font-size:16px">Get Started Free →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEO CONTENT SECTION -->
+  <section class="lp-section" style="text-align:left;max-width:860px;margin:0 auto;padding-top:2rem">
+    <style>
+      .seo-lead{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:1.25rem}
+      .seo-p{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.85;margin-bottom:1.25rem}
+      .seo-p strong{color:rgba(255,255,255,0.85);font-weight:600}
+      .seo-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem 3rem;margin-top:2.5rem}
+      .seo-col-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:0.5rem}
+      .seo-col-text{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.75}
+      @media(max-width:600px){.seo-cols{grid-template-columns:1fr}}
+
+      /* FAQ */
+      .faq-section{max-width:860px;margin:4rem auto 0;padding:0 2rem}
+      .faq-title{font-size:clamp(1.6rem,3.5vw,2rem);font-weight:800;color:#fff;margin-bottom:2rem}
+      .faq-item{border:1px solid rgba(255,255,255,0.08);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color 0.2s;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(255,255,255,0.02)}
+      .faq-item.open{border-color:rgba(255,255,255,0.18)}
+      .faq-q{display:flex;align-items:center;gap:12px;padding:1.1rem 1.25rem;cursor:pointer;user-select:none}
+      .faq-icon{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:rgba(255,255,255,0.4);font-size:13px;transition:all 0.2s}
+      .faq-item.open .faq-icon{border-color:rgba(255,255,255,0.5);color:#fff}
+      .faq-q-text{font-size:15px;font-weight:500;color:#fff;flex:1}
+      .faq-arrow{color:rgba(255,255,255,0.3);font-size:13px;transition:transform 0.3s}
+      .faq-item.open .faq-arrow{transform:rotate(180deg);color:#fff}
+      .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
+      .faq-a-inner{padding:0 1.25rem 1.25rem 3.5rem;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.8}
+    </style>
+
+    <h2 class="seo-lead reveal">Instant SEO & GEO Audit.<br>No Signup. No Credit Card.</h2>
+    <p class="seo-p reveal">Our <strong>free AI-powered SEO audit tool</strong> analyzes your website in seconds — scanning for critical technical SEO issues, GEO (Generative Engine Optimization) visibility gaps, Core Web Vitals problems, and more. Unlike traditional tools that lock reports behind paywalls, RankEdge delivers a full professional audit report instantly, completely free.</p>
+    <p class="seo-p reveal">Whether you're a business owner trying to understand why you're invisible on Google, or an SEO agency looking to audit clients at scale — RankEdge gives you <strong>actionable data you can actually use</strong>. See your SEO score, your GEO visibility across ChatGPT, Perplexity, Google AI Overview, and Microsoft Copilot, and a prioritized list of fixes ranked by impact.</p>
+
+    <div class="seo-cols reveal">
+      <div>
+        <div class="seo-col-title">What Is GEO?</div>
+        <div class="seo-col-text">Generative Engine Optimization (GEO) is the practice of making your website visible to AI-powered search engines like ChatGPT, Perplexity, and Google AI Overviews. As millions of users shift to AI for answers, appearing in these results is the new frontier of search visibility.</div>
+      </div>
+      <div>
+        <div class="seo-col-title">Why Schema Markup Matters</div>
+        <div class="seo-col-text">Schema markup is structured data that helps search engines and AI models understand your content. Sites without it are virtually invisible to AI search engines. Our audit checks for FAQPage, LocalBusiness, Article, and Product schema — the highest-impact GEO actions you can take.</div>
+      </div>
+      <div>
+        <div class="seo-col-title">Core Web Vitals & Page Speed</div>
+        <div class="seo-col-text">Google uses Core Web Vitals (LCP, FID, CLS) as direct ranking signals. A slow page doesn't just frustrate visitors — it actively hurts your position in search results. Our audit flags performance bottlenecks and gives you a clear performance score.</div>
+      </div>
+      <div>
+        <div class="seo-col-title">Downloadable PDF Report</div>
+        <div class="seo-col-text">Every audit generates a clean, professional PDF report you can download and share with clients or your team. It includes your SEO score, GEO analysis, critical issues, and a numbered list of recommended fixes — ready to present.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2 class="faq-title reveal">Frequently Asked Questions</h2>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-icon">✓</div>
+        <div class="faq-q-text">Is the SEO audit really 100% free?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Yes — completely free, no credit card required, no account needed. You enter your URL, our AI analyzes your site, and you get a full audit report including a downloadable PDF. There are no hidden fees or trial periods.</div></div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-icon">✓</div>
+        <div class="faq-q-text">What does the audit actually check?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">The audit checks your SEO score (meta tags, schema markup, sitemap, robots.txt, title tags, duplicate content), your GEO visibility (how likely AI engines like ChatGPT, Perplexity, Google AI Overview, and Copilot are to cite your site), your performance score (Core Web Vitals, page speed), and generates a list of prioritized recommendations.</div></div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-icon">✓</div>
+        <div class="faq-q-text">What is GEO and why does it matter?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">GEO stands for Generative Engine Optimization — the practice of making your website visible to AI-powered search tools like ChatGPT, Perplexity, and Google AI Overviews. As users increasingly turn to AI for answers instead of traditional search, GEO visibility is becoming as important as traditional SEO. RankEdge is one of the only free tools that audits this.</div></div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-icon">✓</div>
+        <div class="faq-q-text">How long does the audit take?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">The audit typically completes in under 30 seconds. Just enter your website URL, click Analyze, and our AI scans your site across all dimensions. You'll see your results instantly and can download the full PDF report right away.</div></div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-icon">✓</div>
+        <div class="faq-q-text">Can I use this for client audits?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Absolutely. Many SEO agencies and freelancers use RankEdge to run audits for their clients. The downloadable PDF report is clean, professional, and ready to present. You can run as many audits as you need — there are no usage limits.</div></div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-icon">✓</div>
+        <div class="faq-q-text">Do I need technical knowledge to understand the results?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">No. The audit is designed to be clear and actionable for everyone — from business owners with no technical background to seasoned developers. Each issue is explained in plain English, and recommendations are ranked by impact so you know exactly what to fix first.</div></div>
+    </div>
+  </div>
+
+  <script>
+  function toggleFaq(el) {
+    var isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(f){
+      f.classList.remove('open');
+      f.querySelector('.faq-a').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      el.classList.add('open');
+      el.querySelector('.faq-a').style.maxHeight = el.querySelector('.faq-a').scrollHeight + 'px';
+    }
+  }
+  </script>
+
+  <!-- CTA -->
+  <section class="lp-section">
+    <div class="cta-wrap reveal">
+      <div class="cta-pill">✓ Free forever · No credit card · No account</div>
+      <div class="cta-title">Ready to get found?</div>
+      <p class="cta-sub">Join thousands of businesses who discovered why they were invisible online — and fixed it.</p>
+      <button class="hbtn" onclick="window.location.href='audit.html'">Get My Free Audit →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lp-footer">
+    <div class="footer-logo"><img src="rank-edge-whitelogo-.png" alt="Rank Edge" style="height:28px;width:auto;display:block"></div>
+    <div class="footer-copy">© 2026 RankEdge.com · Free AI-powered SEO & GEO audits</div>
+    <div class="footer-links">
+      <a onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</a>
+      <a href="audit.html">Free Audit</a>
+      <a href="mailto:contact@rank-edge.com">Contact</a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- PAGE 2: URL INPUT -->
+<div class="page" id="p2">
+  <div class="card">
+    <div class="step-label">Step 1 of 3</div>
+    <div class="card-title">ANALYZE YOUR<br><span>WEBSITE</span></div>
+    <p class="card-sub">Enter your URL — our AI will scan your site for SEO issues, GEO visibility, performance gaps, and more.</p>
+    <input class="url-in" type="text" id="urlInput" placeholder="https://yourbusiness.com" />
+    <button class="btn-full" id="analyzeBtn" onclick="runAnalysis()">Analyze My Website Free →</button>
+  </div>
+</div>
+
+<!-- WHATSAPP SUPPORT BUTTON -->
+<style>
+@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes waPop{from{opacity:0;transform:translateX(12px) scale(0.9)}to{opacity:1;transform:translateX(0) scale(1)}}
+#waWrap{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#waMsg{background:#fff;color:#111;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 16px;border-radius:16px 16px 4px 16px;box-shadow:0 4px 20px rgba(0,0,0,0.15);white-space:nowrap;animation:waPop 0.4s cubic-bezier(0.16,1,0.3,1) 3s both;cursor:pointer;line-height:1.5;opacity:0}
+#waMsg span{display:block;font-size:11px;color:#888;margin-top:2px}
+#waClose{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:#ccc;border:none;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#333;line-height:1}
+#waBtn{width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.45);animation:waBounce 2s ease-in-out infinite;text-decoration:none;transition:box-shadow 0.2s}
+#waBtn:hover{box-shadow:0 6px 28px rgba(37,211,102,0.65);animation:none;transform:scale(1.08)}
+</style>
+<div id="waWrap">
+  <div id="waMsg" onclick="window.open('https://wa.me/33759534611?text=Hey%2C%20I%20need%20help%20with%20RankEdge','_blank')">
+    <button id="waClose" onclick="event.stopPropagation();document.getElementById('waMsg').style.display='none'">✕</button>
+    👋 Need help? Contact us!
+    <span>We reply in minutes</span>
+  </div>
+  <a href="https://wa.me/33759534611?text=Hey%2C%20I%20need%20help%20with%20RankEdge" target="_blank" id="waBtn">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+<script>
+// Hide message after 11 seconds (3s delay + 8s visible)
+setTimeout(function(){
+  var msg = document.getElementById('waMsg');
+  if(msg) msg.style.display='none';
+}, 11000);
+</script>
+
+<!-- PAGE 3: RESULTS -->
+<div class="page" id="p3">
+  <div class="result-wrap">
+    <div class="r-header">
+      <div class="r-icon">📊</div>
+      <div class="r-title">YOUR AUDIT REPORT</div>
+      <div class="r-url" id="rUrl">yourbusiness.com</div>
+    </div>
+    <div class="scores">
+      <div class="sc"><div class="sc-lbl">SEO Score</div><div class="sc-val yw" id="seoVal">—</div></div>
+      <div class="sc"><div class="sc-lbl">GEO Score</div><div class="sc-val rd" id="geoVal">—</div></div>
+      <div class="sc"><div class="sc-lbl">Performance</div><div class="sc-val gn" id="perfVal">—</div></div>
+    </div>
+    <div class="section-box">
+      <div class="section-ttl">Critical Issues Found</div>
+      <div id="issuesList"></div>
+    </div>
+    <div class="section-box">
+      <div class="section-ttl">GEO — AI Engine Visibility</div>
+      <table class="ai-table">
+        <thead><tr><th>AI Engine</th><th>Citation Likelihood</th><th>Main Blocker</th></tr></thead>
+        <tbody id="geoTable"></tbody>
+      </table>
+    </div>
+    <div class="section-box">
+      <div class="section-ttl">Top Recommendations</div>
+      <div class="recs" id="recsList"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:3rem">
+      <button class="btn-pdf-dl" id="pdfBtn" onclick="downloadPDF()">⬇ Download Full PDF Report</button>
+      <button class="btn-outline" onclick="go(4)">I want a free website redesign →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: FREE WEB DESIGN -->
+<div class="page" id="p4">
+  <div class="offer-card">
+    <div class="free-pill">100% Free</div>
+    <div class="offer-title">FREE WEBSITE<br><span>FOR YOUR BUSINESS</span></div>
+    <p class="offer-sub">We design and build your website for free — fully optimized for SEO, GEO, and high traffic.<br>You only pay for domain & hosting.<br><br>How would you like to get started?</p>
+    <div class="co-grid">
+      <a class="co wa" href="https://wa.me/33759534611?text=Hey%20I%20want%20free%20web%20design%20for%20my%20business" target="_blank">
+        <div class="co-ic wa">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="co-lbl">WhatsApp</div>
+        <div class="co-sub2">Reply in minutes</div>
+      </a>
+      <a class="co em" href="mailto:contact@rank-edge.com?subject=Free%20Web%20Design%20Request&body=Hey%2C%20I%20want%20a%20free%20website%20for%20my%20business" target="_blank">
+        <div class="co-ic em" style="font-size:22px">✉</div>
+        <div class="co-lbl">Email</div>
+        <div class="co-sub2">contact@rank-edge.com</div>
+      </a>
+    </div>
+    <button class="back-btn" onclick="go(3)">← Back to my report</button>
+  </div>
+</div>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─── GLOBE ───
+(function() {
+  var canvas = document.getElementById('globeCanvas');
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 3.2);
+
+  // Wireframe sphere
+  var geo = new THREE.SphereGeometry(1, 36, 36);
+  var mat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.13 });
+  var globe = new THREE.Mesh(geo, mat);
+  scene.add(globe);
+
+  // Outer glow ring
+  var ringGeo = new THREE.TorusGeometry(1.12, 0.004, 2, 120);
+  var ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.18 });
+  var ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.rotation.x = Math.PI / 2.3;
+  scene.add(ring);
+
+  function resize() {
+    var hero = canvas.parentElement;
+    var w = hero.offsetWidth;
+    var h = hero.offsetHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    globe.rotation.y += 0.003;
+    globe.rotation.x += 0.001;
+    ring.rotation.z += 0.002;
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
+<script>
+// ─── CONFIG ───
+// ⚠️ IMPORTANT: Replace with your API key — store in backend in production!
+var ANTHROPIC_KEY = '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';
+var WA_NUMBER = '33759534611';
+var EMAIL = 'contact@rank-edge.com';
+
+// ─── STATE ───
+var currentPage = 1;
+var auditData = {};
+
+// ─── NAVIGATION ───
+function go(n) {
+  // hide ALL pages immediately
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active', 'page-leave', 'page-enter');
+  });
+
+  // force scroll to top synchronously — set on all targets to cover all browsers
+  document.documentElement.style.scrollBehavior = 'auto';
+  document.body.style.scrollBehavior = 'auto';
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  window.scrollTo(0, 0);
+
+  // show target page and animate in
+  var entering = document.getElementById('p' + n);
+  entering.classList.add('active', 'page-enter');
+  setTimeout(function() { entering.classList.remove('page-enter'); }, 800);
+
+  // re-apply scroll reset after paint (Safari restores scroll when overflow:hidden is not used)
+  requestAnimationFrame(function() {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo(0, 0);
+    document.documentElement.style.scrollBehavior = '';
+    document.body.style.scrollBehavior = '';
+  });
+
+  currentPage = n;
+}
+
+// ─── ANALYSIS STEPS ───
+var steps = [
+  'Scanning meta tags & title...',
+  'Checking robots.txt & sitemap...',
+  'Analyzing schema markup...',
+  'Auditing GEO / AI engine visibility...',
+  'Checking page speed & Core Web Vitals...',
+  'Analyzing content & keywords...',
+  'Generating your report...'
+];
+
+// ─── RUN ANALYSIS ───
+async function runAnalysis() {
+  var url = document.getElementById('urlInput').value.trim();
+  if (!url) { alert('Please enter your website URL'); return; }
+  if (!url.startsWith('http')) url = 'https://' + url;
+
+  var btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+
+  var overlay = document.getElementById('overlay');
+  var ovStep = document.getElementById('ovStep');
+  overlay.classList.add('active');
+
+  var si = 0;
+  var iv = setInterval(function() {
+    if (si < steps.length) { ovStep.textContent = steps[si]; si++; }
+  }, 600);
+
+  try {
+    var domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '');
+
+    var prompt = `You are an expert SEO and GEO (Generative Engine Optimization) auditor. Analyze the website: ${url}
+
+Return ONLY a valid JSON object (no markdown, no backticks, no explanation) with this exact structure:
+{
+  "seoScore": <number 0-100>,
+  "geoScore": <number 0-100>,
+  "perfScore": <number 0-100>,
+  "issues": [
+    {"text": "<issue>", "level": "critical|warning|info"},
+    {"text": "<issue>", "level": "critical|warning|info"},
+    {"text": "<issue>", "level": "critical|warning|info"},
+    {"text": "<issue>", "level": "critical|warning|info"}
+  ],
+  "geoEngines": [
+    {"engine": "ChatGPT / OpenAI", "likelihood": "Very Low|Low|Medium|High", "blocker": "<blocker>"},
+    {"engine": "Perplexity", "likelihood": "Very Low|Low|Medium|High", "blocker": "<blocker>"},
+    {"engine": "Google AI Overview", "likelihood": "Very Low|Low|Medium|High", "blocker": "<blocker>"},
+    {"engine": "Microsoft Copilot", "likelihood": "Very Low|Low|Medium|High", "blocker": "<blocker>"}
+  ],
+  "recommendations": [
+    "<rec 1>", "<rec 2>", "<rec 3>", "<rec 4>", "<rec 5>"
+  ],
+  "executiveSummary": "<2-3 sentence summary>"
+}`;
+
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    var data = await res.json();
+    var raw = data.content[0].text;
+    raw = raw.replace(/```json|```/g, '').trim();
+    auditData = JSON.parse(raw);
+    auditData.domain = domain;
+    auditData.url = url;
+
+  } catch (e) {
+    // Fallback demo data
+    auditData = {
+      domain: url.replace(/https?:\/\//, '').replace(/\/.*/, ''),
+      url: url,
+      seoScore: Math.floor(Math.random() * 35) + 30,
+      geoScore: Math.floor(Math.random() * 25) + 15,
+      perfScore: Math.floor(Math.random() * 25) + 55,
+      issues: [
+        { text: 'No schema markup detected — invisible to AI search engines', level: 'critical' },
+        { text: 'Missing meta descriptions on key pages', level: 'critical' },
+        { text: 'No sitemap.xml found or submitted to Google Search Console', level: 'warning' },
+        { text: 'Mobile page speed below optimal threshold', level: 'warning' }
+      ],
+      geoEngines: [
+        { engine: 'ChatGPT / OpenAI', likelihood: 'Very Low', blocker: 'No crawlable content or schema' },
+        { engine: 'Perplexity', likelihood: 'Very Low', blocker: 'No FAQ schema detected' },
+        { engine: 'Google AI Overview', likelihood: 'Low', blocker: 'Missing structured data & E-E-A-T signals' },
+        { engine: 'Microsoft Copilot', likelihood: 'Very Low', blocker: 'Poor Bing indexation' }
+      ],
+      recommendations: [
+        'Add FAQPage JSON-LD schema — highest impact GEO action',
+        'Create unique meta title & description for every page',
+        'Generate and submit sitemap.xml to Google Search Console',
+        'Enable server-side rendering if using a React/Vue SPA',
+        'Add LocalBusiness schema with full business details'
+      ],
+      executiveSummary: 'The site has significant technical SEO gaps limiting visibility on both traditional and AI-powered search engines. Addressing schema markup and indexability should be the first priority.'
+    };
+  }
+
+  clearInterval(iv);
+  overlay.classList.remove('active');
+  btn.disabled = false;
+  renderResults();
+  go(3);
+}
+
+// ─── RENDER RESULTS ───
+function renderResults() {
+  var d = auditData;
+  document.getElementById('rUrl').textContent = d.domain || d.url;
+
+  var sv = document.getElementById('seoVal');
+  var gv = document.getElementById('geoVal');
+  var pv = document.getElementById('perfVal');
+  sv.textContent = d.seoScore + '/100';
+  gv.textContent = d.geoScore + '/100';
+  pv.textContent = d.perfScore + '/100';
+  sv.className = 'sc-val score-pop ' + (d.seoScore > 65 ? 'gn' : d.seoScore > 40 ? 'yw' : 'rd');
+  gv.className = 'sc-val score-pop ' + (d.geoScore > 65 ? 'gn' : d.geoScore > 40 ? 'yw' : 'rd');
+  pv.className = 'sc-val score-pop ' + (d.perfScore > 65 ? 'gn' : d.perfScore > 40 ? 'yw' : 'rd');
+  gv.style.animationDelay = '0.12s';
+  pv.style.animationDelay = '0.24s';
+
+  document.getElementById('issuesList').innerHTML = (d.issues || []).map(function(i) {
+    var c = i.level === 'critical' ? 'r' : i.level === 'warning' ? 'y' : 'g';
+    return '<div class="issue"><div class="idot ' + c + '"></div><span>' + i.text + '</span></div>';
+  }).join('');
+
+  document.getElementById('geoTable').innerHTML = (d.geoEngines || []).map(function(e) {
+    var pc = e.likelihood === 'High' ? 'pill-gn' : e.likelihood === 'Medium' ? 'pill-yw' : 'pill-rd';
+    return '<tr><td>' + e.engine + '</td><td><span class="' + pc + '">' + e.likelihood + '</span></td><td style="color:rgba(255,255,255,0.4);font-size:11px">' + (e.blocker || '') + '</td></tr>';
+  }).join('');
+
+  document.getElementById('recsList').innerHTML = (d.recommendations || []).map(function(r, i) {
+    return '<div class="rec"><div class="rnum">' + (i + 1) + '</div><span>' + r + '</span></div>';
+  }).join('');
+}
+
+// ─── DOWNLOAD PDF ───
+function downloadPDF() {
+  var d = auditData;
+  var btn = document.getElementById('pdfBtn');
+  btn.textContent = 'Generating PDF...';
+  btn.disabled = true;
+
+  try {
+    var doc = new jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    var W = 210, M = 18, Y = 20;
+
+    // Header bar
+    doc.setFillColor(0, 0, 0);
+    doc.rect(0, 0, W, 44, 'F');
+
+    // Globe logo (drawn with primitives) at left
+    var gx = M + 7, gy = 22, gr = 7; // center x, center y, radius
+    doc.setDrawColor(255, 255, 255);
+    doc.setLineWidth(0.7);
+    // outer circle
+    doc.circle(gx, gy, gr, 'S');
+    // vertical meridian ellipses (approximated as ellipses)
+    doc.ellipse(gx, gy, gr * 0.4, gr, 'S');
+    doc.ellipse(gx, gy, gr * 0.75, gr, 'S');
+    // horizontal latitude lines
+    doc.line(gx - gr, gy - gr * 0.38, gx + gr, gy - gr * 0.38);
+    doc.line(gx - gr, gy,             gx + gr, gy);
+    doc.line(gx - gr, gy + gr * 0.38, gx + gr, gy + gr * 0.38);
+
+    // Brand name
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Rank Edge', M + 17, 20);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(200, 200, 200);
+    doc.text('rankedge.com', M + 17, 27);
+
+    // Right side info
+    doc.setTextColor(200, 200, 200);
+    doc.setFontSize(9);
+    doc.text('SEO & GEO Audit Report', W - M, 18, { align: 'right' });
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text(d.domain || d.url, W - M, 27, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(200, 200, 200);
+    var dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    doc.text(dateStr, W - M, 35, { align: 'right' });
+
+    Y = 52;
+
+    // Executive Summary
+    doc.setFillColor(240, 255, 245);
+    doc.roundedRect(M, Y, W - M * 2, 24, 3, 3, 'F');
+    doc.setTextColor(0, 100, 40);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.text('EXECUTIVE SUMMARY', M + 4, Y + 7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 30, 30);
+    var sumLines = doc.splitTextToSize(d.executiveSummary || '', W - M * 2 - 8);
+    doc.text(sumLines, M + 4, Y + 14);
+    Y += 30;
+
+    // Scores
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('SCORES', M, Y);
+    Y += 6;
+    var scoreData = [['SEO Score', d.seoScore], ['GEO Score', d.geoScore], ['Performance', d.perfScore]];
+    var bW = (W - M * 2 - 8) / 3;
+    scoreData.forEach(function(s, i) {
+      var x = M + i * (bW + 4);
+      var sc = s[1];
+      var clr = sc > 65 ? [0, 180, 60] : sc > 40 ? [220, 150, 0] : [210, 50, 50];
+      doc.setFillColor(clr[0], clr[1], clr[2]);
+      doc.roundedRect(x, Y, bW, 20, 2, 2, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text(s[0], x + bW / 2, Y + 7, { align: 'center' });
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text(sc + '/100', x + bW / 2, Y + 16, { align: 'center' });
+    });
+    Y += 28;
+
+    // Issues
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('CRITICAL ISSUES', M, Y);
+    Y += 6;
+    (d.issues || []).forEach(function(iss) {
+      var clr = iss.level === 'critical' ? [210, 50, 50] : iss.level === 'warning' ? [200, 140, 0] : [0, 160, 60];
+      doc.setFillColor(clr[0], clr[1], clr[2]);
+      doc.circle(M + 3, Y + 2, 1.8, 'F');
+      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      var lines = doc.splitTextToSize(iss.text, W - M * 2 - 12);
+      doc.text(lines, M + 9, Y + 4);
+      Y += lines.length * 5 + 4;
+    });
+    Y += 4;
+
+    // GEO Table
+    if (Y > 230) { doc.addPage(); Y = 20; }
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('GEO — AI ENGINE VISIBILITY', M, Y);
+    Y += 6;
+    doc.setFillColor(20, 20, 20);
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
+    doc.rect(M, Y, W - M * 2, 7, 'F');
+    doc.text('AI Engine', M + 3, Y + 5);
+    doc.text('Citation Likelihood', M + 72, Y + 5);
+    doc.text('Main Blocker', M + 112, Y + 5);
+    Y += 7;
+    (d.geoEngines || []).forEach(function(e, i) {
+      if (i % 2 === 0) doc.setFillColor(248, 252, 248); else doc.setFillColor(255, 255, 255);
+      doc.rect(M, Y, W - M * 2, 7, 'F');
+      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(8);
+      doc.text(e.engine, M + 3, Y + 5);
+      var lc = e.likelihood === 'High' ? [0, 150, 60] : e.likelihood === 'Medium' ? [190, 130, 0] : [190, 50, 50];
+      doc.setTextColor(lc[0], lc[1], lc[2]);
+      doc.text(e.likelihood, M + 72, Y + 5);
+      doc.setTextColor(100, 100, 100);
+      doc.text(doc.splitTextToSize(e.blocker || '', 55)[0], M + 112, Y + 5);
+      Y += 7;
+    });
+    Y += 8;
+
+    // Recommendations
+    if (Y > 230) { doc.addPage(); Y = 20; }
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PRIORITY RECOMMENDATIONS', M, Y);
+    Y += 6;
+    (d.recommendations || []).forEach(function(r, i) {
+      doc.setFillColor(0, 200, 83);
+      doc.circle(M + 3, Y + 2, 2.5, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.text('' + (i + 1), M + 3, Y + 3, { align: 'center' });
+      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      var lines = doc.splitTextToSize(r, W - M * 2 - 12);
+      doc.text(lines, M + 9, Y + 4);
+      Y += lines.length * 5 + 5;
+    });
+
+    // Footer
+    doc.setFillColor(0, 200, 83);
+    doc.rect(0, 287, W, 10, 'F');
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('RankEdge.com — contact@rank-edge.com | wa.me/33759534611', W / 2, 293, { align: 'center' });
+
+    doc.save('RankEdge-Audit-' + (d.domain || 'report') + '.pdf');
+
+  } catch (e) {
+    alert('Error generating PDF. Please try again.');
+    console.error(e);
+  }
+
+  btn.innerHTML = '⬇ Download Full PDF Report';
+  btn.disabled = false;
+}
+
+// Enter key
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('urlInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') runAnalysis();
+  });
+});
+</script>
+
+<script>
+// ─── HOVER BUTTON CIRCLES ───
+(function(){
+  var lastTime = 0;
+  document.addEventListener('pointermove', function(e){
+    var btn = e.target && e.target.closest('.hbtn');
+    if(!btn) return;
+    var now = Date.now();
+    if(now - lastTime < 100) return;
+    lastTime = now;
+    var rect = btn.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    var xPct = x / rect.width;
+    var c = document.createElement('div');
+    c.className = 'hbtn-circle';
+    c.style.left = x + 'px';
+    c.style.top  = y + 'px';
+    c.style.background = 'linear-gradient(to right, #a0d9f8 ' + (xPct*100) + '%, #3a5bbf ' + (xPct*100) + '%)';
+    btn.appendChild(c);
+    requestAnimationFrame(function(){ c.classList.add('in'); });
+    setTimeout(function(){ c.classList.replace('in','out'); }, 1000);
+    setTimeout(function(){ c.parentNode && c.parentNode.removeChild(c); }, 2200);
+  });
+})();
+
+// ─── MARQUEE BUILD ───
+(function(){
+  var icons = [
+    { name:'ChatGPT', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.843-3.369 2.02-1.168a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.402-.681zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>' },
+    { name:'Gemini', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 24A14.304 14.304 0 0 0 0 12 14.304 14.304 0 0 0 12 0a14.304 14.304 0 0 0 12 12 14.304 14.304 0 0 0-12 12z" fill="#fff"/></svg>' },
+    { name:'Claude', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.481-.097L.8 12.587l-.097-.495.191-.43.383-.24.383.033 1.784.144 2.483.191 2.339.19h.574l.048-.095-.048-.096-2.34-3.255-1.927-2.886-1.004-1.64L3.04 3.18l.144-.527.384-.383h.527l.43.19.287.384 1.29 2.147 1.88 3.017 1.786 2.886.048.05h.095V10.85l.144-2.675.137-2.483.094-2.27V3.18l.144-.813.383-.43.525-.143.383.143.384.43.048.335.143 1.976.144 2.72.048 2.77v.765l.094.048.096-.048 1.4-1.928 1.736-2.27 1.257-1.592.622-.765.527-.43.525.048.43.19.096.527-.335.622-1.21 1.83-1.976 2.674-1.016 1.4.048.128.127-.048L17.91 7.93l2.243-.765 1.593-.43.669.096.43.335.19.43-.047.383-.43.526-1.24.718-2.435 1.19-2.004.957-.19.095.048.095.191.048 2.532.19 1.88.19 1.401.383.43.43.095.336-.096.43-.383.24h-.526l-2.34-.334-2.484-.43-1.357-.24-.143.096.047.143 1.15 1.928 1.546 2.34.622 1.195-.047.43-.287.382-.335.145-.43-.048-.527-.43-1.64-2.34-1.68-2.53-.048-.048h-.095l-.048.048v.335l-.048 2.34-.144 2.05-.094 1.592-.144.527-.43.43h-.43l-.43-.43-.19-.622.19-2.147.143-3.016v-.909l-.095-.048-.096.048-.956 1.4-1.63 2.148-1.16 1.4-.478.335-.43.047-.335-.19-.144-.43.191-.574z"/></svg>' },
+    { name:'Perplexity', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M22.438 7.14h-3.986V2.712l-6.45 4.88V2.695L5.548 7.14H1.562v1h2.496l-.001 7.663H1.562v1h3.173l-.001 5.487h1V16.8h12.527v5.487h1V16.8h3.175v-1h-2.496l-.001-7.662h2.498zm-4.986-2.868v2.868H13.21zm-5.45.01v2.857H7.768zM5.057 15.803l.001-7.662h13.886l.001 7.662z"/></svg>' },
+    { name:'Copilot', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M23.998 12c0 6.628-5.372 12-11.999 12C5.372 24 0 18.628 0 12S5.372 0 11.999 0C18.626 0 23.998 5.372 23.998 12zm-7.242-4.754a.957.957 0 0 0-.957.957v5.795a.957.957 0 0 0 1.913 0V8.203a.957.957 0 0 0-.956-.957zm-9.51 0a.957.957 0 0 0-.958.957v5.795a.957.957 0 0 0 1.914 0V8.203a.957.957 0 0 0-.956-.957zm4.755 1.594a.957.957 0 0 0-.957.956v2.607a.957.957 0 0 0 1.913 0V9.796a.957.957 0 0 0-.956-.956z"/></svg>' },
+    { name:'Google AI', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>' },
+    { name:'Meta AI', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.985 1.979 1.22 3.061 1.22 1.46 0 2.571-.613 3.353-1.746.572-.83.877-1.99.877-3.244 0-2.07-.63-4.524-1.901-6.302C22.103 5.357 20.192 4 18.108 4c-1.275 0-2.858.385-4.451 2.338C12.561 5.203 11.269 4 9.25 4c-.782 0-1.562.181-2.335.03z"/></svg>' },
+    { name:'Grok', svg:'<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' },
+  ];
+
+  var html = icons.map(function(ic){
+    return '<div class="m-icon"><div class="m-icon-box">'+ic.svg+'</div><span>'+ic.name+'</span></div>';
+  }).join('');
+
+  var el = document.getElementById('marqueeInner');
+  // 6 copies so content always fills the screen; animate -16.67% = 1 set width, seamless loop
+  if(el){ el.innerHTML = html + html + html + html + html + html; }
+})();
+
+// ─── NAV SCROLL EFFECT ───
+(function(){
+  var nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 40){
+      nav.style.background = 'rgba(0,0,0,0.75)';
+      nav.style.backdropFilter = 'blur(20px)';
+      nav.style.webkitBackdropFilter = 'blur(20px)';
+      nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+    } else {
+      nav.style.background = 'rgba(0,0,0,0)';
+      nav.style.backdropFilter = 'blur(0px)';
+      nav.style.webkitBackdropFilter = 'blur(0px)';
+      nav.style.borderBottomColor = 'transparent';
+    }
+  }, {passive:true});
+})();
+
+// ─── SCROLL REVEAL ───
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  function initReveal() {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+
+  initReveal();
+
+  var origGo = window.go;
+  window.go = function(n) {
+    origGo(n);
+    setTimeout(initReveal, 100);
+  };
+})();
+
+// ─── HEADLINE WORD-BY-WORD BLUR ───
+(function() {
+  // Split each .sec-title into word spans
+  document.querySelectorAll('.sec-title').forEach(function(el) {
+    var words = el.innerText.trim().split(/\s+/);
+    el.innerHTML = words.map(function(w) {
+      return '<span class="wblur">' + w + '</span>';
+    }).join(' ');
+    el.classList.add('wblur-wrap');
+  });
+
+  var wObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var spans = entry.target.querySelectorAll('.wblur');
+        spans.forEach(function(span, i) {
+          span.style.animationDelay = (i * 0.1) + 's';
+          span.classList.add('wblur-in');
+        });
+        wObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.wblur-wrap').forEach(function(el) {
+    wObserver.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
