@@ -363,7 +363,7 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 .hbtn-sm{padding:9px 22px;font-size:13px}
 
 /* ─── MARQUEE ─── */
-@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marqueeScroll{from{transform:translateX(-25%)}to{transform:translateX(-75%)}}
 .marquee-outer{overflow:hidden;width:100%;-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,#000 12%,#000 88%,transparent 100%)}
 .marquee-inner{display:flex;align-items:center;gap:3rem;animation:marqueeScroll 32s linear infinite;white-space:nowrap;width:max-content}
 .marquee-inner:hover{animation-play-state:paused}
