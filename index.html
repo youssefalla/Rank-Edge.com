@@ -263,15 +263,15 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 
 /* ─── PAGE TRANSITION ─── */
 @keyframes pageIn{
-  from{opacity:0;transform:translateY(24px)}
+  from{opacity:0;transform:translateY(32px)}
   to{opacity:1;transform:translateY(0)}
 }
 @keyframes pageOut{
   from{opacity:1;transform:translateY(0)}
-  to{opacity:0;transform:translateY(-16px)}
+  to{opacity:0;transform:translateY(-20px)}
 }
-.page-enter{animation:pageIn 0.55s cubic-bezier(0.16,1,0.3,1) both}
-.page-leave{animation:pageOut 0.3s cubic-bezier(0.4,0,1,1) both}
+.page-enter{animation:pageIn 0.85s cubic-bezier(0.16,1,0.3,1) both}
+.page-leave{animation:pageOut 0.45s cubic-bezier(0.4,0,1,1) both}
 
 /* stagger page children */
 .page-enter .card,
@@ -297,39 +297,39 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 
 /* ─── HERO ENTRANCE ANIMATIONS ─── */
 @keyframes blurFadeIn{
-  from{opacity:0;filter:blur(24px);transform:translateY(16px)}
+  from{opacity:0;filter:blur(28px);transform:translateY(20px)}
   to{opacity:1;filter:blur(0px);transform:translateY(0)}
 }
 @keyframes blurFadeInSub{
-  from{opacity:0;filter:blur(12px);transform:translateY(10px)}
+  from{opacity:0;filter:blur(14px);transform:translateY(14px)}
   to{opacity:1;filter:blur(0px);transform:translateY(0)}
 }
 @keyframes globeIn{
-  from{opacity:0;transform:scale(0.82);filter:blur(8px)}
+  from{opacity:0;transform:scale(0.78);filter:blur(16px)}
   to{opacity:1;transform:scale(1);filter:blur(0px)}
 }
 @keyframes slideDown{
-  from{opacity:0;transform:translateY(-14px);filter:blur(6px)}
+  from{opacity:0;transform:translateY(-18px);filter:blur(8px)}
   to{opacity:1;transform:translateY(0);filter:blur(0px)}
 }
 
 #globeCanvas{
-  animation:globeIn 1.4s cubic-bezier(0.16,1,0.3,1) 0s both;
+  animation:globeIn 2s cubic-bezier(0.16,1,0.3,1) 0s both;
 }
 .hero-badge-anim{
-  animation:slideDown 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+  animation:slideDown 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s both;
 }
 .hw{
   display:inline-block;
   opacity:0;
   filter:blur(20px);
-  animation:blurFadeIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+  animation:blurFadeIn 0.8s cubic-bezier(0.16,1,0.3,1) both;
 }
 .hero-sub-anim{
-  animation:blurFadeInSub 0.5s cubic-bezier(0.16,1,0.3,1) 1.2s both;
+  animation:blurFadeInSub 0.9s cubic-bezier(0.16,1,0.3,1) 1.3s both;
 }
 .hero-btn-anim{
-  animation:blurFadeInSub 0.5s cubic-bezier(0.16,1,0.3,1) 1.45s both;
+  animation:blurFadeInSub 0.9s cubic-bezier(0.16,1,0.3,1) 1.65s both;
 }
 
 /* ─── HOVER BUTTON ─── */
@@ -381,14 +381,14 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
   transition:none;
 }
 .wblur-in{
-  animation:blurFadeIn 0.55s cubic-bezier(0.16,1,0.3,1) both;
+  animation:blurFadeIn 0.9s cubic-bezier(0.16,1,0.3,1) both;
 }
 
 /* ─── SCROLL REVEAL ─── */
 .reveal{
   opacity:0;
-  transform:translateY(40px);
-  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  transform:translateY(50px);
+  transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal.visible{
   opacity:1;
@@ -396,29 +396,29 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 }
 .reveal-left{
   opacity:0;
-  transform:translateX(-40px);
-  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  transform:translateX(-50px);
+  transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal-left.visible{opacity:1;transform:translateX(0)}
 .reveal-right{
   opacity:0;
-  transform:translateX(40px);
-  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  transform:translateX(50px);
+  transition:opacity 1.1s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal-right.visible{opacity:1;transform:translateX(0)}
 
 /* stagger children */
 .stagger > *{
   opacity:0;
-  transform:translateY(30px);
-  transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  transform:translateY(36px);
+  transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
 }
 .stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:0s}
-.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:0.1s}
-.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:0.2s}
-.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:0.3s}
-.stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:0.4s}
-.stagger.visible > *:nth-child(6){opacity:1;transform:none;transition-delay:0.5s}
+.stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:0.12s}
+.stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:0.24s}
+.stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:0.36s}
+.stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:0.48s}
+.stagger.visible > *:nth-child(6){opacity:1;transform:none;transition-delay:0.60s}
 </style>
 </head>
 <body>
