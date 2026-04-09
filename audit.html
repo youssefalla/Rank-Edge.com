@@ -510,6 +510,27 @@ var steps = [
   'Generating your report...'
 ];
 
+// ─── SEEDED RNG (deterministic per domain) ───
+function domainHash(str) {
+  var h = 0;
+  for (var i = 0; i < str.length; i++) {
+    h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+  }
+  return Math.abs(h);
+}
+function seededRand(seed, offset) {
+  var x = Math.sin(seed * 9301 + offset * 49297 + 233) * 93701;
+  return x - Math.floor(x);
+}
+function seededShuffle(arr, seed) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(seededRand(seed, i) * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
 // ─── RUN ANALYSIS ───
 function runAnalysis() {
   var url = document.getElementById('urlInput').value.trim();
@@ -528,12 +549,13 @@ function runAnalysis() {
     if (si < steps.length) { ovStep.textContent = steps[si]; si++; }
   }, 600);
 
-  var domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '');
+  var domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '').toLowerCase();
+  var seed = domainHash(domain);
 
-  // Random low scores
-  var seoScore = Math.floor(Math.random() * 20) + 18;  // 18–37
-  var geoScore = Math.floor(Math.random() * 15) + 8;   // 8–22
-  var perfScore = Math.floor(Math.random() * 20) + 40; // 40–59
+  // Deterministic scores based on domain — consistent every time, looks realistic
+  var seoScore = 18 + Math.floor(seededRand(seed, 1) * 22);   // 18–39
+  var geoScore = 8  + Math.floor(seededRand(seed, 2) * 18);   // 8–25
+  var perfScore = 38 + Math.floor(seededRand(seed, 3) * 24);  // 38–61
 
   var issuePool = [
     { text: 'No schema markup detected — invisible to AI search engines', level: 'critical' },
@@ -547,15 +569,16 @@ function runAnalysis() {
     { text: 'No Open Graph or Twitter Card meta tags found', level: 'info' },
     { text: 'Thin content detected on several pages (< 300 words)', level: 'critical' }
   ];
-  // shuffle and pick 4
-  issuePool.sort(function(){ return Math.random() - 0.5; });
-  var issues = issuePool.slice(0, 4);
+  var issues = seededShuffle(issuePool, seed + 10).slice(0, 4);
 
+  // GEO likelihoods vary per domain but stay consistent
+  var geoLevels = ['Very Low', 'Very Low', 'Low', 'Very Low'];
+  var geoShuffled = seededShuffle([0,1,2,3], seed + 20);
   var geoEngines = [
-    { engine: 'ChatGPT / OpenAI', likelihood: 'Very Low', blocker: 'No crawlable content or schema markup' },
-    { engine: 'Perplexity', likelihood: 'Very Low', blocker: 'No FAQ schema or structured data detected' },
-    { engine: 'Google AI Overview', likelihood: 'Low', blocker: 'Missing E-E-A-T signals & structured data' },
-    { engine: 'Microsoft Copilot', likelihood: 'Very Low', blocker: 'Poor Bing indexation & no schema' }
+    { engine: 'ChatGPT / OpenAI',    likelihood: geoLevels[geoShuffled[0]], blocker: 'No crawlable content or schema markup' },
+    { engine: 'Perplexity',          likelihood: geoLevels[geoShuffled[1]], blocker: 'No FAQ schema or structured data detected' },
+    { engine: 'Google AI Overview',  likelihood: geoLevels[geoShuffled[2]], blocker: 'Missing E-E-A-T signals & structured data' },
+    { engine: 'Microsoft Copilot',   likelihood: geoLevels[geoShuffled[3]], blocker: 'Poor Bing indexation & no schema' }
   ];
 
   var recPool = [
@@ -570,8 +593,7 @@ function runAnalysis() {
     'Claim and optimize your Google Business Profile',
     'Fix all broken internal links and redirect chains'
   ];
-  recPool.sort(function(){ return Math.random() - 0.5; });
-  var recommendations = recPool.slice(0, 5);
+  var recommendations = seededShuffle(recPool, seed + 30).slice(0, 5);
 
   auditData = {
     domain: domain,
