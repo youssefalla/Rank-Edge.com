@@ -791,27 +791,69 @@ function closeMobileMenu(){
     <span class="sec-tag reveal">Pricing</span>
     <div class="sec-title reveal" style="transition-delay:0.1s">Simple, transparent pricing</div>
     <p class="sec-sub reveal" style="transition-delay:0.2s">Start free, upgrade when you need more. No hidden fees, no surprises.</p>
-    <div style="display:flex;justify-content:center">
-      <!-- FREE — full width centered -->
-      <div class="pr-card reveal" style="max-width:560px;width:100%;padding:3rem 3.5rem">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem">
-          <div class="pr-name" style="font-size:3.5rem">Free</div>
-          <div class="pr-price" style="margin-bottom:0">
-            <span class="pr-amount" style="font-size:3.5rem">$0</span>
-            <span class="pr-mo">/mo</span>
-          </div>
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="pr-card reveal">
+        <div class="pr-name">Free</div>
+        <div class="pr-price">
+          <span class="pr-amount">$0</span>
+          <span class="pr-mo">/mo</span>
         </div>
-        <div class="pr-desc" style="text-align:left;margin-bottom:1.5rem">Everything you need to audit and fix your SEO — completely free, forever.</div>
+        <div class="pr-desc">Everything you need to audit and fix your SEO — completely free, forever.</div>
         <div class="pr-divider"></div>
-        <ul class="pr-features" style="display:grid;grid-template-columns:1fr 1fr;gap:10px 2rem">
+        <ul class="pr-features">
           <li>1 audit per day</li>
-          <li>SEO & GEO score</li>
+          <li>SEO &amp; GEO score</li>
           <li>Top 4 critical issues</li>
           <li>PDF report download</li>
           <li>GEO / AI engine check</li>
           <li>No signup required</li>
         </ul>
-        <button class="hbtn" onclick="window.location.href='audit.html'" style="margin-top:2rem;width:100%;font-size:16px">Get Started Free →</button>
+        <button class="pr-btn secondary" onclick="window.location.href='audit.html'">Get Started Free →</button>
+      </div>
+
+      <!-- PRO -->
+      <div class="pr-card popular reveal" style="transition-delay:0.1s">
+        <div class="pr-badge">MOST POPULAR</div>
+        <div class="pr-name">Pro</div>
+        <div class="pr-price">
+          <span class="pr-amount">$19</span>
+          <span class="pr-mo">/mo</span>
+        </div>
+        <div class="pr-desc">For founders &amp; marketers who want deeper insights and unlimited audits.</div>
+        <div class="pr-divider"></div>
+        <ul class="pr-features">
+          <li>Unlimited audits</li>
+          <li>Full issue breakdown</li>
+          <li>Competitor comparison</li>
+          <li>Priority PDF reports</li>
+          <li>GEO / AI visibility score</li>
+          <li>Email digest &amp; alerts</li>
+          <li>History &amp; trend tracking</li>
+        </ul>
+        <button class="pr-btn primary" onclick="window.location.href='audit.html'">Get Pro →</button>
+      </div>
+
+      <!-- AGENCY -->
+      <div class="pr-card reveal" style="transition-delay:0.2s">
+        <div class="pr-name">Agency</div>
+        <div class="pr-price">
+          <span class="pr-amount">$79</span>
+          <span class="pr-mo">/mo</span>
+        </div>
+        <div class="pr-desc">Built for agencies managing multiple clients and white-label reporting.</div>
+        <div class="pr-divider"></div>
+        <ul class="pr-features">
+          <li>Everything in Pro</li>
+          <li>Up to 50 domains</li>
+          <li>White-label PDF reports</li>
+          <li>Client dashboard</li>
+          <li>Bulk audit scheduling</li>
+          <li>API access</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="pr-btn secondary" onclick="window.location.href='audit.html'">Contact Sales →</button>
       </div>
 
     </div>
