@@ -123,7 +123,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 /* ─── PRICING GRID ─── */
 .pricing-wrap{position:relative;z-index:1;padding:0 2rem 6rem;display:flex;flex-direction:column;align-items:center}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1020px;width:100%;align-items:start}
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:820px;width:100%;align-items:start}
 .pr-card{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
   border-radius:26px;padding:2.5rem;display:flex;flex-direction:column;position:relative;
@@ -319,13 +319,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 <section class="hero">
   <div class="hero-tag hi0"><span class="bdot"></span> RankEdge Premium Plans</div>
   <h1 class="hero-title hi1">UNLOCK YOUR<br><em>FULL POTENTIAL</em></h1>
-  <p class="hero-sub hi2">Start free. Scale when you're ready. Every plan includes our AI-powered SEO & GEO engine.</p>
-  <div class="hi3">
-    <div class="toggle-wrap">
-      <button class="toggle-opt on" id="btnMonthly" onclick="setToggle('monthly')">Monthly</button>
-      <button class="toggle-opt" id="btnAnnual" onclick="setToggle('annual')">Annual <span class="save-tag">Save <b>25%</b></span></button>
-    </div>
-  </div>
+  <p class="hero-sub hi2">Start with a free website, or get the complete package — SEO, GEO, hosting, security & more. One-time payment, no subscriptions.</p>
 </section>
 
 <!-- PRICING CARDS -->
@@ -336,7 +330,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <div class="pr-card reveal">
       <div class="pr-plan">Starter</div>
       <div class="pr-name">Free</div>
-      <div class="pr-tagline">Audit your site, find critical issues — no card needed.</div>
+      <div class="pr-tagline">Get your professional website built — completely free, no strings attached.</div>
       <div class="pr-price-row">
         <span class="pr-amount">$0</span>
         <span class="pr-mo">/mo</span>
@@ -344,71 +338,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div class="pr-billed">&nbsp;</div>
       <div class="pr-divider"></div>
       <ul class="pr-features">
-        <li>1 full audit per day</li>
-        <li>SEO + GEO score</li>
-        <li>Top 4 critical issues</li>
-        <li>PDF report download</li>
-        <li>GEO / AI engine check</li>
-        <li>No signup required</li>
-        <li class="dim">Unlimited audits</li>
-        <li class="dim">Full issue breakdown</li>
-        <li class="dim">Competitor comparison</li>
-        <li class="dim">History & trend tracking</li>
+        <li>Free web design</li>
+        <li>Mobile-responsive layout</li>
+        <li>Modern & clean UI</li>
+        <li>Up to 5 pages</li>
+        <li>Basic SEO setup</li>
+        <li>Delivered in 7 days</li>
       </ul>
-      <button class="pr-btn-ghost" onclick="location.href='audit.html'">Get Started Free →</button>
+      <button class="pr-btn-ghost" onclick="location.href='mailto:contact@rank-edge.com'">Get Started Free →</button>
     </div>
 
-    <!-- PRO -->
-    <div class="pr-card popular reveal" style="transition-delay:0.1s">
-      <div class="pr-badge">MOST POPULAR</div>
-      <div class="pr-plan">Growth</div>
-      <div class="pr-name">Pro</div>
-      <div class="pr-tagline">For founders & marketers who want the full picture.</div>
+    <!-- FULL PACKAGE -->
+    <div class="pr-card popular reveal" style="transition-delay:0.12s">
+      <div class="pr-badge">BEST VALUE</div>
+      <div class="pr-plan">Complete Package</div>
+      <div class="pr-name">Full Suite</div>
+      <div class="pr-tagline">Everything your business needs to rank, grow, and stay secure online.</div>
       <div class="pr-price-row">
-        <span class="pr-amount" id="proPrice">$19</span>
-        <span class="pr-mo">/mo</span>
+        <span class="pr-amount">$789</span>
       </div>
-      <div class="pr-billed" id="proBilled">&nbsp;</div>
+      <div class="pr-billed">One-time payment — no monthly fees</div>
       <div class="pr-divider"></div>
       <ul class="pr-features">
-        <li>Unlimited audits</li>
-        <li>Full issue breakdown</li>
-        <li>Competitor comparison</li>
-        <li>Priority PDF reports</li>
-        <li>GEO / AI visibility score</li>
-        <li>Email digest & alerts</li>
-        <li>History & trend tracking</li>
-        <li>1 domain workspace</li>
-        <li class="dim">White-label reports</li>
-        <li class="dim">Client dashboard</li>
-      </ul>
-      <button class="pr-btn-white" onclick="location.href='audit.html'">Get Pro →</button>
-    </div>
-
-    <!-- AGENCY -->
-    <div class="pr-card reveal" style="transition-delay:0.2s">
-      <div class="pr-plan">Scale</div>
-      <div class="pr-name">Agency</div>
-      <div class="pr-tagline">Built for agencies managing clients at scale.</div>
-      <div class="pr-price-row">
-        <span class="pr-amount" id="agencyPrice">$79</span>
-        <span class="pr-mo">/mo</span>
-      </div>
-      <div class="pr-billed" id="agencyBilled">&nbsp;</div>
-      <div class="pr-divider"></div>
-      <ul class="pr-features">
-        <li>Everything in Pro</li>
-        <li>Up to 50 domains</li>
-        <li>White-label PDF reports</li>
-        <li>Client dashboard</li>
-        <li>Bulk audit scheduling</li>
-        <li>API access</li>
-        <li>Team seats (up to 5)</li>
+        <li>GEO optimization (AI search visibility)</li>
+        <li>Full SEO audit & implementation</li>
+        <li>1-year hosting included</li>
+        <li>Professional email address</li>
+        <li>SSL certificate</li>
+        <li>Website security & firewall</li>
         <li>Priority support</li>
-        <li>Custom branding</li>
-        <li>Dedicated onboarding</li>
+        <li>Monthly performance report</li>
       </ul>
-      <button class="pr-btn-ghost" onclick="location.href='mailto:contact@rank-edge.com'">Contact Sales →</button>
+      <button class="pr-btn-white" onclick="location.href='mailto:contact@rank-edge.com'">Get Full Suite →</button>
     </div>
 
   </div>
@@ -510,41 +471,6 @@ function closeMob(){
   setTimeout(function(){ m.style.display = 'none'; }, 350);
 }
 
-/* ─── Billing toggle with smooth price flip ─── */
-var billing = 'monthly';
-var prices = {
-  pro:    { monthly: '$19', annual: '$14' },
-  agency: { monthly: '$79', annual: '$59' }
-};
-var billed = {
-  pro:    { monthly: '', annual: 'Billed $168/year — save $60' },
-  agency: { monthly: '', annual: 'Billed $708/year — save $240' }
-};
-function flipPrice(el, newVal){
-  el.classList.add('changing');
-  setTimeout(function(){
-    el.textContent = newVal;
-    el.classList.remove('changing');
-  }, 180);
-}
-function setToggle(mode){
-  if(billing === mode) return;
-  billing = mode;
-  document.getElementById('btnMonthly').classList.toggle('on', mode === 'monthly');
-  document.getElementById('btnAnnual').classList.toggle('on', mode === 'annual');
-  flipPrice(document.getElementById('proPrice'), prices.pro[mode]);
-  flipPrice(document.getElementById('agencyPrice'), prices.agency[mode]);
-  var pb = document.getElementById('proBilled');
-  var ab = document.getElementById('agencyBilled');
-  pb.style.opacity = '0';
-  ab.style.opacity = '0';
-  setTimeout(function(){
-    pb.textContent = billed.pro[mode] || ' ';
-    ab.textContent = billed.agency[mode] || ' ';
-    pb.style.opacity = '1';
-    ab.style.opacity = '1';
-  }, 220);
-}
 
 /* ─── FAQ accordion ─── */
 function toggleFaq(btn){
