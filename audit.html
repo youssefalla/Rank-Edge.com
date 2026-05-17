@@ -536,9 +536,9 @@ function runAnalysis() {
   var seoScore, geoScore, perfScore;
   if (isWhitelisted) {
     // Good scores for client sites — deterministic but high
-    seoScore = 74 + Math.floor(seededRand(seed, 1) * 22);  // 74–95
-    geoScore = 68 + Math.floor(seededRand(seed, 2) * 24);  // 68–91
-    perfScore = 72 + Math.floor(seededRand(seed, 3) * 20); // 72–91
+    seoScore = 80 + Math.floor(seededRand(seed, 1) * 15);  // 80–94
+    geoScore = 80 + Math.floor(seededRand(seed, 2) * 15);  // 80–94
+    perfScore = 80 + Math.floor(seededRand(seed, 3) * 15); // 80–94
   } else {
     // Low scores for everyone else
     seoScore = 18 + Math.floor(seededRand(seed, 1) * 22);   // 18–39
