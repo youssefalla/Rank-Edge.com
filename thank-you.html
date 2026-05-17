@@ -10,12 +10,11 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh}
 
-/* ─── BACKGROUND ─── */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:radial-gradient(rgba(255,255,255,0.15) 1px,transparent 1px);
   background-size:32px 32px}
 .g1{position:absolute;width:900px;height:700px;border-radius:50%;filter:blur(130px);
-  background:radial-gradient(ellipse,rgba(255,255,255,0.09) 0%,transparent 70%);
+  background:radial-gradient(ellipse,rgba(37,211,102,0.07) 0%,transparent 70%);
   top:-200px;left:50%;transform:translateX(-50%);
   animation:gDrift 18s ease-in-out infinite}
 .g2{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(130px);
@@ -24,137 +23,148 @@ html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x
 @keyframes gDrift{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(40px)}}
 @keyframes gDrift2{0%,100%{transform:translateY(0)}50%{transform:translateY(-40px)}}
 
-/* ─── NAV ─── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
   padding:1.1rem 2.5rem;background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.08)}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;
-  text-decoration:none;color:#fff;display:flex;align-items:center;gap:10px}
+  border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;color:#fff;display:flex;align-items:center;gap:10px}
 
-/* ─── MAIN ─── */
 .wrap{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;
-  justify-content:center;padding:6rem 2rem 4rem;flex-direction:column;text-align:center}
+  justify-content:center;padding:6rem 2rem 4rem;flex-direction:column;text-align:center;gap:0}
 
-/* ─── CHECK ANIMATION ─── */
-.check-circle{width:90px;height:90px;border-radius:50%;
-  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;
+/* Check animation */
+.check-circle{width:88px;height:88px;border-radius:50%;
+  background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.75rem;
+  box-shadow:0 0 40px rgba(37,211,102,0.15);
   animation:popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s both}
 @keyframes popIn{from{opacity:0;transform:scale(0.4)}to{opacity:1;transform:scale(1)}}
-.check-icon{font-size:38px;animation:fadeIn 0.4s ease 0.7s both}
+.check-icon{animation:fadeIn 0.4s ease 0.7s both}
 @keyframes fadeIn{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
 
-/* ─── TEXT ─── */
-.tag{display:inline-flex;align-items:center;gap:7px;background:rgba(0,0,0,0.5);
-  border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:7px 18px;
-  font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:1.5rem;
+.tag{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,0.08);
+  border:1px solid rgba(37,211,102,0.2);border-radius:100px;padding:7px 18px;
+  font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:1.2rem;
   animation:slideUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.35s both}
-.bdot{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff;
+.bdot{width:7px;height:7px;border-radius:50%;background:#25D366;box-shadow:0 0 8px #25D366;
   animation:blink 2s ease-in-out infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);
-  line-height:0.93;letter-spacing:2px;margin-bottom:1rem;
+
+.title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5.5rem);
+  line-height:0.95;letter-spacing:2px;margin-bottom:1rem;
   animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.45s both}
-.title em{color:rgba(255,255,255,0.4);font-style:italic}
-.sub{font-size:clamp(0.95rem,1.8vw,1.1rem);color:rgba(255,255,255,0.45);
-  max-width:500px;line-height:1.8;margin:0 auto 2.5rem;
+.title em{color:rgba(255,255,255,0.35);font-style:italic}
+.sub{font-size:15px;color:rgba(255,255,255,0.4);max-width:480px;line-height:1.8;
+  margin:0 auto 2.5rem;
   animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s both}
 @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
-/* ─── ORDER CARD ─── */
-.order-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;padding:1.75rem 2.5rem;max-width:480px;width:100%;margin:0 auto 2.5rem;
-  text-align:left;animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.62s both}
+/* WhatsApp card — main CTA */
+.wa-card{background:rgba(37,211,102,0.07);backdrop-filter:blur(20px);
+  border:1px solid rgba(37,211,102,0.25);border-radius:24px;
+  padding:2rem 2.5rem;max-width:480px;width:100%;margin:0 auto 1.25rem;
+  animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+  box-shadow:0 0 60px rgba(37,211,102,0.06)}
+.wa-card-top{display:flex;align-items:center;gap:14px;margin-bottom:1rem;text-align:left}
+.wa-avatar{width:48px;height:48px;border-radius:50%;background:rgba(37,211,102,0.15);
+  border:1px solid rgba(37,211,102,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wa-info-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.wa-info-status{font-size:12px;color:#25D366;display:flex;align-items:center;gap:5px}
+.online-dot{width:6px;height:6px;border-radius:50%;background:#25D366;box-shadow:0 0 6px #25D366}
+.wa-message{background:rgba(255,255,255,0.05);border-radius:12px 12px 12px 4px;
+  padding:12px 16px;text-align:left;font-size:13px;color:rgba(255,255,255,0.6);
+  line-height:1.7;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.07)}
+.wa-message strong{color:#fff;display:block;margin-bottom:4px}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  background:#25D366;color:#000;border-radius:14px;padding:15px;
+  font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;
+  text-decoration:none;transition:all 0.25s;border:none;cursor:pointer}
+.wa-btn:hover{background:#20c55a;transform:translateY(-2px);box-shadow:0 8px 32px rgba(37,211,102,0.3)}
+
+/* Order summary */
+.order-card{background:rgba(255,255,255,0.03);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.08);border-radius:18px;
+  padding:1.5rem 2rem;max-width:480px;width:100%;margin:0 auto 2rem;
+  text-align:left;animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.68s both}
 .order-row{display:flex;justify-content:space-between;align-items:center;
-  padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.06)}
-.order-row:last-child{border-bottom:none;padding-top:0.9rem;margin-top:0.3rem}
-.order-label{font-size:13px;color:rgba(255,255,255,0.4)}
+  padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.order-row:last-child{border-bottom:none;margin-top:4px;padding-top:0.75rem}
+.order-label{font-size:12px;color:rgba(255,255,255,0.35)}
 .order-value{font-size:13px;color:#fff;font-weight:600}
-.order-total .order-label{font-size:14px;color:rgba(255,255,255,0.7)}
-.order-total .order-value{font-size:20px;font-weight:300;letter-spacing:-0.02em}
+.order-total .order-value{font-size:18px;font-weight:300}
 
-/* ─── WHATSAPP BUTTON ─── */
-.wa-btn{display:inline-flex;align-items:center;gap:12px;
-  background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);
-  color:#fff;border-radius:100px;padding:15px 36px;font-size:16px;font-weight:600;
-  font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:none;
-  transition:background 0.3s ease,border-color 0.3s ease,transform 0.35s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease;
-  animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.72s both}
-.wa-btn:hover{background:rgba(37,211,102,0.22);border-color:rgba(37,211,102,0.55);
-  transform:translateY(-3px) scale(1.02);
-  box-shadow:0 8px 32px rgba(37,211,102,0.15)}
-.wa-btn:active{transform:scale(0.97)}
-.wa-icon{width:22px;height:22px;flex-shrink:0}
+.back-link{font-size:13px;color:rgba(255,255,255,0.2);text-decoration:none;
+  transition:color 0.2s;animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.78s both;display:inline-block}
+.back-link:hover{color:rgba(255,255,255,0.5)}
 
-.back-link{margin-top:1.5rem;font-size:13px;color:rgba(255,255,255,0.25);text-decoration:none;
-  transition:color 0.2s;animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s both;
-  display:inline-block}
-.back-link:hover{color:rgba(255,255,255,0.6)}
-
-/* ─── FOOTER ─── */
 footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);
-  padding:1.5rem 2.5rem;text-align:center;font-size:12px;color:rgba(255,255,255,0.2)}
+  padding:1.5rem 2.5rem;text-align:center;font-size:12px;color:rgba(255,255,255,0.18)}
+
+@media(max-width:600px){nav{padding:1rem 1.25rem}.wa-card,.order-card{padding:1.5rem 1.25rem}}
 </style>
 </head>
 <body>
-
-<div class="bg">
-  <div class="g1"></div>
-  <div class="g2"></div>
-</div>
+<div class="bg"><div class="g1"></div><div class="g2"></div></div>
 
 <nav>
   <a class="logo" href="index.html">
-    <img src="rank-edge-whitelogo-.png" alt="Rank Edge" style="height:34px;width:auto">
-    <span>RANK EDGE</span>
+    <img src="rank-edge-whitelogo-.png" alt="RankEdge" style="height:32px;width:auto">
+    RANK EDGE
   </a>
 </nav>
 
 <div class="wrap">
 
   <div class="check-circle">
-    <span class="check-icon">✓</span>
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"/></svg>
   </div>
 
   <div class="tag"><span class="bdot"></span> Payment confirmed</div>
 
   <h1 class="title">THANK YOU<br><em>FOR YOUR ORDER</em></h1>
 
-  <p class="sub">Your payment was successful. We'll reach out on WhatsApp within a few hours to kick off your project and get everything set up for you.</p>
+  <p class="sub">Your payment was successful. Our team is already on it — reach out on WhatsApp and we'll get started right away.</p>
 
+  <!-- WhatsApp Support Card -->
+  <div class="wa-card">
+    <div class="wa-card-top">
+      <div class="wa-avatar">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+      <div>
+        <div class="wa-info-name">RankEdge Support</div>
+        <div class="wa-info-status"><span class="online-dot"></span> Online — replies in minutes</div>
+      </div>
+    </div>
+    <div class="wa-message">
+      <strong>👋 We're ready to start!</strong>
+      Tap the button below to open WhatsApp and we'll walk you through every step of your project — available 7 days a week.
+    </div>
+    <a class="wa-btn" href="https://wa.me/33759534611?text=Hi%20RankEdge%20team!%20%F0%9F%91%8B%20I%20just%20completed%20my%20purchase%20and%20I%27m%20ready%20to%20get%20started!" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#000"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Start on WhatsApp Now
+    </a>
+  </div>
+
+  <!-- Order summary -->
   <div class="order-card">
     <div class="order-row">
-      <span class="order-label">Package</span>
-      <span class="order-value">Full Suite</span>
-    </div>
-    <div class="order-row">
-      <span class="order-label">Includes</span>
-      <span class="order-value" style="text-align:right;font-size:12px;line-height:1.6">SEO · GEO · Hosting<br>Email · SSL · Security</span>
+      <span class="order-label">Status</span>
+      <span class="order-value" style="color:#25D366">✓ Confirmed</span>
     </div>
     <div class="order-row">
       <span class="order-label">Payment type</span>
-      <span class="order-value">One-time</span>
+      <span class="order-value">One-time — no subscriptions</span>
     </div>
-    <div class="order-row order-total">
-      <span class="order-label">Total paid</span>
-      <span class="order-value">$789</span>
+    <div class="order-row">
+      <span class="order-label">Next step</span>
+      <span class="order-value">We contact you within 2h</span>
     </div>
   </div>
-
-  <a class="wa-btn" href="https://wa.me/33759534611?text=Hi%20RankEdge%20team!%20%F0%9F%91%8B%0A%0AI%20just%20completed%20my%20purchase%20of%20the%20Full%20Suite%20(%24789).%0A%0AI%27m%20ready%20to%20get%20started%20%E2%80%94%20please%20let%20me%20know%20the%20next%20steps!" target="_blank">
-    <svg class="wa-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/>
-      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.858L.057 23.776a.5.5 0 00.612.641l6.101-1.598A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.653-.51-5.17-1.4l-.371-.219-3.845 1.007 1.027-3.74-.242-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" fill="#25D366"/>
-    </svg>
-    Contact us on WhatsApp
-  </a>
 
   <a class="back-link" href="index.html">← Back to RankEdge.com</a>
 
 </div>
 
 <footer>© 2026 RankEdge.com · Thank you for choosing us</footer>
-
 </body>
 </html>
