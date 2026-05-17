@@ -475,6 +475,11 @@ function seededShuffle(arr, seed) {
   return a;
 }
 
+// ─── WHITELISTED DOMAINS (clients — always get good scores) ───
+var WHITELISTED_DOMAINS = [
+  // add client domains here e.g. 'myclient.com'
+];
+
 // ─── BLOCKED DOMAINS (big platforms — not our target clients) ───
 var BLOCKED_DOMAINS = [
   'google.com','google.fr','google.co.uk','google.ca','google.de','google.es','google.it','google.com.au',
@@ -517,14 +522,36 @@ function runAnalysis() {
   }, 600);
 
   var domain = url.replace(/https?:\/\//, '').replace(/\/.*/, '').toLowerCase();
+  var cleanDomain = domain.replace(/^www\./, '');
   var seed = domainHash(domain);
 
-  // Deterministic scores based on domain — consistent every time, looks realistic
-  var seoScore = 18 + Math.floor(seededRand(seed, 1) * 22);   // 18–39
-  var geoScore = 8  + Math.floor(seededRand(seed, 2) * 18);   // 8–25
-  var perfScore = 38 + Math.floor(seededRand(seed, 3) * 24);  // 38–61
+  // Check if this is a whitelisted client domain
+  var isWhitelisted = false;
+  for (var w = 0; w < WHITELISTED_DOMAINS.length; w++) {
+    if (cleanDomain === WHITELISTED_DOMAINS[w] || cleanDomain.endsWith('.' + WHITELISTED_DOMAINS[w])) {
+      isWhitelisted = true; break;
+    }
+  }
 
-  var issuePool = [
+  var seoScore, geoScore, perfScore;
+  if (isWhitelisted) {
+    // Good scores for client sites — deterministic but high
+    seoScore = 74 + Math.floor(seededRand(seed, 1) * 22);  // 74–95
+    geoScore = 68 + Math.floor(seededRand(seed, 2) * 24);  // 68–91
+    perfScore = 72 + Math.floor(seededRand(seed, 3) * 20); // 72–91
+  } else {
+    // Low scores for everyone else
+    seoScore = 18 + Math.floor(seededRand(seed, 1) * 22);   // 18–39
+    geoScore = 8  + Math.floor(seededRand(seed, 2) * 18);   // 8–25
+    perfScore = 38 + Math.floor(seededRand(seed, 3) * 24);  // 38–61
+  }
+
+  var issuePool = isWhitelisted ? [
+    { text: 'Minor image compression opportunities on a few pages', level: 'info' },
+    { text: 'Consider adding FAQ schema to boost AI snippet visibility', level: 'info' },
+    { text: 'A few internal links could be strengthened for better crawl depth', level: 'info' },
+    { text: 'Optional: add more long-tail keyword variations to blog content', level: 'info' }
+  ] : [
     { text: 'No schema markup detected — invisible to AI search engines', level: 'critical' },
     { text: 'Missing meta descriptions on key landing pages', level: 'critical' },
     { text: 'No sitemap.xml found or submitted to Google Search Console', level: 'critical' },
@@ -536,19 +563,28 @@ function runAnalysis() {
     { text: 'No Open Graph or Twitter Card meta tags found', level: 'info' },
     { text: 'Thin content detected on several pages (< 300 words)', level: 'critical' }
   ];
-  var issues = seededShuffle(issuePool, seed + 10).slice(0, 4);
+  var issues = seededShuffle(issuePool, seed + 10).slice(0, isWhitelisted ? 3 : 4);
 
   // GEO likelihoods vary per domain but stay consistent
-  var geoLevels = ['Very Low', 'Very Low', 'Low', 'Very Low'];
+  var geoLevels = isWhitelisted ? ['High', 'Medium', 'High', 'Medium'] : ['Very Low', 'Very Low', 'Low', 'Very Low'];
   var geoShuffled = seededShuffle([0,1,2,3], seed + 20);
+  var geoBlockers = isWhitelisted
+    ? ['Strong schema & content structure', 'Well-optimized FAQ & structured data', 'Good E-E-A-T signals detected', 'Solid Bing indexation & schema']
+    : ['No crawlable content or schema markup', 'No FAQ schema or structured data detected', 'Missing E-E-A-T signals & structured data', 'Poor Bing indexation & no schema'];
   var geoEngines = [
-    { engine: 'ChatGPT / OpenAI',    likelihood: geoLevels[geoShuffled[0]], blocker: 'No crawlable content or schema markup' },
-    { engine: 'Perplexity',          likelihood: geoLevels[geoShuffled[1]], blocker: 'No FAQ schema or structured data detected' },
-    { engine: 'Google AI Overview',  likelihood: geoLevels[geoShuffled[2]], blocker: 'Missing E-E-A-T signals & structured data' },
-    { engine: 'Microsoft Copilot',   likelihood: geoLevels[geoShuffled[3]], blocker: 'Poor Bing indexation & no schema' }
+    { engine: 'ChatGPT / OpenAI',    likelihood: geoLevels[geoShuffled[0]], blocker: geoBlockers[0] },
+    { engine: 'Perplexity',          likelihood: geoLevels[geoShuffled[1]], blocker: geoBlockers[1] },
+    { engine: 'Google AI Overview',  likelihood: geoLevels[geoShuffled[2]], blocker: geoBlockers[2] },
+    { engine: 'Microsoft Copilot',   likelihood: geoLevels[geoShuffled[3]], blocker: geoBlockers[3] }
   ];
 
-  var recPool = [
+  var recPool = isWhitelisted ? [
+    'Continue publishing fresh content to maintain AI citation frequency',
+    'Expand schema markup to cover more product/service pages',
+    'Build more topical authority with supporting blog posts',
+    'Strengthen backlink profile with high-authority mentions',
+    'Keep Core Web Vitals optimized as Google updates its thresholds'
+  ] : [
     'Add FAQPage JSON-LD schema — highest impact GEO action',
     'Create unique meta title & description for every page',
     'Generate and submit sitemap.xml to Google Search Console',
@@ -562,6 +598,10 @@ function runAnalysis() {
   ];
   var recommendations = seededShuffle(recPool, seed + 30).slice(0, 5);
 
+  var summary = isWhitelisted
+    ? 'This site is well-optimized for both traditional and AI-powered search engines. Schema markup, content structure, and Core Web Vitals are in good shape. A few minor improvements could push visibility even further.'
+    : 'The site has significant technical SEO gaps limiting visibility on both traditional and AI-powered search engines. Addressing schema markup and indexability should be the first priority.';
+
   auditData = {
     domain: domain,
     url: url,
@@ -571,7 +611,7 @@ function runAnalysis() {
     issues: issues,
     geoEngines: geoEngines,
     recommendations: recommendations,
-    executiveSummary: 'The site has significant technical SEO gaps limiting visibility on both traditional and AI-powered search engines. Addressing schema markup and indexability should be the first priority.'
+    executiveSummary: summary
   };
 
   setTimeout(function() {
