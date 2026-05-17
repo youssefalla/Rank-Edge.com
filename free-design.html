@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Your Free Website — RankEdge</title>
+<link rel="icon" type="image/png" href="favicon-circle.png">
+<meta name="description" content="Fill in your details and we'll build your free professional website — optimized for SEO and ready to grow.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh}
+
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.15) 1px,transparent 1px);
+  background-size:32px 32px}
+.glow{position:absolute;border-radius:50%;filter:blur(130px)}
+.g1{width:900px;height:600px;background:radial-gradient(ellipse,rgba(255,255,255,0.09) 0%,transparent 70%);top:-200px;left:50%;transform:translateX(-50%)}
+.g2{width:500px;height:500px;background:radial-gradient(ellipse,rgba(255,255,255,0.04) 0%,transparent 70%);bottom:10%;right:-150px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2.5rem;background:rgba(0,0,0,0.6);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.07)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;color:#fff}
+.nav-back{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.nav-back:hover{color:#fff}
+
+.page-wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:8rem 2rem 6rem}
+
+.hero-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:100px;
+  padding:5px 16px;margin-bottom:1.2rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,4.5rem);letter-spacing:1px;
+  line-height:1;margin-bottom:1rem;color:#fff}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:3.5rem;max-width:520px}
+
+/* Form sections */
+.form-section{margin-bottom:2.5rem}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.07)}
+.section-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);display:inline-flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);flex-shrink:0}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row.single{grid-template-columns:1fr}
+
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.5px}
+.field input,.field select,.field textarea{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;
+  padding:13px 16px;
+  color:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  outline:none;
+  transition:border-color 0.2s,background 0.2s}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.2)}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.07)}
+.field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.field select option{background:#111;color:#fff}
+.field textarea{resize:vertical;min-height:100px;line-height:1.6}
+
+/* Style radio buttons */
+.style-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.style-opt{position:relative}
+.style-opt input{position:absolute;opacity:0;width:0;height:0}
+.style-opt label{display:flex;flex-direction:column;gap:4px;padding:14px 16px;
+  border:1px solid rgba(255,255,255,0.1);border-radius:12px;cursor:pointer;
+  background:rgba(255,255,255,0.03);transition:all 0.2s}
+.style-opt label:hover{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.06)}
+.style-opt input:checked + label{border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.08)}
+.style-name{font-size:13px;font-weight:600;color:#fff}
+.style-desc{font-size:11px;color:rgba(255,255,255,0.3)}
+
+/* Logo upload */
+.upload-box{border:1.5px dashed rgba(255,255,255,0.15);border-radius:12px;padding:24px;
+  text-align:center;cursor:pointer;transition:all 0.2s;position:relative;background:rgba(255,255,255,0.02)}
+.upload-box:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.04)}
+.upload-box input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.upload-icon{font-size:24px;margin-bottom:8px;opacity:0.4}
+.upload-text{font-size:13px;color:rgba(255,255,255,0.35)}
+.upload-text b{color:rgba(255,255,255,0.6)}
+.upload-preview{font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px;display:none}
+
+/* Submit */
+.submit-wrap{margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:14px}
+.btn-submit{width:100%;padding:17px;border-radius:14px;background:#fff;color:#000;
+  font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;
+  transition:all 0.2s;letter-spacing:0.3px}
+.btn-submit:hover{background:rgba(255,255,255,0.9);transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,255,255,0.15)}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.submit-note{font-size:12px;color:rgba(255,255,255,0.25);text-align:center}
+
+/* Success */
+.success-box{display:none;text-align:center;padding:3rem 2rem;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);border-radius:20px;margin-top:2rem}
+.success-icon{font-size:40px;margin-bottom:1rem}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;margin-bottom:0.75rem}
+.success-sub{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7}
+
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr}
+  .style-grid{grid-template-columns:1fr 1fr}
+  nav{padding:1rem 1.25rem}
+  .page-wrap{padding:7rem 1.25rem 4rem}
+}
+</style>
+</head>
+<body>
+<div class="bg"><div class="glow g1"></div><div class="glow g2"></div></div>
+
+<nav>
+  <a href="index.html" class="logo">RankEdge</a>
+  <a href="audit.html" class="nav-back">← Back to Audit</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="hero-tag">100% Free — No Credit Card</div>
+  <h1 class="hero-title">LET'S BUILD<br>YOUR WEBSITE</h1>
+  <p class="hero-sub">Fill in the details below and we'll design your professional website — fully optimized for SEO, GEO, and built to convert.</p>
+
+  <form id="designForm" action="https://formspree.io/f/youssefalla674@gmail.com" method="POST">
+
+    <!-- SECTION 1: CONTACT -->
+    <div class="form-section">
+      <div class="section-label"><span class="section-num">01</span> Your Contact Info</div>
+      <div class="form-row">
+        <div class="field">
+          <label>Full Name *</label>
+          <input type="text" name="full_name" placeholder="John Smith" required>
+        </div>
+        <div class="field">
+          <label>Email Address *</label>
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>WhatsApp Number *</label>
+          <input type="tel" name="whatsapp" placeholder="+1 234 567 8900" required>
+        </div>
+        <div class="field">
+          <label>City / Country *</label>
+          <input type="text" name="location" placeholder="Paris, France" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: BUSINESS -->
+    <div class="form-section">
+      <div class="section-label"><span class="section-num">02</span> About Your Business</div>
+      <div class="form-row">
+        <div class="field">
+          <label>Business Name *</label>
+          <input type="text" name="business_name" placeholder="My Business Co." required>
+        </div>
+        <div class="field">
+          <label>Industry / Type *</label>
+          <select name="industry" required>
+            <option value="" disabled selected>Select your industry</option>
+            <option>Restaurant / Food</option>
+            <option>Retail / E-commerce</option>
+            <option>Beauty / Salon / Spa</option>
+            <option>Health / Medical</option>
+            <option>Real Estate</option>
+            <option>Construction / Renovation</option>
+            <option>Legal / Consulting</option>
+            <option>Fitness / Sports</option>
+            <option>Education / Coaching</option>
+            <option>Technology / Software</option>
+            <option>Creative / Agency</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Instagram Handle</label>
+          <input type="text" name="instagram" placeholder="@yourbusiness">
+        </div>
+        <div class="field">
+          <label>Current Website (if any)</label>
+          <input type="text" name="current_website" placeholder="https://yoursite.com">
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="field">
+          <label>What does your business do? *</label>
+          <textarea name="business_description" placeholder="Briefly describe your services, target clients, and what makes you different..." required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: DESIGN -->
+    <div class="form-section">
+      <div class="section-label"><span class="section-num">03</span> Design Preferences</div>
+      <div class="form-row single" style="margin-bottom:12px">
+        <div class="field">
+          <label>Preferred Colors</label>
+          <input type="text" name="colors" placeholder="e.g. Black & gold, Navy blue & white, etc.">
+        </div>
+      </div>
+      <div class="form-row single" style="margin-bottom:12px">
+        <div class="field">
+          <label>Design Style</label>
+          <div class="style-grid">
+            <div class="style-opt">
+              <input type="radio" name="design_style" id="s1" value="Minimal & Clean">
+              <label for="s1"><span class="style-name">Minimal & Clean</span><span class="style-desc">Simple, white space, elegant</span></label>
+            </div>
+            <div class="style-opt">
+              <input type="radio" name="design_style" id="s2" value="Bold & Modern">
+              <label for="s2"><span class="style-name">Bold & Modern</span><span class="style-desc">Strong visuals, dark tones</span></label>
+            </div>
+            <div class="style-opt">
+              <input type="radio" name="design_style" id="s3" value="Luxury & Premium">
+              <label for="s3"><span class="style-name">Luxury & Premium</span><span class="style-desc">Gold accents, high-end feel</span></label>
+            </div>
+            <div class="style-opt">
+              <input type="radio" name="design_style" id="s4" value="Colorful & Energetic">
+              <label for="s4"><span class="style-name">Colorful & Energetic</span><span class="style-desc">Vibrant, fun, eye-catching</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row single" style="margin-bottom:12px">
+        <div class="field">
+          <label>Logo Upload</label>
+          <div class="upload-box" id="uploadBox">
+            <input type="file" name="logo" id="logoInput" accept="image/*,.pdf,.svg" onchange="handleFile(this)">
+            <div class="upload-icon">↑</div>
+            <div class="upload-text"><b>Click to upload</b> your logo</div>
+            <div class="upload-text" style="margin-top:4px">PNG, JPG, SVG — max 5MB</div>
+            <div class="upload-preview" id="uploadPreview"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="field">
+          <label>Anything else we should know?</label>
+          <textarea name="extra_notes" placeholder="Reference sites you like, specific pages needed, languages, special requests..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <input type="hidden" name="_subject" value="New Free Website Request — RankEdge">
+    <input type="hidden" name="_next" value="https://rank-edge.com/thank-you.html">
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit" id="submitBtn">Submit & Get My Free Website →</button>
+      <p class="submit-note">We'll review your request and contact you within 24 hours via WhatsApp or email.</p>
+    </div>
+  </form>
+
+  <div class="success-box" id="successBox">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Request Received!</div>
+    <p class="success-sub">We've got your details and will reach out within 24 hours to get started on your website.</p>
+  </div>
+</div>
+
+<script>
+function handleFile(input) {
+  var preview = document.getElementById('uploadPreview');
+  if (input.files && input.files[0]) {
+    preview.style.display = 'block';
+    preview.textContent = '✓ ' + input.files[0].name;
+    document.getElementById('uploadBox').style.borderColor = 'rgba(255,255,255,0.35)';
+  }
+}
+
+document.getElementById('designForm').addEventListener('submit', function(e) {
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+});
+</script>
+</body>
+</html>
