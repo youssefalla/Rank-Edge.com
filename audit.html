@@ -397,6 +397,21 @@ var auditData = {};
 function updateSendBtn() {
   var val = document.getElementById('urlInput').value.trim();
   document.getElementById('analyzeBtn').disabled = !val;
+  var err = document.getElementById('blockedMsg');
+  if (err) err.style.display = 'none';
+}
+
+function showBlockedMsg() {
+  var err = document.getElementById('blockedMsg');
+  if (!err) {
+    err = document.createElement('div');
+    err.id = 'blockedMsg';
+    err.style.cssText = 'margin:10px 20px 0;padding:12px 16px;border-radius:10px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.25);color:#F87171;font-size:13px;line-height:1.5';
+    err.innerHTML = '<strong>This tool is designed for business websites.</strong><br>Major platforms like Google, Facebook, and Amazon aren\'t supported — please enter your own business URL.';
+    var box = document.querySelector('.chat-box');
+    box.appendChild(err);
+  }
+  err.style.display = 'block';
 }
 function setUrl(hint) {
   var el = document.getElementById('urlInput');
@@ -460,11 +475,34 @@ function seededShuffle(arr, seed) {
   return a;
 }
 
+// ─── BLOCKED DOMAINS (big platforms — not our target clients) ───
+var BLOCKED_DOMAINS = [
+  'google.com','google.fr','google.co.uk','google.ca','google.de','google.es','google.it','google.com.au',
+  'youtube.com','facebook.com','instagram.com','twitter.com','x.com','tiktok.com','snapchat.com',
+  'linkedin.com','pinterest.com','reddit.com','whatsapp.com','telegram.org','discord.com',
+  'amazon.com','amazon.fr','amazon.co.uk','amazon.de','amazon.es','amazon.it','amazon.ca',
+  'apple.com','microsoft.com','netflix.com','spotify.com','airbnb.com','uber.com','paypal.com',
+  'wikipedia.org','yahoo.com','bing.com','baidu.com','yandex.com','duckduckgo.com',
+  'github.com','stackoverflow.com','wordpress.com','shopify.com','wix.com','squarespace.com',
+  'etsy.com','ebay.com','aliexpress.com','alibaba.com','booking.com','tripadvisor.com',
+  'twitch.tv','zoom.us','slack.com','notion.so','dropbox.com','adobe.com','salesforce.com',
+  'cloudflare.com','godaddy.com','namecheap.com','bluehost.com','hostinger.com',
+  'vercel.com','netlify.com','heroku.com','aws.amazon.com','azure.microsoft.com'
+];
+
 // ─── RUN ANALYSIS ───
 function runAnalysis() {
   var url = document.getElementById('urlInput').value.trim();
   if (!url) { alert('Please enter your website URL'); return; }
   if (!url.startsWith('http')) url = 'https://' + url;
+
+  var inputDomain = url.replace(/https?:\/\//, '').replace(/\/.*/, '').toLowerCase().replace(/^www\./, '');
+  for (var b = 0; b < BLOCKED_DOMAINS.length; b++) {
+    if (inputDomain === BLOCKED_DOMAINS[b] || inputDomain.endsWith('.' + BLOCKED_DOMAINS[b])) {
+      showBlockedMsg();
+      return;
+    }
+  }
 
   var btn = document.getElementById('analyzeBtn');
   btn.disabled = true;
