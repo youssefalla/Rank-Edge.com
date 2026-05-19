@@ -32,13 +32,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   justify-content:center;padding:6rem 2rem 4rem;flex-direction:column;text-align:center;gap:0}
 
 /* Check animation */
-.check-circle{width:72px;height:72px;border-radius:50%;
-  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);
+.check-circle{width:88px;height:88px;border-radius:50%;
+  background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);
   display:flex;align-items:center;justify-content:center;margin:0 auto 1.75rem;
-  animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both}
-@keyframes popIn{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
-.check-icon{animation:fadeIn 0.3s ease 0.6s both}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  box-shadow:0 0 40px rgba(37,211,102,0.15);
+  animation:popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s both}
+@keyframes popIn{from{opacity:0;transform:scale(0.4)}to{opacity:1;transform:scale(1)}}
+.check-icon{animation:fadeIn 0.4s ease 0.7s both}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
 
 .tag{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,0.08);
   border:1px solid rgba(37,211,102,0.2);border-radius:100px;padding:7px 18px;
@@ -114,7 +115,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);
 <div class="wrap">
 
   <div class="check-circle">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"/></svg>
   </div>
 
   <div class="tag"><span class="bdot"></span> Payment confirmed</div>
