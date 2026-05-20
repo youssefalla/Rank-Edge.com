@@ -37,6 +37,63 @@
   }
 }
 </script>
+
+<!-- Schema.org — Product/Offer list (GEO: pricing cited by AI) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "RankEdge Pricing Plans",
+  "description": "RankEdge offers a free professional website design and a full SEO & GEO suite for $789 one-time payment.",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Product",
+        "name": "Free Web Design",
+        "description": "A free professional website designed and built by RankEdge for businesses that don't have a website yet.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Product",
+        "name": "Full Suite — SEO & GEO",
+        "description": "Complete SEO and GEO optimization package including website audit, schema markup, content strategy, AI engine optimization, Core Web Vitals fixes, and ongoing support.",
+        "offers": { "@type": "Offer", "price": "789", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "priceValidUntil": "2026-12-31" }
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Schema.org — FAQPage for pricing (GEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does RankEdge cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "RankEdge offers two plans: a completely free professional website design for businesses without a website, and a Full Suite SEO & GEO package for $789 as a one-time payment — no monthly fees." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is included in the RankEdge Full Suite?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The Full Suite includes complete SEO audit and fixes, GEO optimization for ChatGPT and Perplexity, schema markup implementation, Core Web Vitals optimization, content strategy, and ongoing support — for a one-time payment of $789." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the website design really free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. RankEdge provides a free professional website for businesses that don't have one yet. There are no hidden costs for the website design." }
+    }
+  ]
+}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}

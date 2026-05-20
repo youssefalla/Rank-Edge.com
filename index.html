@@ -63,7 +63,77 @@
   }
   </script>
 
-  <!-- Schema.org — FAQPage -->
+  <!-- Schema.org — Organization (GEO: entity definition for AI engines) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "RankEdge",
+    "url": "https://rank-edge.com",
+    "logo": "https://rank-edge.com/rank-edge-whitelogo-.png",
+    "email": "contact@rank-edge.com",
+    "description": "RankEdge is a free AI-powered SEO and GEO audit platform that helps businesses rank higher on Google, ChatGPT, Perplexity, and other AI search engines.",
+    "foundingDate": "2024",
+    "areaServed": "Worldwide",
+    "knowsAbout": ["SEO", "GEO", "Generative Engine Optimization", "Core Web Vitals", "Schema Markup", "AI Search Visibility"],
+    "sameAs": []
+  }
+  </script>
+
+  <!-- Schema.org — WebSite + Sitelinks Searchbox -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "RankEdge",
+    "url": "https://rank-edge.com/",
+    "description": "Free AI SEO & GEO audit tool. Analyze your website and rank higher on Google and AI search engines.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "RankEdge",
+      "logo": { "@type": "ImageObject", "url": "https://rank-edge.com/rank-edge-whitelogo-.png" }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://rank-edge.com/audit.html?url={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Schema.org — HowTo (GEO: step-by-step for AI citations) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Get a Free SEO & GEO Audit with RankEdge",
+    "description": "Analyze your website for SEO issues, GEO visibility gaps, and Core Web Vitals in under 60 seconds using RankEdge.",
+    "totalTime": "PT1M",
+    "estimatedCost": { "@type": "MonetaryAmount", "currency": "USD", "value": "0" },
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Enter your website URL",
+        "text": "Go to rank-edge.com and paste your website URL into the audit tool."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Run the free AI audit",
+        "text": "Click 'Analyze Free'. Our AI scans your site for SEO issues, GEO visibility, schema markup, and Core Web Vitals in seconds."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Get your full report",
+        "text": "Review your SEO score, GEO score, and top recommendations. Download a full PDF report for free."
+      }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org — FAQPage (GEO: Q&A for AI engine citations) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -79,28 +149,64 @@
       },
       {
         "@type": "Question",
-        "name": "What does the audit check?",
+        "name": "What does the RankEdge audit check?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We check SEO score, GEO (Generative Engine Optimization) visibility on ChatGPT and Perplexity, Core Web Vitals, schema markup, meta tags, backlinks, and content gaps."
+          "text": "RankEdge checks your SEO score, GEO (Generative Engine Optimization) visibility on ChatGPT and Perplexity, Core Web Vitals, schema markup, meta tags, backlinks, and content gaps."
         }
       },
       {
         "@type": "Question",
-        "name": "What is GEO (Generative Engine Optimization)?",
+        "name": "What is GEO — Generative Engine Optimization?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "GEO is the practice of optimizing your website to appear as a cited source in AI-generated answers from ChatGPT, Perplexity, Gemini, and other AI search engines."
+          "text": "GEO (Generative Engine Optimization) is the practice of optimizing your website to appear as a cited source in AI-generated answers from ChatGPT, Perplexity, Gemini, Claude, and other AI search engines. It is the next evolution beyond traditional SEO."
         }
       },
       {
         "@type": "Question",
-        "name": "How long does the audit take?",
+        "name": "How long does the SEO audit take?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Under 60 seconds. Just paste your URL and our AI scans your site instantly."
+          "text": "Under 60 seconds. Just paste your website URL and RankEdge's AI scans your site instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between SEO and GEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SEO (Search Engine Optimization) focuses on ranking in traditional search engines like Google. GEO (Generative Engine Optimization) focuses on being cited by AI-powered search engines like ChatGPT, Perplexity, and Gemini. RankEdge audits both."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does RankEdge offer website design?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. RankEdge offers a free professional website design for businesses that don't have a website yet. Visit rank-edge.com and click 'I don't have a website — Get Free Web Design'."
         }
       }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org — ItemList of features (GEO: structured list for AI) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "RankEdge Free SEO Audit Features",
+    "description": "Everything RankEdge checks in your free website audit",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "SEO Score & Technical Audit" },
+      { "@type": "ListItem", "position": 2, "name": "GEO Visibility on ChatGPT, Perplexity & Gemini" },
+      { "@type": "ListItem", "position": 3, "name": "Core Web Vitals & Page Speed" },
+      { "@type": "ListItem", "position": 4, "name": "Schema Markup Detection" },
+      { "@type": "ListItem", "position": 5, "name": "Backlink Analysis" },
+      { "@type": "ListItem", "position": 6, "name": "Content Gap Analysis" },
+      { "@type": "ListItem", "position": 7, "name": "Keyword Opportunities" },
+      { "@type": "ListItem", "position": 8, "name": "Free PDF Report Download" }
     ]
   }
   </script>
