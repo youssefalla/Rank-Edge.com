@@ -500,10 +500,58 @@ var BLOCKED_DOMAINS = [
 ];
 
 // ─── RUN ANALYSIS ───
+function isValidRealURL(raw) {
+  // Must have a real TLD (2–6 chars, letters only)
+  var tldRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,6}(\/.*)?$/;
+  if (!tldRegex.test(raw)) return false;
+
+  // Extract just the domain part
+  var domain = raw.replace(/https?:\/\//i,'').replace(/\/.*/,'').replace(/^www\./i,'').toLowerCase();
+  var parts = domain.split('.');
+  if (parts.length < 2) return false;
+
+  var name = parts[0];
+  var tld = parts[parts.length - 1];
+
+  // TLD must be real letters only, 2–6 chars
+  if (!/^[a-z]{2,6}$/.test(tld)) return false;
+
+  // Domain name must be at least 2 chars
+  if (name.length < 2) return false;
+
+  // Detect keyboard mashing: too many consecutive consonants (>5) = fake
+  var consonants = name.replace(/[aeiou0-9\-]/g,'');
+  if (consonants.length > 5 && consonants.length / name.length > 0.75) return false;
+
+  // Must contain at least one vowel OR digit (real words have vowels)
+  if (!/[aeiouy0-9]/.test(name)) return false;
+
+  return true;
+}
+
+function showUrlError(msg) {
+  var existing = document.getElementById('urlErrorMsg');
+  if (existing) existing.remove();
+  var err = document.createElement('div');
+  err.id = 'urlErrorMsg';
+  err.style.cssText = 'color:#ff5252;font-size:12px;margin-top:8px;text-align:center;font-family:"DM Sans",sans-serif;animation:fadeIn 0.3s ease';
+  err.textContent = '⚠️ ' + msg;
+  var box = document.querySelector('.chat-box');
+  box.parentNode.insertBefore(err, box.nextSibling);
+  setTimeout(function(){ if(err.parentNode) err.remove(); }, 4000);
+}
+
 function runAnalysis() {
   var url = document.getElementById('urlInput').value.trim();
-  if (!url) { alert('Please enter your website URL'); return; }
+  if (!url) { showUrlError('Please enter your website URL'); return; }
   if (!url.startsWith('http')) url = 'https://' + url;
+
+  // Validate that it looks like a real website
+  if (!isValidRealURL(url)) {
+    showUrlError('Please enter a real website URL (e.g. yourbusiness.com)');
+    document.getElementById('urlInput').focus();
+    return;
+  }
 
   var inputDomain = url.replace(/https?:\/\//, '').replace(/\/.*/, '').toLowerCase().replace(/^www\./, '');
   for (var b = 0; b < BLOCKED_DOMAINS.length; b++) {
