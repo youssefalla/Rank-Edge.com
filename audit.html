@@ -501,29 +501,26 @@ var BLOCKED_DOMAINS = [
 
 // ─── RUN ANALYSIS ───
 function isValidRealURL(raw) {
-  // Must have a real TLD (2–6 chars, letters only)
-  var tldRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,6}(\/.*)?$/;
-  if (!tldRegex.test(raw)) return false;
-
   // Extract just the domain part
-  var domain = raw.replace(/https?:\/\//i,'').replace(/\/.*/,'').replace(/^www\./i,'').toLowerCase();
+  var domain = raw.replace(/https?:\/\//i,'').replace(/\/.*/,'').replace(/^www\./i,'').toLowerCase().trim();
   var parts = domain.split('.');
   if (parts.length < 2) return false;
 
   var name = parts[0];
   var tld = parts[parts.length - 1];
 
-  // TLD must be real letters only, 2–6 chars
-  if (!/^[a-z]{2,6}$/.test(tld)) return false;
+  // TLD must be letters only, 2–24 chars (covers .academy .business .international etc.)
+  if (!/^[a-z]{2,24}$/.test(tld)) return false;
 
-  // Domain name must be at least 2 chars
+  // Domain name must be at least 2 chars, only valid chars
   if (name.length < 2) return false;
+  if (!/^[a-z0-9][a-z0-9\-]*[a-z0-9]$|^[a-z0-9]$/.test(name)) return false;
 
-  // Detect keyboard mashing: too many consecutive consonants (>5) = fake
-  var consonants = name.replace(/[aeiou0-9\-]/g,'');
-  if (consonants.length > 5 && consonants.length / name.length > 0.75) return false;
+  // Detect keyboard mashing: ratio of consonants > 80% AND length > 6 = fake
+  var noVowels = name.replace(/[aeiouy0-9\-]/g,'');
+  if (name.length > 6 && noVowels.length / name.length > 0.80) return false;
 
-  // Must contain at least one vowel OR digit (real words have vowels)
+  // Must contain at least one vowel OR digit
   if (!/[aeiouy0-9]/.test(name)) return false;
 
   return true;
