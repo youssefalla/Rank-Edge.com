@@ -357,7 +357,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     </div>
 
     <input type="hidden" name="_subject" value="New Free Website Request — RankEdge">
-    <input type="hidden" name="_next" value="https://rank-edge.com/thank-you.html">
+    <input type="hidden" name="_next" value="https://rank-edge.com/thank-you.html?type=lead">
 
     <div class="submit-wrap">
       <button type="submit" class="btn-submit" id="submitBtn">Submit & Get My Free Website →</button>
@@ -386,6 +386,10 @@ document.getElementById('designForm').addEventListener('submit', function(e) {
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Sending...';
+  if (window.rdt) {
+    var conversionId = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    rdt('track', 'Lead', { conversionId: conversionId });
+  }
 });
 </script>
 </body>
