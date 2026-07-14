@@ -388,6 +388,9 @@ document.getElementById('designForm').addEventListener('submit', function(e) {
   btn.textContent = 'Sending...';
   if (window.rdt) {
     var conversionId = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    var emailVal = this.querySelector('[name="email"]').value;
+    var phoneVal = this.querySelector('[name="whatsapp"]').value;
+    rdt('init', 'a2_jc6xuhaoc7pb', { email: emailVal, phoneNumber: phoneVal });
     rdt('track', 'Lead', { conversionId: conversionId });
   }
 });
