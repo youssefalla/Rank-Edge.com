@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidature — RankEdge</title>
+<link rel="icon" type="image/png" href="/favicon-circle.png">
+<link rel="canonical" href="https://rank-edge.com/application" />
+<meta name="description" content="Formulaire de candidature RankEdge.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh}
+
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.15) 1px,transparent 1px);
+  background-size:32px 32px}
+.glow{position:absolute;border-radius:50%;filter:blur(130px)}
+.g1{width:900px;height:600px;background:radial-gradient(ellipse,rgba(255,255,255,0.09) 0%,transparent 70%);top:-200px;left:50%;transform:translateX(-50%)}
+.g2{width:500px;height:500px;background:radial-gradient(ellipse,rgba(255,255,255,0.04) 0%,transparent 70%);bottom:10%;right:-150px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2.5rem;background:rgba(0,0,0,0.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.07)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;color:#fff}
+.nav-secure{font-size:12px;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:6px}
+.nav-secure svg{width:14px;height:14px}
+
+.page-wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:8rem 2rem 6rem}
+
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:100px;
+  padding:5px 16px;margin-bottom:1.2rem}
+.hero-tag .dot{width:6px;height:6px;border-radius:50%;background:#25D366;box-shadow:0 0 10px #25D366}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,4.5rem);letter-spacing:1px;
+  line-height:1;margin-bottom:1rem;color:#fff}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:2.5rem;max-width:500px}
+
+/* Progress */
+.progress{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+.progress-bar{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden}
+.progress-fill{height:100%;width:0;background:#fff;border-radius:4px;transition:width 0.35s ease}
+.progress-text{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);min-width:34px;text-align:right}
+
+/* Card */
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:22px;
+  padding:2rem;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:1.4rem}
+.field:last-of-type{margin-bottom:0}
+.field label{font-size:13px;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.2px}
+.field label .req{color:rgba(255,255,255,0.35);font-weight:500}
+.hint{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5;margin-top:-2px}
+
+.input-wrap{position:relative}
+.input-wrap .ico{position:absolute;left:15px;top:15px;width:18px;height:18px;color:rgba(255,255,255,0.35);
+  pointer-events:none;transition:color 0.2s}
+.input-wrap .ok{position:absolute;right:14px;top:15px;width:18px;height:18px;color:#25D366;
+  opacity:0;transform:scale(0.6);transition:all 0.2s;pointer-events:none}
+.input-wrap.valid .ok{opacity:1;transform:scale(1)}
+.input-wrap:focus-within .ico{color:#fff}
+
+.field input,.field textarea{
+  width:100%;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:12px;
+  padding:14px 44px 14px 46px;
+  color:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  outline:none;
+  color-scheme:dark;
+  box-shadow:0 4px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.08);
+  transition:border-color 0.2s,background 0.2s,box-shadow 0.2s}
+.field textarea{resize:vertical;min-height:96px;line-height:1.55}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.28)}
+.field input:focus,.field textarea:focus{
+  border-color:rgba(255,255,255,0.4);
+  background:rgba(255,255,255,0.12);
+  box-shadow:0 4px 28px rgba(0,0,0,0.35),0 0 0 4px rgba(255,255,255,0.06),inset 0 1px 0 rgba(255,255,255,0.1)}
+.field input[type=date]::-webkit-calendar-picker-indicator{opacity:0.5;cursor:pointer;filter:invert(1)}
+.field input[type=date]{padding-right:16px}
+
+.field.invalid input,.field.invalid textarea{border-color:rgba(255,92,92,0.7);background:rgba(255,92,92,0.06)}
+.field.invalid .ico{color:#ff6b6b}
+.err{display:none;font-size:12px;color:#ff7b7b;align-items:center;gap:6px}
+.err svg{width:13px;height:13px;flex-shrink:0}
+.field.invalid .err{display:flex}
+
+.wa .ico{color:#25D366 !important;opacity:0.85}
+
+/* Consent */
+.consent{display:flex;gap:12px;align-items:flex-start;margin-top:1.6rem;cursor:pointer;font-size:13px;
+  color:rgba(255,255,255,0.5);line-height:1.55}
+.consent input{position:absolute;opacity:0;width:0;height:0}
+.box{width:20px;height:20px;flex-shrink:0;border-radius:6px;border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:1px}
+.box svg{width:13px;height:13px;color:#000;opacity:0;transition:opacity 0.15s}
+.consent input:checked + .box{background:#fff;border-color:#fff}
+.consent input:checked + .box svg{opacity:1}
+.consent input:focus-visible + .box{box-shadow:0 0 0 4px rgba(255,255,255,0.15)}
+.consent.invalid .box{border-color:#ff6b6b}
+
+/* Submit */
+.submit-wrap{margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:14px}
+.btn-submit{width:100%;padding:17px;border-radius:14px;background:#fff;color:#000;
+  font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all 0.2s;letter-spacing:0.3px}
+.btn-submit svg{width:18px;height:18px;transition:transform 0.2s}
+.btn-submit:hover{background:rgba(255,255,255,0.92);transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,255,255,0.15)}
+.btn-submit:hover svg{transform:translateX(3px)}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:none}
+.spinner{width:18px;height:18px;border:2px solid rgba(0,0,0,0.2);border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submit-note{font-size:12px;color:rgba(255,255,255,0.3);text-align:center;display:flex;align-items:center;gap:6px}
+.submit-note svg{width:13px;height:13px}
+.form-error{display:none;font-size:13px;color:#ff7b7b;text-align:center}
+
+/* Success */
+.success-box{display:none;text-align:center;padding:3.5rem 2rem;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);border-radius:22px;animation:pop 0.4s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(0.98)}to{opacity:1;transform:none}}
+.success-icon{width:64px;height:64px;margin:0 auto 1.25rem;border-radius:50%;background:rgba(37,211,102,0.12);
+  border:1px solid rgba(37,211,102,0.4);display:flex;align-items:center;justify-content:center;color:#25D366}
+.success-icon svg{width:30px;height:30px}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:1px;margin-bottom:0.75rem}
+.success-sub{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;max-width:400px;margin:0 auto 1.75rem}
+.btn-home{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.15);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:all 0.2s}
+.btn-home:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.3)}
+
+@media(max-width:600px){
+  nav{padding:1rem 1rem}
+  .page-wrap{padding:6.5rem 1rem 4rem}
+  .card{padding:1.4rem 1.1rem;border-radius:18px}
+  .field input,.field textarea{font-size:16px}
+}
+</style>
+
+<!-- Reddit Pixel -->
+<script>
+!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js?pixel_id=a2_jc6xuhaoc7pb";t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_jc6xuhaoc7pb');rdt('track', 'PageVisit');
+</script>
+<!-- End Reddit Pixel -->
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1845641003075161');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- Whop Pixel Code -->
+<script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_qzx7ZBzjdBBS5m");whop.track("page");</script>
+<!-- End Whop Pixel Code -->
+</head>
+<body>
+<div class="bg"><div class="glow g1"></div><div class="glow g2"></div></div>
+
+<nav>
+  <a href="/" class="logo">RankEdge</a>
+  <span class="nav-secure">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Formulaire sécurisé
+  </span>
+</nav>
+
+<div class="page-wrap">
+  <div id="formView">
+    <div class="hero-tag"><span class="dot"></span> Candidature</div>
+    <h1 class="hero-title">VOTRE<br>CANDIDATURE</h1>
+    <p class="hero-sub">Remplissez vos informations ci-dessous. Cela prend moins de 2 minutes, et nous vous recontactons sur WhatsApp.</p>
+
+    <div class="progress" aria-hidden="true">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-text" id="progressText">0/5</span>
+    </div>
+
+    <form id="appForm" action="https://formspree.io/f/xwvzkkeb" method="POST" novalidate>
+      <div class="card">
+
+        <div class="field" data-field>
+          <label for="full_name">Nom et prénom <span class="req">*</span></label>
+          <div class="input-wrap">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" id="full_name" name="nom_prenom" placeholder="Ex : Youssef Alami" autocomplete="name" required minlength="3">
+            <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer votre nom complet.</span>
+        </div>
+
+        <div class="field" data-field>
+          <label for="birth_date">Date de naissance <span class="req">*</span></label>
+          <div class="input-wrap">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <input type="date" id="birth_date" name="date_naissance" autocomplete="bday" required>
+          </div>
+          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer une date de naissance valide.</span>
+        </div>
+
+        <div class="field" data-field>
+          <label for="address">Adresse de résidence <span class="req">*</span></label>
+          <span class="hint">Identique à celle figurant sur votre facture d'eau, d'électricité ou de téléphone.</span>
+          <div class="input-wrap">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <textarea id="address" name="adresse_residence" rows="2" placeholder="N°, rue, quartier, code postal, ville, pays" autocomplete="street-address" required minlength="8"></textarea>
+            <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer votre adresse complète.</span>
+        </div>
+
+        <div class="field" data-field>
+          <label for="email">Adresse e-mail <span class="req">*</span></label>
+          <div class="input-wrap">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <input type="email" id="email" name="email" placeholder="vous@exemple.com" autocomplete="email" inputmode="email" required>
+            <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer une adresse e-mail valide.</span>
+        </div>
+
+        <div class="field" data-field>
+          <label for="whatsapp">Numéro WhatsApp <span class="req">*</span></label>
+          <span class="hint">Avec l'indicatif du pays (ex : +212, +33).</span>
+          <div class="input-wrap wa">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.22 4.25-9.46 9.48-9.46a9.4 9.4 0 0 1 6.7 2.78 9.4 9.4 0 0 1 2.77 6.7c0 5.22-4.25 9.46-9.47 9.46zm8.06-17.53A11.33 11.33 0 0 0 12.04.64C5.76.64.65 5.75.65 12.03c0 2 .52 3.97 1.52 5.7L.55 23.64l6.04-1.58a11.37 11.37 0 0 0 5.44 1.39h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.19-5.9-3.34-8.06z"/></svg>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+212 6 12 34 56 78" autocomplete="tel" inputmode="tel" required>
+            <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer un numéro valide avec l'indicatif (ex : +212…).</span>
+        </div>
+
+        <label class="consent" id="consentLabel">
+          <input type="checkbox" id="consent" name="consentement" value="oui" required>
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span>Je certifie que les informations fournies sont exactes et j'accepte d'être contacté(e) par RankEdge via WhatsApp ou e-mail.</span>
+        </label>
+      </div>
+
+      <input type="hidden" name="_subject" value="Nouvelle candidature — RankEdge">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="submit-wrap">
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span id="btnLabel">Envoyer ma candidature</span>
+          <svg id="btnArrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <p class="form-error" id="formError">Une erreur est survenue. Veuillez réessayer.</p>
+        <p class="submit-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Vos données restent confidentielles et ne sont jamais partagées.
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <div class="success-box" id="successBox" role="status">
+    <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="success-title">Candidature reçue !</div>
+    <p class="success-sub">Merci <span id="successName"></span>. Nous avons bien reçu vos informations et nous vous contacterons très bientôt sur WhatsApp.</p>
+    <a href="/" class="btn-home">← Retour à l'accueil</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('appForm');
+  var fields = Array.prototype.slice.call(form.querySelectorAll('[data-field]'));
+  var consent = document.getElementById('consent');
+  var phoneRe = /^\+?[0-9][0-9\s().-]{7,18}$/;
+
+  // Birth date: must be at least 16 and at most 100 years ago
+  var bd = document.getElementById('birth_date');
+  var now = new Date();
+  function iso(d) { return d.toISOString().slice(0, 10); }
+  bd.max = iso(new Date(now.getFullYear() - 16, now.getMonth(), now.getDate()));
+  bd.min = iso(new Date(now.getFullYear() - 100, now.getMonth(), now.getDate()));
+
+  function isValid(input) {
+    var v = input.value.trim();
+    if (input.type === 'tel') return phoneRe.test(v) && v.replace(/\D/g, '').length >= 8;
+    if (!v) return false;
+    return input.checkValidity();
+  }
+
+  function update(field, showError) {
+    var input = field.querySelector('input,textarea');
+    var ok = isValid(input);
+    field.querySelector('.input-wrap').classList.toggle('valid', ok);
+    if (ok) field.classList.remove('invalid');
+    else if (showError) field.classList.add('invalid');
+    return ok;
+  }
+
+  function progress() {
+    var done = fields.filter(function (f) { return isValid(f.querySelector('input,textarea')); }).length;
+    document.getElementById('progressFill').style.width = (done / fields.length * 100) + '%';
+    document.getElementById('progressText').textContent = done + '/' + fields.length;
+  }
+
+  fields.forEach(function (field) {
+    var input = field.querySelector('input,textarea');
+    input.addEventListener('input', function () { update(field, field.classList.contains('invalid')); progress(); });
+    input.addEventListener('change', function () { update(field, false); progress(); });
+    input.addEventListener('blur', function () { if (input.value.trim()) update(field, true); });
+  });
+  consent.addEventListener('change', function () {
+    document.getElementById('consentLabel').classList.toggle('invalid', !consent.checked);
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var firstBad = null;
+    fields.forEach(function (f) { if (!update(f, true) && !firstBad) firstBad = f; });
+    if (!consent.checked) {
+      document.getElementById('consentLabel').classList.add('invalid');
+      if (!firstBad) firstBad = document.getElementById('consentLabel');
+    }
+    if (firstBad) {
+      firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var el = firstBad.querySelector('input,textarea');
+      if (el) setTimeout(function () { el.focus({ preventScroll: true }); }, 300);
+      return;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    var errEl = document.getElementById('formError');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    document.getElementById('btnLabel').textContent = 'Envoi en cours…';
+    var arrow = document.getElementById('btnArrow');
+    var spin = document.createElement('span');
+    spin.className = 'spinner';
+    arrow.replaceWith(spin);
+
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (res) {
+        if (!res.ok) throw new Error('bad status');
+        var name = document.getElementById('full_name').value.trim().split(/\s+/)[0];
+        document.getElementById('successName').textContent = name;
+        document.getElementById('formView').style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(function () {
+        btn.disabled = false;
+        document.getElementById('btnLabel').textContent = 'Envoyer ma candidature';
+        spin.replaceWith(arrow);
+        errEl.style.display = 'block';
+      });
+  });
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
