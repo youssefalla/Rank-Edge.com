@@ -200,7 +200,7 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
       <span class="progress-text" id="progressText">0/5</span>
     </div>
 
-    <form id="appForm" action="https://formspree.io/f/xwvzkkeb" method="POST" novalidate>
+    <form id="appForm" action="/api/application" method="POST" novalidate>
       <div class="card">
 
         <div class="field" data-field>
@@ -287,7 +287,6 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
         </label>
       </div>
 
-      <input type="hidden" name="_subject" value="Nouvelle candidature — RankEdge">
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
       <div class="submit-wrap">
@@ -387,7 +386,11 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
     spin.className = 'spinner';
     arrow.replaceWith(spin);
 
-    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    })
       .then(function (res) {
         if (!res.ok) throw new Error('bad status');
         var name = document.getElementById('full_name').value.trim().split(/\s+/)[0];

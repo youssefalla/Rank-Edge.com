@@ -1,0 +1,92 @@
+// Vercel serverless function: receives the /application form and emails it via Resend.
+// Env vars (Vercel → Project → Settings → Environment Variables):
+//   RESEND_API_KEY  (required)
+//   RESEND_FROM     (optional, e.g. "RankEdge <candidature@rank-edge.com>" once the domain is verified)
+//   RESEND_TO       (optional, defaults to youssefalla674@gmail.com)
+
+function esc(v) {
+  return String(v == null ? '' : v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+module.exports = async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  var body = req.body || {};
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch (e) { body = {}; }
+  }
+
+  // Honeypot: bots fill hidden fields — pretend success, send nothing
+  if (body._gotcha) return res.status(200).json({ ok: true });
+
+  var data = {
+    nom: String(body.nom_prenom || '').trim().slice(0, 200),
+    naissance: String(body.date_naissance || '').trim().slice(0, 20),
+    adresse: String(body.adresse_residence || '').trim().slice(0, 600),
+    email: String(body.email || '').trim().slice(0, 200),
+    whatsapp: String(body.whatsapp || '').trim().slice(0, 40)
+  };
+
+  if (!data.nom || !data.naissance || !data.adresse || !data.whatsapp ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    return res.status(400).json({ error: 'Champs manquants ou invalides' });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(500).json({ error: 'RESEND_API_KEY not configured' });
+  }
+
+  var waLink = 'https://wa.me/' + data.whatsapp.replace(/\D/g, '');
+  var rows = [
+    ['Nom et prénom', esc(data.nom)],
+    ['Date de naissance', esc(data.naissance)],
+    ['Adresse de résidence', esc(data.adresse).replace(/\n/g, '<br>')],
+    ['E-mail', '<a href="mailto:' + esc(data.email) + '">' + esc(data.email) + '</a>'],
+    ['WhatsApp', '<a href="' + esc(waLink) + '">' + esc(data.whatsapp) + '</a>']
+  ];
+
+  var html =
+    '<div style="font-family:Arial,sans-serif;max-width:560px">' +
+    '<h2 style="margin:0 0 16px">Nouvelle candidature — RankEdge</h2>' +
+    '<table cellpadding="10" style="border-collapse:collapse;width:100%">' +
+    rows.map(function (r) {
+      return '<tr><td style="border:1px solid #ddd;background:#f6f6f6;font-weight:bold;width:40%">' + r[0] +
+        '</td><td style="border:1px solid #ddd">' + r[1] + '</td></tr>';
+    }).join('') +
+    '</table></div>';
+
+  var text = rows.map(function (r, i) {
+    return r[0] + ' : ' + [data.nom, data.naissance, data.adresse, data.email, data.whatsapp][i];
+  }).join('\n');
+
+  try {
+    var r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + process.env.RESEND_API_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: process.env.RESEND_FROM || 'RankEdge <onboarding@resend.dev>',
+        to: [process.env.RESEND_TO || 'youssefalla674@gmail.com'],
+        reply_to: data.email,
+        subject: 'Nouvelle candidature — ' + data.nom,
+        html: html,
+        text: text
+      })
+    });
+    if (!r.ok) {
+      console.error('Resend error', r.status, await r.text());
+      return res.status(502).json({ error: 'Email failed' });
+    }
+    return res.status(200).json({ ok: true });
+  } catch (err) {
+    console.error('Resend request failed', err);
+    return res.status(502).json({ error: 'Email failed' });
+  }
+};
