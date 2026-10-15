@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free SEO & GEO Audit Tool — Analyze Your Website in 60 Seconds | RankEdge</title>
 <link rel="icon" type="image/png" href="rank-edge-whitelogo-.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap">
 <link rel="canonical" href="https://rank-edge.com/audit.html" />
 <meta name="description" content="Run a free AI SEO audit on any website in 60 seconds. Check SEO score, GEO visibility on ChatGPT & Perplexity, Core Web Vitals, schema markup, and more. No signup required.">
 <meta name="keywords" content="free SEO audit tool, website SEO checker, GEO audit, AI search visibility, Core Web Vitals checker, schema markup checker, SEO score">
@@ -111,7 +114,6 @@
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
 
@@ -287,6 +289,16 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
 <!-- Whop Pixel Code -->
 <script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_qzx7ZBzjdBBS5m");whop.track("page");</script>
 <!-- End Whop Pixel Code -->
+<!-- Mobile performance: live blur effects are very expensive on phones (GPU), so they are turned off there -->
+<style>
+@media (max-width:768px),(hover:none){
+  *,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .glow,.g1,.g2,.g3{filter:none!important;animation:none!important;will-change:auto!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+}
+</style>
 </head>
 <body>
 
@@ -550,7 +562,18 @@ function closeMobileMenu(){
 </div>
 
 <!-- jsPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+// jsPDF is only downloaded when someone actually clicks "Download PDF"
+var JSPDF_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+function loadScript(src) {
+  return new Promise(function (resolve, reject) {
+    var s = document.createElement('script');
+    s.src = src; s.async = true;
+    s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+</script>
 
 <script>
 // ─── CONFIG ───
@@ -882,6 +905,17 @@ function renderResults() {
 
 // ─── DOWNLOAD PDF ───
 function downloadPDF() {
+  if (!window.jspdf) {
+    var lb = document.getElementById('pdfBtn');
+    lb.textContent = 'Generating PDF...';
+    lb.disabled = true;
+    loadScript(JSPDF_URL).then(downloadPDF, function () {
+      lb.textContent = '⬇ Download Full PDF Report';
+      lb.disabled = false;
+      alert('Could not load the PDF generator. Please check your connection and try again.');
+    });
+    return;
+  }
   var d = auditData;
   var btn = document.getElementById('pdfBtn');
   btn.textContent = 'Generating PDF...';
@@ -1245,17 +1279,34 @@ document.addEventListener('DOMContentLoaded', function() {
   var resLoc = gl.getUniformLocation(prog, 'iResolution');
   var timeLoc = gl.getUniformLocation(prog, 'iTime');
 
+  // Phones render the background at half resolution and 30fps (the lines are soft, so it looks the same)
+  var isMobile = window.matchMedia('(max-width:768px), (hover:none)').matches;
+  var resScale = isMobile ? 0.5 : 1;
+  var frameMs = isMobile ? 1000 / 30 : 0;
+  var lastW = 0, lastH = 0;
   function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    var w = window.innerWidth, h = window.innerHeight;
+    // mobile browsers fire resize when the URL bar shows/hides — ignore tiny height changes
+    if (w === lastW && Math.abs(h - lastH) < 120) return;
+    lastW = w; lastH = h;
+    canvas.width = Math.round(w * resScale);
+    canvas.height = Math.round(h * resScale);
     gl.viewport(0, 0, canvas.width, canvas.height);
   }
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
   resize();
 
   var startTime = Date.now();
-  var animId;
-  function render() {
+  var animId, running = false, lastFrame = 0;
+  // Only draw while the canvas is shown (page 2 hides it) and the tab is visible
+  function active() { return canvas.classList.contains('visible') && !document.hidden; }
+  function start() { if (!running && active()) { running = true; animId = requestAnimationFrame(render); } }
+  new MutationObserver(start).observe(canvas, { attributes: true, attributeFilter: ['class'] });
+  document.addEventListener('visibilitychange', start);
+  function render(now) {
+    if (!active()) { running = false; return; }
+    if (frameMs && now - lastFrame < frameMs) { animId = requestAnimationFrame(render); return; }
+    lastFrame = now;
     var t = (Date.now() - startTime) / 1000;
     gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(prog);
@@ -1267,7 +1318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     animId = requestAnimationFrame(render);
   }
-  render();
+  start();
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>

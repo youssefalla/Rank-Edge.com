@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RankEdge — Free Website Design & Free SEO Audit for Small Businesses</title>
   <link rel="icon" type="image/png" href="favicon-circle.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap">
   <link rel="canonical" href="https://rank-edge.com/" />
 
   <!-- Primary Meta -->
@@ -274,7 +277,6 @@
   }
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
 
     * {
       margin: 0;
@@ -2033,6 +2035,16 @@
   <!-- Whop Pixel Code -->
   <script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_qzx7ZBzjdBBS5m");whop.track("page");</script>
   <!-- End Whop Pixel Code -->
+<!-- Mobile performance: live blur effects are very expensive on phones (GPU), so they are turned off there -->
+<style>
+@media (max-width:768px),(hover:none){
+  *,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .glow,.g1,.g2,.g3{filter:none!important;animation:none!important;will-change:auto!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+}
+</style>
 </head>
 
 <body>
@@ -2070,7 +2082,7 @@
 
   <!-- NAV -->
   <nav id="mainNav"
-    style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);border-bottom:1px solid transparent;transition:background 0.4s ease,backdrop-filter 0.4s ease,border-color 0.4s ease">
+    style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);border-bottom:1px solid transparent;transition:background 0.4s ease,border-color 0.4s ease">
     <!-- Logo -->
     <div onclick="go(1)" style="display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
       <img src="rank-edge-whitelogo-.png" alt="Rank Edge" style="height:36px;width:auto;display:block">
@@ -3199,15 +3211,24 @@
     </div>
   </div>
 
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // ─── GLOBE ───
-    (function () {
+    // ─── LAZY SCRIPT LOADER ───
+    function loadScript(src) {
+      return new Promise(function (resolve, reject) {
+        var s = document.createElement('script');
+        s.src = src; s.async = true;
+        s.onload = resolve; s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+    var JSPDF_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+
+    // ─── GLOBE ─── (three.js is loaded only after the page is ready, so it never blocks first paint)
+    function initGlobe() {
       var canvas = document.getElementById('globeCanvas');
-      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-      renderer.setPixelRatio(window.devicePixelRatio);
+      var isMobile = window.matchMedia('(max-width:768px), (hover:none)').matches;
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !isMobile, alpha: true, powerPreference: 'low-power' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setClearColor(0x000000, 0);
 
       var scene = new THREE.Scene();
@@ -3215,7 +3236,7 @@
       camera.position.set(0, 0, 3.2);
 
       // Wireframe sphere
-      var geo = new THREE.SphereGeometry(1, 36, 36);
+      var geo = new THREE.SphereGeometry(1, isMobile ? 24 : 36, isMobile ? 24 : 36);
       var mat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.13 });
       var globe = new THREE.Mesh(geo, mat);
       scene.add(globe);
@@ -3227,26 +3248,55 @@
       ring.rotation.x = Math.PI / 2.3;
       scene.add(ring);
 
+      var lastW = 0, lastH = 0;
       function resize() {
         var hero = canvas.parentElement;
         var w = hero.offsetWidth;
         var h = hero.offsetHeight;
-        renderer.setSize(w, h);
+        // mobile browsers fire resize when the URL bar shows/hides — ignore tiny height changes
+        if (w === lastW && Math.abs(h - lastH) < 120) return;
+        lastW = w; lastH = h;
+        renderer.setSize(w, h, false);
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      function animate() {
-        requestAnimationFrame(animate);
-        globe.rotation.y += 0.003;
-        globe.rotation.x += 0.001;
-        ring.rotation.z += 0.002;
         renderer.render(scene, camera);
       }
-      animate();
-    })();
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      // Only animate while the hero is on screen and the tab is visible
+      var onScreen = true, running = false, last = 0;
+      var frameMs = isMobile ? 1000 / 30 : 0;
+      function animate(t) {
+        if (!onScreen || document.hidden || reduceMotion) { running = false; return; }
+        requestAnimationFrame(animate);
+        if (frameMs && t - last < frameMs) return;
+        var k = frameMs && last ? (t - last) / 16.7 : 1;
+        last = t;
+        globe.rotation.y += 0.003 * k;
+        globe.rotation.x += 0.001 * k;
+        ring.rotation.z += 0.002 * k;
+        renderer.render(scene, camera);
+      }
+      function start() { if (!running) { running = true; last = 0; requestAnimationFrame(animate); } }
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      renderer.render(scene, camera);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          onScreen = entries[0].isIntersecting;
+          if (onScreen) start();
+        }).observe(canvas.parentElement);
+      }
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) start(); });
+      start();
+    }
+    function bootGlobe() {
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js').then(initGlobe, function () {});
+    }
+    if (document.readyState === 'complete') bootGlobe();
+    else window.addEventListener('load', function () {
+      (window.requestIdleCallback || function (f) { setTimeout(f, 200); })(bootGlobe);
+    });
   </script>
   <script>
     // ─── CONFIG ───
@@ -3441,6 +3491,17 @@ Return ONLY a valid JSON object (no markdown, no backticks, no explanation) with
 
     // ─── DOWNLOAD PDF ───
     function downloadPDF() {
+      if (!window.jspdf) {
+        var lb = document.getElementById('pdfBtn');
+        lb.textContent = 'Generating PDF...';
+        lb.disabled = true;
+        loadScript(JSPDF_URL).then(downloadPDF, function () {
+          lb.textContent = '⬇ Download Full PDF Report';
+          lb.disabled = false;
+          alert('Could not load the PDF generator. Please check your connection and try again.');
+        });
+        return;
+      }
       var d = auditData;
       var btn = document.getElementById('pdfBtn');
       btn.textContent = 'Generating PDF...';
@@ -3680,8 +3741,12 @@ Return ONLY a valid JSON object (no markdown, no backticks, no explanation) with
     // ─── NAV SCROLL EFFECT ───
     (function () {
       var nav = document.getElementById('mainNav');
+      var scrolled = null;
       window.addEventListener('scroll', function () {
-        if (window.scrollY > 40) {
+        var s = window.scrollY > 40;
+        if (s === scrolled) return;
+        scrolled = s;
+        if (s) {
           nav.style.background = 'rgba(0,0,0,0.75)';
           nav.style.backdropFilter = 'blur(20px)';
           nav.style.webkitBackdropFilter = 'blur(20px)';

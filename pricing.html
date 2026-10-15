@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RankEdge Pricing — Free Web Design + Full SEO & GEO Suite</title>
 <link rel="icon" type="image/png" href="favicon-circle.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap">
 <link rel="canonical" href="https://rank-edge.com/pricing.html" />
 <meta name="description" content="RankEdge offers a free professional website design and a full SEO & GEO suite for $789 one-time. Everything you need to rank on Google and AI search engines.">
 <meta name="keywords" content="SEO pricing, free website design, GEO optimization pricing, SEO audit tool pricing, affordable SEO service">
@@ -95,7 +98,6 @@
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{background:#000;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
@@ -133,7 +135,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   padding:1.1rem 2.5rem;
   background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);
   border-bottom:1px solid transparent;
-  transition:background 0.5s cubic-bezier(0.16,1,0.3,1),backdrop-filter 0.5s,border-color 0.5s}
+  transition:background 0.5s cubic-bezier(0.16,1,0.3,1),border-color 0.5s}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;color:#fff}
 .nav-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2.2rem}
 .nav-center a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:14px;transition:color 0.3s ease;position:relative}
@@ -402,6 +404,16 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
 <!-- Whop Pixel Code -->
 <script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_qzx7ZBzjdBBS5m");whop.track("page");</script>
 <!-- End Whop Pixel Code -->
+<!-- Mobile performance: live blur effects are very expensive on phones (GPU), so they are turned off there -->
+<style>
+@media (max-width:768px),(hover:none){
+  *,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .glow,.g1,.g2,.g3{filter:none!important;animation:none!important;will-change:auto!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+}
+</style>
 </head>
 <body>
 
@@ -620,8 +632,11 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
 <script>
 /* ─── NAV scroll ─── */
 var nav = document.getElementById('mainNav');
+var navScrolled = null;
 window.addEventListener('scroll', function(){
   var s = window.scrollY > 40;
+  if (s === navScrolled) return;
+  navScrolled = s;
   nav.style.background    = s ? 'rgba(0,0,0,0.78)' : 'rgba(0,0,0,0)';
   nav.style.backdropFilter = s ? 'blur(22px)' : 'blur(0px)';
   nav.style.webkitBackdropFilter = s ? 'blur(22px)' : 'blur(0px)';
