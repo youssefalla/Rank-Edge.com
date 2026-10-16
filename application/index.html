@@ -102,6 +102,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   box-shadow:0 4px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.08);transition:border-color 0.2s,background-color 0.2s}
 .cc-wrap select:focus{border-color:rgba(255,255,255,0.4);background-color:rgba(255,255,255,0.12)}
 .cc-wrap select option{background:#111;color:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.4rem}
+.row2 .field{margin-bottom:0}
 .wa .ico{color:#25D366 !important;opacity:0.85}
 
 /* Consent */
@@ -164,6 +166,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   nav{padding:1rem 1rem}
   .page-wrap{padding:6.5rem 1rem 4rem}
   .card{padding:1.4rem 1.1rem;border-radius:18px}
+  .row2{grid-template-columns:1fr;gap:1.4rem}
   .success-box{padding:2.5rem 1.1rem}
   .field input,.field textarea,.cc-wrap select{font-size:16px}
 }
@@ -225,20 +228,39 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
 
     <div class="progress" aria-hidden="true">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-text" id="progressText">0/5</span>
+      <span class="progress-text" id="progressText">0/6</span>
     </div>
 
     <form id="appForm" action="/api/application" method="POST" novalidate>
       <div class="card">
 
         <div class="field" data-field>
-          <label for="full_name">Nom et prénom <span class="req">*</span></label>
+          <label for="last_name">Nom <span class="req">*</span></label>
           <div class="input-wrap">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <input type="text" id="full_name" name="nom_prenom" autocomplete="name" required minlength="3">
+            <input type="text" id="last_name" name="nom" autocomplete="family-name" required minlength="2">
             <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer votre nom complet.</span>
+          <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer votre nom.</span>
+        </div>
+
+        <div class="row2">
+          <div class="field" data-field>
+            <label for="first_name">Prénom <span class="req">*</span></label>
+            <div class="input-wrap">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="first_name" name="prenom" autocomplete="given-name" required minlength="2">
+              <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer votre prénom.</span>
+          </div>
+          <div class="field">
+            <label for="middle_name">Deuxième prénom <span class="req">(facultatif)</span></label>
+            <div class="input-wrap">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="middle_name" name="deuxieme_prenom" autocomplete="additional-name">
+            </div>
+          </div>
         </div>
 
         <div class="field" data-field>
@@ -443,9 +465,11 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
     })
       .then(function (res) {
         if (!res.ok) throw new Error('bad status');
-        var name = document.getElementById('full_name').value.trim().split(/\s+/)[0];
-        document.getElementById('successName').textContent = name;
-        var fullName = document.getElementById('full_name').value.trim();
+        var first = document.getElementById('first_name').value.trim();
+        var middle = document.getElementById('middle_name').value.trim();
+        var last = document.getElementById('last_name').value.trim();
+        document.getElementById('successName').textContent = first;
+        var fullName = [first, middle, last].filter(Boolean).join(' ');
         var msg = "Bonjour, je viens de remplir le formulaire de candidature sur rank-edge.com.\n\n" +
           "Nom : " + fullName + "\n" +
           "E-mail : " + document.getElementById('email').value.trim() + "\n\n" +

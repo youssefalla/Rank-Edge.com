@@ -25,14 +25,16 @@ module.exports = async function handler(req, res) {
   if (body._gotcha) return res.status(200).json({ ok: true });
 
   var data = {
-    nom: String(body.nom_prenom || '').trim().slice(0, 200),
+    nom: String(body.nom || '').trim().slice(0, 100),
+    prenom: String(body.prenom || '').trim().slice(0, 100),
+    deuxiemePrenom: String(body.deuxieme_prenom || '').trim().slice(0, 100),
     naissance: String(body.date_naissance || '').trim().slice(0, 20),
     adresse: String(body.adresse_residence || '').trim().slice(0, 600),
     email: String(body.email || '').trim().slice(0, 200),
     whatsapp: String(body.whatsapp || '').trim().slice(0, 40)
   };
 
-  if (!data.nom || !data.naissance || !data.adresse || !data.whatsapp ||
+  if (!data.nom || !data.prenom || !data.naissance || !data.adresse || !data.whatsapp ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     return res.status(400).json({ error: 'Champs manquants ou invalides' });
   }
@@ -43,7 +45,9 @@ module.exports = async function handler(req, res) {
 
   var waLink = 'https://wa.me/' + data.whatsapp.replace(/\D/g, '');
   var rows = [
-    ['Nom et prénom', esc(data.nom)],
+    ['Nom', esc(data.nom)],
+    ['Prénom', esc(data.prenom)],
+    ['Deuxième prénom', esc(data.deuxiemePrenom || '—')],
     ['Date de naissance', esc(data.naissance)],
     ['Adresse de résidence', esc(data.adresse).replace(/\n/g, '<br>')],
     ['E-mail', '<a href="mailto:' + esc(data.email) + '">' + esc(data.email) + '</a>'],
@@ -60,9 +64,15 @@ module.exports = async function handler(req, res) {
     }).join('') +
     '</table></div>';
 
-  var text = rows.map(function (r, i) {
-    return r[0] + ' : ' + [data.nom, data.naissance, data.adresse, data.email, data.whatsapp][i];
-  }).join('\n');
+  var text = [
+    'Nom : ' + data.nom,
+    'Prénom : ' + data.prenom,
+    'Deuxième prénom : ' + (data.deuxiemePrenom || '—'),
+    'Date de naissance : ' + data.naissance,
+    'Adresse de résidence : ' + data.adresse,
+    'E-mail : ' + data.email,
+    'WhatsApp : ' + data.whatsapp
+  ].join('\n');
 
   try {
     var r = await fetch('https://api.resend.com/emails', {
@@ -75,7 +85,7 @@ module.exports = async function handler(req, res) {
         from: process.env.RESEND_FROM || 'RankEdge <onboarding@resend.dev>',
         to: [process.env.RESEND_TO || 'youssefalla674@gmail.com'],
         reply_to: data.email,
-        subject: 'Nouvelle candidature — ' + data.nom,
+        subject: 'Nouvelle candidature — ' + [data.prenom, data.deuxiemePrenom, data.nom].filter(Boolean).join(' '),
         html: html,
         text: text
       })
