@@ -3,6 +3,7 @@
 //   RESEND_API_KEY  (required)
 //   RESEND_FROM     (optional, e.g. "RankEdge <candidature@rank-edge.com>" once the domain is verified)
 //   RESEND_TO       (optional, defaults to youssefalla674@gmail.com)
+//   GOOGLE_SHEET_WEBHOOK_URL + GOOGLE_SHEET_SECRET  (optional: also add each lead as a row in Google Sheets)
 
 function esc(v) {
   return String(v == null ? '' : v)
@@ -43,6 +44,9 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'RESEND_API_KEY not configured' });
   }
 
+  // Google Sheets row runs in parallel with the email
+  var sheetDone = saveToSheet(data);
+
   var waLink = 'https://wa.me/' + data.whatsapp.replace(/\D/g, '');
   var rows = [
     ['Nom', esc(data.nom)],
@@ -74,6 +78,7 @@ module.exports = async function handler(req, res) {
     'WhatsApp : ' + data.whatsapp
   ].join('\n');
 
+  var emailOk = false;
   try {
     var r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -90,13 +95,37 @@ module.exports = async function handler(req, res) {
         text: text
       })
     });
-    if (!r.ok) {
-      console.error('Resend error', r.status, await r.text());
-      return res.status(502).json({ error: 'Email failed' });
-    }
-    return res.status(200).json({ ok: true });
+    if (r.ok) emailOk = true;
+    else console.error('Resend error', r.status, await r.text());
   } catch (err) {
     console.error('Resend request failed', err);
-    return res.status(502).json({ error: 'Email failed' });
   }
+
+  var sheetOk = await sheetDone;
+  // The lead is kept if it reached either the inbox or the sheet
+  if (emailOk || sheetOk) return res.status(200).json({ ok: true });
+  return res.status(502).json({ error: 'Email failed' });
 };
+
+async function saveToSheet(data) {
+  var url = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+  if (!url) return false;
+  try {
+    // Apps Script answers with a redirect; fetch follows it by default
+    var r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(Object.assign({ secret: process.env.GOOGLE_SHEET_SECRET }, data)),
+      signal: AbortSignal.timeout(8000)
+    });
+    var body = await r.text();
+    if (!r.ok || body.indexOf('"ok":true') === -1) {
+      console.error('Google Sheet error', r.status, body.slice(0, 300));
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error('Google Sheet request failed', err);
+    return false;
+  }
+}
