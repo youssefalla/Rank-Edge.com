@@ -74,6 +74,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   box-shadow:0 4px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.08);
   transition:border-color 0.2s,background 0.2s,box-shadow 0.2s}
 .field textarea{resize:vertical;min-height:96px;line-height:1.55}
+.field select{width:100%;height:50px;display:block;min-width:0;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+  background:rgba(255,255,255,0.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.45)' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 14px center;
+  border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:0 36px 0 46px;color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:15px;outline:none;color-scheme:dark;
+  box-shadow:0 4px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.08);transition:border-color 0.2s,background-color 0.2s}
+.field select:invalid{color:rgba(255,255,255,0.4)}
+.field select:focus{border-color:rgba(255,255,255,0.4);background-color:rgba(255,255,255,0.12)}
+.field select option,.field select optgroup{background:#111;color:#fff}
+.field.invalid select{border-color:rgba(255,92,92,0.7);background-color:rgba(255,92,92,0.06)}
 .field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.28)}
 .field input:focus,.field textarea:focus{
   border-color:rgba(255,255,255,0.4);
@@ -168,7 +178,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   .card{padding:1.4rem 1.1rem;border-radius:18px}
   .row2{grid-template-columns:1fr;gap:1.4rem}
   .success-box{padding:2.5rem 1.1rem}
-  .field input,.field textarea,.cc-wrap select{font-size:16px}
+  .field input,.field textarea,.field select,.cc-wrap select{font-size:16px}
 }
 </style>
 
@@ -228,7 +238,7 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
 
     <div class="progress" aria-hidden="true">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-text" id="progressText">0/6</span>
+      <span class="progress-text" id="progressText">0/8</span>
     </div>
 
     <form id="appForm" action="/api/application" method="POST" novalidate>
@@ -270,6 +280,115 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
             <input type="date" id="birth_date" name="date_naissance" autocomplete="bday" required>
           </div>
           <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer une date de naissance valide.</span>
+        </div>
+
+        <div class="row2">
+          <div class="field" data-field>
+            <label for="nationality">Nationalité <span class="req">*</span></label>
+            <div class="input-wrap">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <select id="nationality" name="nationalite" required>
+                <option value="" disabled selected>Sélectionnez</option>
+                <optgroup label="Les plus courantes">
+                <option>Française</option>
+                <option>Marocaine</option>
+                <option>Algérienne</option>
+                <option>Tunisienne</option>
+                <option>Belge</option>
+                <option>Suisse</option>
+                <option>Canadienne</option>
+                <option>Sénégalaise</option>
+                <option>Ivoirienne</option>
+                </optgroup>
+                <optgroup label="Toutes les nationalités">
+                <option>Afghane</option>
+                <option>Allemande</option>
+                <option>Américaine</option>
+                <option>Angolaise</option>
+                <option>Argentine</option>
+                <option>Autrichienne</option>
+                <option>Bangladaise</option>
+                <option>Béninoise</option>
+                <option>Brésilienne</option>
+                <option>Britannique</option>
+                <option>Bulgare</option>
+                <option>Burkinabè</option>
+                <option>Camerounaise</option>
+                <option>Chinoise</option>
+                <option>Colombienne</option>
+                <option>Comorienne</option>
+                <option>Congolaise</option>
+                <option>Croate</option>
+                <option>Danoise</option>
+                <option>Djiboutienne</option>
+                <option>Égyptienne</option>
+                <option>Émirienne</option>
+                <option>Espagnole</option>
+                <option>Éthiopienne</option>
+                <option>Finlandaise</option>
+                <option>Gabonaise</option>
+                <option>Ghanéenne</option>
+                <option>Grecque</option>
+                <option>Guinéenne</option>
+                <option>Haïtienne</option>
+                <option>Hongroise</option>
+                <option>Indienne</option>
+                <option>Indonésienne</option>
+                <option>Irakienne</option>
+                <option>Iranienne</option>
+                <option>Irlandaise</option>
+                <option>Italienne</option>
+                <option>Japonaise</option>
+                <option>Jordanienne</option>
+                <option>Kényane</option>
+                <option>Koweïtienne</option>
+                <option>Libanaise</option>
+                <option>Libyenne</option>
+                <option>Luxembourgeoise</option>
+                <option>Malgache</option>
+                <option>Malienne</option>
+                <option>Mauricienne</option>
+                <option>Mauritanienne</option>
+                <option>Mexicaine</option>
+                <option>Néerlandaise</option>
+                <option>Nigériane</option>
+                <option>Nigérienne</option>
+                <option>Norvégienne</option>
+                <option>Pakistanaise</option>
+                <option>Palestinienne</option>
+                <option>Philippine</option>
+                <option>Polonaise</option>
+                <option>Portugaise</option>
+                <option>Qatarienne</option>
+                <option>Roumaine</option>
+                <option>Russe</option>
+                <option>Saoudienne</option>
+                <option>Serbe</option>
+                <option>Suédoise</option>
+                <option>Syrienne</option>
+                <option>Tchadienne</option>
+                <option>Tchèque</option>
+                <option>Togolaise</option>
+                <option>Turque</option>
+                <option>Ukrainienne</option>
+                <option>Vietnamienne</option>
+                <option>Yéménite</option>
+                  <option>Autre</option>
+                </optgroup>
+              </select>
+            </div>
+            <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez choisir votre nationalité.</span>
+          </div>
+          <div class="field" data-field>
+            <label for="city">Ville de résidence <span class="req">*</span></label>
+            <div class="input-wrap">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg>
+              <input type="text" id="city" name="ville" list="cityList" autocomplete="address-level2" required minlength="2">
+              <svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <datalist id="cityList"><option value="Paris"><option value="Marseille"><option value="Lyon"><option value="Toulouse"><option value="Nice"><option value="Nantes"><option value="Montpellier"><option value="Strasbourg"><option value="Bordeaux"><option value="Lille"><option value="Rennes"><option value="Reims"><option value="Toulon"><option value="Saint-Étienne"><option value="Le Havre"><option value="Grenoble"><option value="Dijon"><option value="Angers"><option value="Nîmes"><option value="Clermont-Ferrand"><option value="Casablanca"><option value="Rabat"><option value="Marrakech"><option value="Fès"><option value="Tanger"><option value="Agadir"><option value="Meknès"><option value="Oujda"><option value="Kénitra"><option value="Tétouan"><option value="Alger"><option value="Oran"><option value="Tunis"><option value="Bruxelles"><option value="Genève"><option value="Lausanne"><option value="Montréal"><option value="Dakar"><option value="Abidjan"></datalist>
+            </div>
+            <span class="err"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Veuillez entrer votre ville.</span>
+          </div>
         </div>
 
         <div class="field" data-field>
@@ -405,7 +524,7 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
   }
 
   function update(field, showError) {
-    var input = field.querySelector('input,textarea');
+    var input = field.querySelector('input,textarea,select');
     var ok = isValid(input);
     field.querySelector('.input-wrap').classList.toggle('valid', ok);
     if (ok) field.classList.remove('invalid');
@@ -414,13 +533,13 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
   }
 
   function progress() {
-    var done = fields.filter(function (f) { return isValid(f.querySelector('input,textarea')); }).length;
+    var done = fields.filter(function (f) { return isValid(f.querySelector('input,textarea,select')); }).length;
     document.getElementById('progressFill').style.width = (done / fields.length * 100) + '%';
     document.getElementById('progressText').textContent = done + '/' + fields.length;
   }
 
   fields.forEach(function (field) {
-    var input = field.querySelector('input,textarea');
+    var input = field.querySelector('input,textarea,select');
     input.addEventListener('input', function () { update(field, field.classList.contains('invalid')); progress(); });
     input.addEventListener('change', function () { update(field, false); progress(); });
     input.addEventListener('blur', function () { if (input.value.trim()) update(field, true); });
@@ -439,7 +558,7 @@ src="https://www.facebook.com/tr?id=1845641003075161&ev=PageView&noscript=1"
     }
     if (firstBad) {
       firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      var el = firstBad.querySelector('input,textarea');
+      var el = firstBad.querySelector('input,textarea,select');
       if (el) setTimeout(function () { el.focus({ preventScroll: true }); }, 300);
       return;
     }

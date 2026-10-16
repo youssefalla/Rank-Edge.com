@@ -30,12 +30,14 @@ module.exports = async function handler(req, res) {
     prenom: String(body.prenom || '').trim().slice(0, 100),
     deuxiemePrenom: String(body.deuxieme_prenom || '').trim().slice(0, 100),
     naissance: String(body.date_naissance || '').trim().slice(0, 20),
+    nationalite: String(body.nationalite || '').trim().slice(0, 60),
+    ville: String(body.ville || '').trim().slice(0, 100),
     adresse: String(body.adresse_residence || '').trim().slice(0, 600),
     email: String(body.email || '').trim().slice(0, 200),
     whatsapp: String(body.whatsapp || '').trim().slice(0, 40)
   };
 
-  if (!data.nom || !data.prenom || !data.naissance || !data.adresse || !data.whatsapp ||
+  if (!data.nom || !data.prenom || !data.naissance || !data.nationalite || !data.ville || !data.adresse || !data.whatsapp ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     return res.status(400).json({ error: 'Champs manquants ou invalides' });
   }
@@ -53,6 +55,8 @@ module.exports = async function handler(req, res) {
     ['Prénom', esc(data.prenom)],
     ['Deuxième prénom', esc(data.deuxiemePrenom || '—')],
     ['Date de naissance', esc(data.naissance)],
+    ['Nationalité', esc(data.nationalite)],
+    ['Ville de résidence', esc(data.ville)],
     ['Adresse de résidence', esc(data.adresse).replace(/\n/g, '<br>')],
     ['E-mail', '<a href="mailto:' + esc(data.email) + '">' + esc(data.email) + '</a>'],
     ['WhatsApp', '<a href="' + esc(waLink) + '">' + esc(data.whatsapp) + '</a>']
@@ -73,6 +77,8 @@ module.exports = async function handler(req, res) {
     'Prénom : ' + data.prenom,
     'Deuxième prénom : ' + (data.deuxiemePrenom || '—'),
     'Date de naissance : ' + data.naissance,
+    'Nationalité : ' + data.nationalite,
+    'Ville de résidence : ' + data.ville,
     'Adresse de résidence : ' + data.adresse,
     'E-mail : ' + data.email,
     'WhatsApp : ' + data.whatsapp
@@ -115,7 +121,20 @@ async function saveToSheet(data) {
     var r = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(Object.assign({ secret: process.env.GOOGLE_SHEET_SECRET }, data)),
+      // `row` is keyed by the sheet's column headers; the script adds any missing column itself
+      body: JSON.stringify(Object.assign({ secret: process.env.GOOGLE_SHEET_SECRET }, data, {
+        row: {
+          'Nom': data.nom,
+          'Prénom': data.prenom,
+          'Deuxième prénom': data.deuxiemePrenom,
+          'Date de naissance': data.naissance,
+          'Nationalité': data.nationalite,
+          'Ville de résidence': data.ville,
+          'Adresse de résidence': data.adresse,
+          'E-mail': data.email,
+          'WhatsApp': data.whatsapp
+        }
+      })),
       signal: AbortSignal.timeout(8000)
     });
     var body = await r.text();
